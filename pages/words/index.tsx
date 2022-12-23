@@ -2,12 +2,13 @@
 import fsPromises from "fs/promises";
 import path from "path";
 
-/*Home page goes here*/
 export default function Words({ words }: { words: string[] }) {
   return (
-    <div>
+    <div className="flex flex-wrap p-8 gap-2">
       {words.map((w) => (
-        <div>{w}</div>
+        <div className="bg-white rounded-lg shadow-lg p-6" key={w}>
+          <span className="text-gray-700 mb-4">{w}</span>
+        </div>
       ))}
     </div>
   );
