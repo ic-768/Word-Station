@@ -7,7 +7,7 @@ type Data = {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<Data | string>
 ) {
   const word = req.body;
   const dictionaryResponse = await fetch(
@@ -15,8 +15,11 @@ export default async function handler(
   );
 
   const dictionaryResult = await dictionaryResponse.json();
-  const [results] = dictionaryResult;
-  const { meanings } = results;
-
-  res.status(200).json({ word, meanings });
+  try {
+    const [results] = dictionaryResult;
+    const { meanings } = results;
+    res.status(200).json({ word, meanings });
+  } catch {
+    res.status(404).send("Couldn't get word");
+  }
 }

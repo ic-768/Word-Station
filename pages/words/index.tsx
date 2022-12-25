@@ -17,7 +17,7 @@ export default function Words({ words }: { words: string[] }) {
 export async function getStaticProps() {
   const filePath = path.join(process.cwd(), "public/mock-data.json");
   const jsonData = await fsPromises.readFile(filePath);
-  const words = JSON.parse(jsonData as any);
+  const words = JSON.parse(jsonData.toString());
 
   return {
     props: words,
