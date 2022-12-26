@@ -1,4 +1,5 @@
-import { FormEvent, useRef, useState } from "react";
+import { Dispatch, FormEvent, SetStateAction, useRef, useState } from "react";
+import { Notification } from "../_app";
 
 /*
  * User can submit a word in order for the backend to contact the dictionary API, and get the results.
@@ -25,7 +26,6 @@ interface wordData {
 const Modal = ({ meanings }: { meanings: wordData[] }) => {
   const [page, setPage] = useState(0);
 
-  console.log(meanings[page]);
   if (!meanings[page]) return null;
 
   return (
@@ -46,7 +46,11 @@ const Modal = ({ meanings }: { meanings: wordData[] }) => {
   );
 };
 
-export default function GetMeaning() {
+export default function GetMeaning({
+  setNotification,
+}: {
+  setNotification: Dispatch<SetStateAction<Notification | null>>;
+}) {
   const [wordData, setWordData] = useState<wordData[] | null>(null);
 
   // if/when we need to do something more fancy, like add debounce, we can useState instead of useRef
@@ -68,8 +72,12 @@ export default function GetMeaning() {
       const word = await response.json();
       setWordData(word.meanings);
     } catch {
-      // TODO set error message
-      console.log("Error in word meaning fetch");
+      // TODO set error message depending on error code
+      setNotification({
+        type: "error",
+        message:
+          "Something went wrong when fetching the word. It's possible that the word may not exist or that your internet connection isn't great. It might also be the server at fault. Sorry!",
+      });
     }
   };
 
