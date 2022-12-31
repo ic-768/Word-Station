@@ -8,6 +8,7 @@ export interface Notification {
   message: string;
 }
 
+// TODO css based on type
 const Notification = ({ type, message }: Notification) => {
   return (
     <div

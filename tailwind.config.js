@@ -5,6 +5,9 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    minWidth: {
+      "page-button": "75px",
+    },
     extend: {
       keyframes: {
         "slide-notification-in": {

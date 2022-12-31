@@ -1,4 +1,11 @@
-import { Dispatch, FormEvent, SetStateAction, useRef, useState } from "react";
+import {
+  Dispatch,
+  FormEvent,
+  MouseEventHandler,
+  SetStateAction,
+  useRef,
+  useState,
+} from "react";
 import { Notification } from "../_app";
 
 /*
@@ -10,10 +17,7 @@ import { Notification } from "../_app";
  * and be able to "star" the ones they want to keep
  */
 
-// each JSON response has various objects corresponding to each meaning. The modal
-// should take all meanings and let user browse them => TODO add an arrow to let user browse definitions
-
-interface wordData {
+interface WordData {
   definitions: {
     definition: string;
     example: string;
@@ -23,23 +27,73 @@ interface wordData {
   synonyms: string[];
 }
 
-const Modal = ({ meanings }: { meanings: wordData[] }) => {
+const WordModal = ({ meanings }: { meanings: WordData[] }) => {
   const [page, setPage] = useState(0);
+  const pageData = meanings[page];
 
-  if (!meanings[page]) return null;
+  if (!pageData) return null;
+
+  const definitions = (
+    <ul className="list-disc ml-8">
+      {pageData.definitions.map((d) => (
+        <li key={d.definition}>{d.definition}</li>
+      ))}
+    </ul>
+  );
+
+  const synonyms = (
+    <ul className="list-disc ml-8">
+      {pageData.synonyms.map((s) => (
+        <li key={s}>{s}</li>
+      ))}
+    </ul>
+  );
+
+  interface Button {
+    text: string;
+    callback: MouseEventHandler;
+    position: "left" | "right";
+  }
+
+  const Button = ({ text, callback, position }: Button) => {
+    const positionClass = position === "left" ? "mr-auto" : "ml-auto";
+
+    return (
+      <button
+        className={`bg-slate-400 p-2 rounded min-w-page-button ${positionClass}`}
+        onClick={callback}
+      >
+        {text}
+      </button>
+    );
+  };
+
+  const decPage = () => setPage(page - 1);
+  const incPage = () => setPage(page + 1);
 
   return (
     <>
-      <div>
-        <div>
-          {meanings[page].definitions.map((d) => (
-            <span key={d.definition}>{d.definition}</span>
-          ))}
+      <div className="absolute top-32 bg-white rounded max-w-lg inset-x-0 mx-auto p-6 flex flex-col">
+        <label className="text-lg font-semibold">Definitions</label>
+        {definitions}
+
+        {pageData.synonyms.length ? (
+          <>
+            <label className="text-lg font-semibold">Synonyms</label>
+            {synonyms}
+          </>
+        ) : null}
+
+        <div className="flex text-white -center mt-6 w-72">
+          {page !== 0 && (
+            <Button text={"Previous"} callback={decPage} position="left" />
+          )}
+          {page !== meanings.length - 1 && (
+            <Button text={"Next"} callback={incPage} position="right" />
+          )}
         </div>
         <div>
-          {meanings[page].synonyms.map((s) => (
-            <span key={s}>{s}</span>
-          ))}
+          {page + 1}/{meanings.length}
         </div>
       </div>
     </>
@@ -51,7 +105,7 @@ export default function GetMeaning({
 }: {
   setNotification: Dispatch<SetStateAction<Notification | null>>;
 }) {
-  const [wordData, setWordData] = useState<wordData[] | null>(null);
+  const [WordData, setWordData] = useState<WordData[] | null>(null);
 
   // if/when we need to do something more fancy, like add debounce, we can useState instead of useRef
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -83,7 +137,7 @@ export default function GetMeaning({
 
   return (
     <>
-      {wordData && <Modal meanings={wordData} />}
+      {WordData && <WordModal meanings={WordData} />}
       <form onSubmit={handleSubmit} className="mx-auto max-w-lg">
         <label
           className="block font-bold mb-2 text-gray-700 text-sm uppercase"
