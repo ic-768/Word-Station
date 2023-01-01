@@ -1,104 +1,12 @@
-import {
-  Dispatch,
-  FormEvent,
-  MouseEventHandler,
-  SetStateAction,
-  useRef,
-  useState,
-} from "react";
-import { Notification } from "../_app";
+import { Dispatch, FormEvent, SetStateAction, useRef, useState } from "react";
+import { WordModal } from "../../components/WordModal";
+import { WordData } from "../../types/WordData";
+import type { Notification } from "../../types/Notification";
 
 /*
  * User can submit a word in order for the backend to contact the dictionary API, and get the results.
- *
- * TODO when we get the results, we want to give the user the option of which definitions to keep
- * e.g. the word 'ball' can be used as a verb, and as a noun. As a noun it may mean the spherical object
- * or a good time, as in 'having a ball'. Card-like UI, with arrows for user to see different definitions,
- * and be able to "star" the ones they want to keep
+ * TODO be able to "star" the ones they want to keep
  */
-
-interface WordData {
-  definitions: {
-    definition: string;
-    example: string;
-    antonyms: string[];
-    synonyms: string[];
-  }[];
-  synonyms: string[];
-}
-
-const WordModal = ({ meanings }: { meanings: WordData[] }) => {
-  const [page, setPage] = useState(0);
-  const pageData = meanings[page];
-
-  if (!pageData) return null;
-
-  const definitions = (
-    <ul className="list-disc ml-8">
-      {pageData.definitions.map((d) => (
-        <li key={d.definition}>{d.definition}</li>
-      ))}
-    </ul>
-  );
-
-  const synonyms = (
-    <ul className="list-disc ml-8">
-      {pageData.synonyms.map((s) => (
-        <li key={s}>{s}</li>
-      ))}
-    </ul>
-  );
-
-  interface Button {
-    text: string;
-    callback: MouseEventHandler;
-    position: "left" | "right";
-  }
-
-  const Button = ({ text, callback, position }: Button) => {
-    const positionClass = position === "left" ? "mr-auto" : "ml-auto";
-
-    return (
-      <button
-        className={`bg-slate-400 p-2 rounded min-w-page-button ${positionClass}`}
-        onClick={callback}
-      >
-        {text}
-      </button>
-    );
-  };
-
-  const decPage = () => setPage(page - 1);
-  const incPage = () => setPage(page + 1);
-
-  return (
-    <>
-      <div className="absolute top-32 bg-white rounded max-w-lg inset-x-0 mx-auto p-6 flex flex-col">
-        <label className="text-lg font-semibold">Definitions</label>
-        {definitions}
-
-        {pageData.synonyms.length ? (
-          <>
-            <label className="text-lg font-semibold">Synonyms</label>
-            {synonyms}
-          </>
-        ) : null}
-
-        <div className="flex text-white -center mt-6 w-72">
-          {page !== 0 && (
-            <Button text={"Previous"} callback={decPage} position="left" />
-          )}
-          {page !== meanings.length - 1 && (
-            <Button text={"Next"} callback={incPage} position="right" />
-          )}
-        </div>
-        <div>
-          {page + 1}/{meanings.length}
-        </div>
-      </div>
-    </>
-  );
-};
 
 export default function GetMeaning({
   setNotification,
