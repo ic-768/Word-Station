@@ -1,5 +1,5 @@
 import Head from "next/head";
-/*Home page goes here*/
+
 export default function Home() {
   return (
     <>

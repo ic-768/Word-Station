@@ -1,6 +1,6 @@
 import { Dispatch, FormEvent, SetStateAction, useRef, useState } from "react";
-import { WordModal } from "../../components/WordModal";
 import { WordData } from "../../types/WordData";
+import WordModal from "../../components/WordModal/WordModal";
 import type { Notification } from "../../types/Notification";
 
 /*
@@ -23,7 +23,6 @@ export default function GetMeaning({
     event.preventDefault();
     const value = inputRef.current?.value;
 
-    // TODO error handling, try-catch, etc.
     const response = await fetch("/api/word/get-meaning", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -43,10 +42,11 @@ export default function GetMeaning({
     }
   };
 
+  const closeModal = () => setWordData(null);
   return (
     <>
-      {WordData && <WordModal meanings={WordData} />}
-      <form onSubmit={handleSubmit} className="mx-auto max-w-lg">
+      {WordData && <WordModal meanings={WordData} closeModal={closeModal} />}
+      <form onSubmit={handleSubmit} className="mx-auto max-w-lg mt-32">
         <label
           className="block font-bold mb-2 text-gray-700 text-sm uppercase"
           htmlFor="input"
