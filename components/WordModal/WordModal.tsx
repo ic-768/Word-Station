@@ -66,7 +66,10 @@ const WordModal = ({
           message: "Word saved successfully!",
         });
       } else {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        setNotification({
+          type: "error",
+          message: "Word is already saved!",
+        });
       }
     } catch {
       setNotification({

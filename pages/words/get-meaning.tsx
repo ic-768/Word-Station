@@ -3,9 +3,6 @@ import { WordData } from "../../types/WordData";
 import WordModal from "../../components/WordModal/WordModal";
 import type { Notification } from "../../types/Notification";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
-
 /*
  * User can submit a word in order for the backend to contact the dictionary API, and get the results.
  * TODO be able to "star" the ones they want to keep

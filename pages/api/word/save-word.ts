@@ -21,12 +21,11 @@ export default async function handler(
 
     if (wordArray.includes(word)) {
       res.status(409).send("Word already saved");
+    } else {
+      const updatedArray = wordArray.concat(word);
+      await fs.writeFile(filePath, JSON.stringify({ words: updatedArray }));
+      res.status(200).send("OK");
     }
-
-    const updatedArray = wordArray.concat(word);
-    await fs.writeFile(filePath, JSON.stringify({ words: updatedArray }));
-
-    res.status(200).send("OK");
   } catch (err) {
     res.status(500).send("Something went wrong!");
   }
