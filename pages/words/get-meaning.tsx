@@ -50,6 +50,7 @@ export default function GetMeaning({
     <>
       {WordData && (
         <WordModal
+          setNotification={setNotification}
           meanings={WordData}
           closeModal={closeModal}
           word={inputRef.current?.value}

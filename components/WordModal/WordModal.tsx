@@ -1,17 +1,20 @@
-import { FormEvent, useState } from "react";
+import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { WordData } from "../../types/WordData";
 import Button from "./Button";
+import { Notification } from "../../types/Notification";
 
 const WordModal = ({
   meanings,
   closeModal,
+  setNotification,
   word,
 }: {
   meanings: WordData[];
   closeModal: () => void;
+  setNotification: Dispatch<SetStateAction<Notification | null>>;
   word?: string;
 }) => {
   const [page, setPage] = useState(0);
@@ -47,31 +50,37 @@ const WordModal = ({
     </button>
   );
 
-  // TODO onSave -> give UI for user to choose which entries keep - toggle individual, page, all
+  // TODO have to keep state of all of user saved-words so as to keep track of if this word is already saved.
   const handleSave = async (event: FormEvent) => {
     event.preventDefault();
-    const value = inputRef.current?.value;
-
-    const response = await fetch("/api/word/get-meaning", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(value),
-    });
-
     try {
-      const word = await response.json();
-      setWordData(word.meanings);
+      const response = await fetch("/api/word/save-word", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(word),
+      });
+
+      if (response.ok) {
+        setNotification({
+          type: "success",
+          message: "Word saved successfully!",
+        });
+      } else {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
     } catch {
       setNotification({
         type: "error",
-        message:
-          "Something went wrong when fetching the word. It's possible that the word may not exist or that your internet connection isn't great. It might also be the server at fault. Sorry!",
+        message: "Oops! something went wrong.",
       });
     }
   };
 
   const saveButton = (
-    <button className="absolute top-10 text-white -right-16 bg-slate-600 p-2 rounded transition-colors hover:bg-slate-700">
+    <button
+      onClick={handleSave}
+      className="absolute top-10 text-white -right-16 bg-slate-600 p-2 rounded transition-colors hover:bg-slate-700"
+    >
       Save
     </button>
   );
