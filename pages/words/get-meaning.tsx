@@ -3,11 +3,13 @@ import { WordData } from "../../types/WordData";
 import WordModal from "../../components/WordModal/WordModal";
 import type { Notification } from "../../types/Notification";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+
 /*
  * User can submit a word in order for the backend to contact the dictionary API, and get the results.
  * TODO be able to "star" the ones they want to keep
  */
-
 export default function GetMeaning({
   setNotification,
 }: {
@@ -43,9 +45,16 @@ export default function GetMeaning({
   };
 
   const closeModal = () => setWordData(null);
+
   return (
     <>
-      {WordData && <WordModal meanings={WordData} closeModal={closeModal} />}
+      {WordData && (
+        <WordModal
+          meanings={WordData}
+          closeModal={closeModal}
+          word={inputRef.current?.value}
+        />
+      )}
       <form onSubmit={handleSubmit} className="mx-auto max-w-lg mt-32">
         <label
           className="block font-bold mb-2 text-gray-700 text-sm uppercase"

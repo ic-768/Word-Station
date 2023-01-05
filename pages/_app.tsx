@@ -1,6 +1,6 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Notification } from "../types/Notification";
 
 // TODO css based on type
@@ -18,6 +18,14 @@ const Notification = ({ type, message }: Notification) => (
 
 export default function App({ Component, pageProps }: AppProps) {
   const [notification, setNotification] = useState<Notification | null>(null);
+
+  useEffect(() => {
+    if (notification) {
+      setTimeout(() => {
+        setNotification(null);
+      }, 4500);
+    }
+  }, [notification]);
 
   return (
     <>
