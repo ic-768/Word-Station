@@ -1,4 +1,3 @@
-// Fetching data from the JSON file
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import fsPromises from "fs/promises";

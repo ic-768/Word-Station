@@ -1,18 +1,15 @@
-import { Dispatch, FormEvent, SetStateAction, useRef, useState } from "react";
+import { FormEvent, useContext, useRef, useState } from "react";
 import { WordData } from "../../../types/WordData";
 import WordModal from "../../../components/WordModal/WordModal";
-import type { Notification } from "../../../types/Notification";
+import { NotificationContext } from "../../../context/notification";
 
 /*
  * User can submit a word in order for the backend to contact the dictionary API, and get the results.
  * TODO be able to "star" the ones they want to keep
  */
-export default function GetMeaning({
-  setNotification,
-}: {
-  setNotification: Dispatch<SetStateAction<Notification | null>>;
-}) {
+export default function GetMeaning() {
   const [WordData, setWordData] = useState<WordData[] | null>(null);
+  const [_notification, setNotification] = useContext(NotificationContext);
 
   // if/when we need to do something more fancy, like add debounce, we can useState instead of useRef
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -47,7 +44,6 @@ export default function GetMeaning({
     <>
       {WordData && (
         <WordModal
-          setNotification={setNotification}
           meanings={WordData}
           closeModal={closeModal}
           word={inputRef.current?.value}

@@ -1,24 +1,24 @@
-import { Dispatch, FormEvent, SetStateAction, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import { NotificationContext } from "../../context/notification";
 import { WordData } from "../../types/WordData";
 import Button from "./Button";
-import { Notification } from "../../types/Notification";
 
 const WordModal = ({
   meanings,
   closeModal,
-  setNotification,
   word,
 }: {
   meanings: WordData[];
   closeModal: () => void;
-  setNotification: Dispatch<SetStateAction<Notification | null>>;
   word?: string;
 }) => {
   const [page, setPage] = useState(0);
   const pageData = meanings[page];
+
+  const [_notification, setNotification] = useContext(NotificationContext);
 
   if (!pageData) return null;
 

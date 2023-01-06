@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { useEffect, useState } from "react";
 import { Notification } from "../types/Notification";
+import { NotificationContext } from "../context/notification";
 
 // TODO css based on type
 const Notification = ({ type, message }: Notification) => (
@@ -32,7 +33,10 @@ export default function App({ Component, pageProps }: AppProps) {
       {notification && (
         <Notification type={notification.type} message={notification.message} />
       )}
-      <Component {...pageProps} setNotification={setNotification} />
+
+      <NotificationContext.Provider value={[notification, setNotification]}>
+        <Component {...pageProps} />
+      </NotificationContext.Provider>
     </>
   );
 }
