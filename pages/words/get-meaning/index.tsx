@@ -1,28 +1,25 @@
-import { FormEvent, useContext, useRef, useState } from "react";
+import { ChangeEventHandler, FormEvent, useContext, useState } from "react";
 import { WordData } from "../../../types/WordData";
-import WordModal from "../../../components/WordModal/WordModal";
 import { NotificationContext } from "../../../context/notification";
+import Link from "next/link";
 
 /*
  * User can submit a word in order for the backend to contact the dictionary API, and get the results.
  * TODO be able to "star" the ones they want to keep
  */
 export default function GetMeaning() {
-  const [WordData, setWordData] = useState<WordData[] | null>(null);
+  const [_wordData, setWordData] = useState<WordData[] | null>(null);
   const [_notification, setNotification] = useContext(NotificationContext);
-
-  // if/when we need to do something more fancy, like add debounce, we can useState instead of useRef
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  const [word, setWord] = useState("");
 
   // TODO in backend -> verify if word exists -> if no, save it -> else error
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    const value = inputRef.current?.value;
 
     const response = await fetch("/api/word/get-meaning", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(value),
+      body: JSON.stringify(word),
     });
 
     try {
@@ -38,17 +35,11 @@ export default function GetMeaning() {
     }
   };
 
-  const closeModal = () => setWordData(null);
+  const onTypeWord: ChangeEventHandler<HTMLInputElement> = (e) =>
+    setWord(e.target?.value);
 
   return (
     <>
-      {WordData && (
-        <WordModal
-          meanings={WordData}
-          closeModal={closeModal}
-          word={inputRef.current?.value}
-        />
-      )}
       <form onSubmit={handleSubmit} className="mx-auto max-w-lg mt-32">
         <label
           className="block font-bold mb-2 text-gray-700 text-sm uppercase"
@@ -60,14 +51,16 @@ export default function GetMeaning() {
           className="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal"
           id="input"
           type="text"
-          ref={inputRef}
+          value={word}
+          onChange={onTypeWord}
         />
-        <button
-          type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-4"
+
+        <Link
+          className="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-4"
+          href={`/words/get-meaning/${word}`}
         >
-          Submit
-        </button>
+          Get Definitions
+        </Link>
       </form>
     </>
   );

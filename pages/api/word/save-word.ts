@@ -11,9 +11,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data | string>
 ) {
-  const word = req.body;
-
   try {
+    const word = req.body;
     // Read the JSON file
     const filePath = path.join(process.cwd(), "public/mock-data.json");
     const data = await fs.readFile(filePath);

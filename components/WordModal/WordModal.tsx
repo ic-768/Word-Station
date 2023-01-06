@@ -5,20 +5,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NotificationContext } from "../../context/notification";
 import { WordData } from "../../types/WordData";
 import Button from "./Button";
+import Link from "next/link";
 
 const WordModal = ({
   meanings,
-  closeModal,
   word,
 }: {
   meanings: WordData[];
-  closeModal: () => void;
   word?: string;
 }) => {
   const [page, setPage] = useState(0);
-  const pageData = meanings[page];
-
   const [_notification, setNotification] = useContext(NotificationContext);
+
+  const pageData = meanings[page];
 
   if (!pageData) return null;
 
@@ -41,13 +40,13 @@ const WordModal = ({
   const decPage = () => setPage(page - 1);
   const incPage = () => setPage(page + 1);
 
-  const closeButton = (
-    <button
+  const goBackLink = (
+    <Link
       className="absolute right-2 transition-colors hover:text-blue-600"
-      onClick={closeModal}
+      href="/words/get-meaning"
     >
       <FontAwesomeIcon icon={faXmark} />
-    </button>
+    </Link>
   );
 
   // TODO have to keep state of all of user saved-words so as to keep track of if this word is already saved.
@@ -93,7 +92,7 @@ const WordModal = ({
       <div className="absolute top-32 bg-white rounded max-w-lg inset-x-0 mx-auto p-8 ">
         <div className="relative flex flex-col">
           <span className="text-xl font-semibold capitalize">{word}</span>
-          {closeButton}
+          {goBackLink}
           {saveButton}
           <label className="text-lg font-semibold">Definitions</label>
           {definitions}
