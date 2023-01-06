@@ -1,7 +1,7 @@
 import { Dispatch, FormEvent, SetStateAction, useRef, useState } from "react";
-import { WordData } from "../../types/WordData";
-import WordModal from "../../components/WordModal/WordModal";
-import type { Notification } from "../../types/Notification";
+import { WordData } from "../../../types/WordData";
+import WordModal from "../../../components/WordModal/WordModal";
+import type { Notification } from "../../../types/Notification";
 
 /*
  * User can submit a word in order for the backend to contact the dictionary API, and get the results.
