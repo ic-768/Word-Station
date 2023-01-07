@@ -90,7 +90,7 @@ const WordModal = ({
 
   return (
     <>
-      <div className="absolute top-32 bg-white rounded max-w-lg inset-x-0 mx-auto p-8 ">
+      <div className="absolute top-32 bg-white rounded max-w-lg inset-x-0 mx-auto p-8 drop-shadow-md">
         <div className="relative flex flex-col">
           <span className="text-xl font-semibold capitalize">{word}</span>
           {goBackLink}
