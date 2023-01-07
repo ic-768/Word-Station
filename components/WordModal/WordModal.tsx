@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NotificationContext } from "../../context/notification";
 import { WordData } from "../../types/WordData";
 import Button from "./Button";
-import Link from "next/link";
+import { useRouter } from "next/router";
 
 const WordModal = ({
   meanings,
@@ -16,6 +16,7 @@ const WordModal = ({
 }) => {
   const [page, setPage] = useState(0);
   const [_notification, setNotification] = useContext(NotificationContext);
+  const router = useRouter();
 
   const pageData = meanings[page];
 
@@ -41,12 +42,12 @@ const WordModal = ({
   const incPage = () => setPage(page + 1);
 
   const goBackLink = (
-    <Link
+    <button
       className="absolute right-2 transition-colors hover:text-blue-600"
-      href="/words/get-meaning"
+      onClick={() => router.back()}
     >
       <FontAwesomeIcon icon={faXmark} />
-    </Link>
+    </button>
   );
 
   // TODO have to keep state of all of user saved-words so as to keep track of if this word is already saved.
