@@ -1,7 +1,7 @@
 import { ChangeEventHandler, useEffect, useState } from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import { faSquarePlus } from "@fortawesome/free-regular-svg-icons";
 import fsPromises from "fs/promises";
 import path from "path";
 
@@ -20,29 +20,36 @@ export default function Words({ words }: { words: string[] }) {
 
   return (
     <div className="h-screen w-screen flex flex-col items-center relative">
-      <input
-        onChange={onChangeFilter}
-        className="absolute top-8 rounded-md focus:outline-none focus:outline-none focus:ring focus:ring-indigo-500 py-2 px-4 leading-5 appearance-none"
-      />
-      <div className="flex flex-col mt-20">
-        <div className="flex flex-wrap p-8 gap-2">
-          {filteredWords.map((w) => (
-            <Link
-              href={`/words/get-meaning/${w}`}
-              className="bg-white rounded-lg shadow-lg p-6"
-              key={w}
-            >
-              <span className="text-gray-700 mb-4">{w}</span>
-            </Link>
-          ))}
-        </div>
+      <div className="flex items-center content-center absolute top-10 gap-4">
+        <input
+          onChange={onChangeFilter}
+          className="rounded-md focus:outline-none transition-shadow focus:outline-none focus:ring focus:ring-indigo-500 py-2 px-4 leading-5 appearance-none"
+        />
+
         <Link
-          href="/words/get-meaning"
-          className="self-center text-6xl hover:text-blue-600 transition-colors"
+          className="text-neutral-900 text-4xl hover:text-blue-600 transition-colors"
+          href="words/get-meaning"
         >
-          <FontAwesomeIcon icon={faCirclePlus} />
+          <FontAwesomeIcon icon={faSquarePlus} />
         </Link>
       </div>
+      <section className="h-screen w-screen p-8 pt-20">
+        <div className="grid justify-center grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-6 gap-5 lg:gap-7 my-10">
+          {filteredWords.map((w) => (
+            <div
+              key={w}
+              className="flex flex-col items-center content-center bg-white rounded-lg border shadow-md "
+            >
+              <Link
+                href={`words/get-meaning/${w}`}
+                className="p-3 text-neutral-900 text-center pointer hover:text-blue-600 w-full"
+              >
+                {w}
+              </Link>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
