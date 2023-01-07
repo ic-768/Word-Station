@@ -2,6 +2,7 @@ import { ChangeEventHandler, FormEvent, useContext, useState } from "react";
 import { WordData } from "../../../types/WordData";
 import { NotificationContext } from "../../../context/notification";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 /*
  * User can submit a word in order for the backend to contact the dictionary API, and get the results.
@@ -11,6 +12,7 @@ export default function GetMeaning() {
   const [_wordData, setWordData] = useState<WordData[] | null>(null);
   const [_notification, setNotification] = useContext(NotificationContext);
   const [word, setWord] = useState("");
+  const router = useRouter();
 
   // TODO in backend -> verify if word exists -> if no, save it -> else error
   const handleSubmit = async (event: FormEvent) => {
@@ -38,6 +40,8 @@ export default function GetMeaning() {
   const onTypeWord: ChangeEventHandler<HTMLInputElement> = (e) =>
     setWord(e.target?.value);
 
+  const onChooseWord = () => router.push(`/words/get-meaning/${word}`);
+
   return (
     <>
       <form onSubmit={handleSubmit} className="mx-auto max-w-lg mt-32">
@@ -55,12 +59,12 @@ export default function GetMeaning() {
           onChange={onTypeWord}
         />
 
-        <Link
+        <button
           className="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-4"
-          href={`/words/get-meaning/${word}`}
+          onClick={onChooseWord}
         >
           Get Definitions
-        </Link>
+        </button>
       </form>
     </>
   );
