@@ -1,6 +1,10 @@
 export const parseDictionaryMeanings = (dictionaryResult: any) => {
-  const [results] = dictionaryResult;
-  const { meanings } = results;
+  try {
+    const [results] = dictionaryResult;
+    const { meanings } = results;
 
-  return meanings;
+    return meanings;
+  } catch {
+    return { error: "Couldn't find that word :(" };
+  }
 };

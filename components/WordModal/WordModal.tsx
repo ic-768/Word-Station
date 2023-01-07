@@ -3,7 +3,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { NotificationContext } from "../../context/notification";
-import { WordData } from "../../types/WordData";
+import { WordMeanings } from "../../types/WordData";
 import Button from "./Button";
 import { useRouter } from "next/router";
 
@@ -11,12 +11,17 @@ const WordModal = ({
   meanings,
   word,
 }: {
-  meanings: WordData[];
+  meanings: WordMeanings;
   word?: string;
 }) => {
   const [page, setPage] = useState(0);
   const [_notification, setNotification] = useContext(NotificationContext);
   const router = useRouter();
+
+  // TODO styling
+  if (meanings.error) {
+    return <div>{meanings.error}</div>;
+  }
 
   const pageData = meanings[page];
 

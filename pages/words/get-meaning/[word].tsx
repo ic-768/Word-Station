@@ -1,16 +1,15 @@
 import WordModal from "../../../components/WordModal/WordModal";
-import { WordData } from "../../../types/WordData";
+import { WordMeanings } from "../../../types/WordData";
 import { getDictionaryReponse } from "../../../utils/api/getDictionaryResponse";
 import { parseDictionaryMeanings } from "../../../utils/api/parseDictionaryMeanings";
 
 interface WordMeaningProps {
   word: string;
-  wordData: WordData[];
+  wordMeanings: WordMeanings;
 }
 
-export default function WordMeaning({ word, wordData }: WordMeaningProps) {
-  // TODO extract logic for parsing wordData
-  return <WordModal meanings={wordData} word={word} />;
+export default function WordMeaning({ word, wordMeanings }: WordMeaningProps) {
+  return <WordModal meanings={wordMeanings} word={word} />;
 }
 
 export const getServerSideProps = async (context: any) => {
@@ -19,5 +18,5 @@ export const getServerSideProps = async (context: any) => {
   const dictionaryResult = await getDictionaryReponse(word);
   const meanings = parseDictionaryMeanings(dictionaryResult);
 
-  return { props: { word, wordData: meanings } };
+  return { props: { word, wordMeanings: meanings } };
 };
