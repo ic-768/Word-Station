@@ -9,9 +9,13 @@ export default function Words({ words }: { words: string[] }) {
     <div className="flex flex-col">
       <div className="flex flex-wrap p-8 gap-2">
         {words.map((w) => (
-          <button className="bg-white rounded-lg shadow-lg p-6" key={w}>
+          <Link
+            href={`/words/get-meaning/${w}`}
+            className="bg-white rounded-lg shadow-lg p-6"
+            key={w}
+          >
             <span className="text-gray-700 mb-4">{w}</span>
-          </button>
+          </Link>
         ))}
       </div>
       <Link
