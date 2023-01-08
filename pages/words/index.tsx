@@ -20,7 +20,7 @@ export default function Words({ words }: { words: string[] }) {
 
   return (
     <div className="h-screen w-screen flex flex-col items-center relative">
-      <div className="flex items-center content-center absolute top-10 gap-4">
+      <div className="flex items-center content-center gap-4 my-10">
         <input
           onChange={onChangeFilter}
           className="rounded-md focus:outline-none transition-shadow focus:outline-none focus:ring focus:ring-indigo-500 py-2 px-4 leading-5 appearance-none"
@@ -33,8 +33,8 @@ export default function Words({ words }: { words: string[] }) {
           <FontAwesomeIcon icon={faSquarePlus} />
         </Link>
       </div>
-      <section className="h-screen w-screen p-8 pt-20">
-        <div className="grid justify-center grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-6 gap-5 lg:gap-7 my-10">
+      <section className="h-screen w-screen p-8 overflow-x-auto h-4/5">
+        <div className="grid justify-center grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-6 gap-5 lg:gap-7">
           {filteredWords.map((w) => (
             <div
               key={w}

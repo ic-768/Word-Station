@@ -1,3 +1,6 @@
+import { ReactElement } from "react";
+import GetMeaning from ".";
+import { GoBackLayout } from "../../../components/GoBackLayout";
 import WordModal from "../../../components/WordModal/WordModal";
 import { WordMeanings } from "../../../types/WordData";
 import { getDictionaryReponse } from "../../../utils/api/getDictionaryResponse";
@@ -9,8 +12,17 @@ interface WordMeaningProps {
 }
 
 export default function WordMeaning({ word, wordMeanings }: WordMeaningProps) {
-  return <WordModal meanings={wordMeanings} word={word} />;
+  return (
+    <>
+      <GetMeaning />
+      <WordModal meanings={wordMeanings} word={word} />
+    </>
+  );
 }
+
+WordMeaning.getLayout = function getLayout(page: ReactElement) {
+  return <GoBackLayout>{page}</GoBackLayout>;
+};
 
 export const getServerSideProps = async (context: any) => {
   // Fetch data from the server based on the route

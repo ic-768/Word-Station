@@ -1,15 +1,22 @@
-import { ChangeEventHandler, FormEvent, useContext, useState } from "react";
-import { WordData } from "../../../types/WordData";
+import {
+  ChangeEventHandler,
+  FormEvent,
+  ReactElement,
+  useContext,
+  useState,
+} from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { WordMeanings } from "../../../types/WordData";
 import { NotificationContext } from "../../../context/notification";
-import Link from "next/link";
 import { useRouter } from "next/router";
+import { GoBackLayout } from "../../../components/Layouts/GoBack";
 
 /*
  * User can submit a word in order for the backend to contact the dictionary API, and get the results.
- * TODO be able to "star" the ones they want to keep
  */
 export default function GetMeaning() {
-  const [_wordData, setWordData] = useState<WordData[] | null>(null);
+  const [_wordData, setWordData] = useState<WordMeanings[] | null>(null);
   const [_notification, setNotification] = useContext(NotificationContext);
   const [word, setWord] = useState("");
   const router = useRouter();
@@ -44,28 +51,37 @@ export default function GetMeaning() {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="mx-auto max-w-lg mt-32">
+      <form onSubmit={handleSubmit} className="mx-auto max-w-lg mt-12">
         <label
           className="block font-bold mb-2 text-gray-700 text-sm uppercase"
           htmlFor="input"
         >
-          Input Label
+          Search for a word
         </label>
-        <input
-          className="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal"
-          id="input"
-          type="text"
-          value={word}
-          onChange={onTypeWord}
-        />
+        <div className="relative flex items-center content-center">
+          <input
+            placeholder="e.g. surreptitious"
+            className="w-full px-3 py-1.5 bg-white border border-solid border-gray-300
+                       rounded transition-colors
+                       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+            id="input"
+            type="text"
+            value={word}
+            onChange={onTypeWord}
+          />
 
-        <button
-          className="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-4"
-          onClick={onChooseWord}
-        >
-          Get Definitions
-        </button>
+          <button
+            className="absolute px-8 py-1 bg-indigo-400 hover:bg-indigo-500 text-white rounded right-1 font-bold"
+            onClick={onChooseWord}
+          >
+            <FontAwesomeIcon icon={faMagnifyingGlass} />
+          </button>
+        </div>
       </form>
     </>
   );
 }
+
+GetMeaning.getLayout = function getLayout(page: ReactElement) {
+  return <GoBackLayout>{page}</GoBackLayout>;
+};

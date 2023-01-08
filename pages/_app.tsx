@@ -1,6 +1,7 @@
 import "../styles/globals.css";
+import { NextPage } from "next";
 import type { AppProps } from "next/app";
-import { useEffect, useState } from "react";
+import { ReactElement, ReactNode, useEffect, useState } from "react";
 import { Notification } from "../types/Notification";
 import { NotificationContext } from "../context/notification";
 
@@ -17,7 +18,15 @@ const Notification = ({ type, message }: Notification) => (
   </div>
 );
 
-export default function App({ Component, pageProps }: AppProps) {
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode;
+};
+
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+};
+
+export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const [notification, setNotification] = useState<Notification | null>(null);
 
   useEffect(() => {
@@ -28,6 +37,7 @@ export default function App({ Component, pageProps }: AppProps) {
     }
   }, [notification]);
 
+  const getLayout = Component.getLayout || ((page) => page);
   return (
     <>
       {notification && (
@@ -35,7 +45,7 @@ export default function App({ Component, pageProps }: AppProps) {
       )}
 
       <NotificationContext.Provider value={[notification, setNotification]}>
-        <Component {...pageProps} />
+        {getLayout(<Component {...pageProps} />)}
       </NotificationContext.Provider>
     </>
   );

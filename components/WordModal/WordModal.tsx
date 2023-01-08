@@ -1,22 +1,20 @@
-import { FormEvent, useContext, useState } from "react";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FormEvent, ReactElement, useContext, useState } from "react";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { NotificationContext } from "../../context/notification";
 import { WordMeanings } from "../../types/WordData";
 import Button from "./Button";
-import { useRouter } from "next/router";
+import Link from "next/link";
+import { GoBackLayout } from "../GoBackLayout";
 
-const WordModal = ({
-  meanings,
-  word,
-}: {
+interface WordModalProps {
   meanings: WordMeanings;
   word?: string;
-}) => {
+}
+const WordModal = ({ meanings, word }: WordModalProps) => {
   const [page, setPage] = useState(0);
   const [_notification, setNotification] = useContext(NotificationContext);
-  const router = useRouter();
 
   // TODO styling
   if (meanings.error) {
@@ -45,15 +43,6 @@ const WordModal = ({
 
   const decPage = () => setPage(page - 1);
   const incPage = () => setPage(page + 1);
-
-  const goBackLink = (
-    <button
-      className="absolute right-2 transition-colors hover:text-blue-600"
-      onClick={() => router.back()}
-    >
-      <FontAwesomeIcon icon={faXmark} />
-    </button>
-  );
 
   // TODO have to keep state of all of user saved-words so as to keep track of if this word is already saved.
   const handleSave = async (event: FormEvent) => {
@@ -94,40 +83,32 @@ const WordModal = ({
   );
 
   return (
-    <>
-      <div className="absolute top-32 bg-white rounded max-w-lg inset-x-0 mx-auto p-8 drop-shadow-md">
-        <div className="relative flex flex-col">
-          <span className="text-xl font-semibold capitalize">{word}</span>
-          {goBackLink}
-          {saveButton}
-          <label className="text-lg font-semibold">Definitions</label>
-          {definitions}
+    <div className="absolute top-32 bg-white rounded max-w-lg inset-x-0 mx-auto p-8 drop-shadow-md">
+      <div className="relative flex flex-col">
+        <span className="text-xl font-semibold capitalize">{word}</span>
+        {saveButton}
+        <label className="text-lg font-semibold">Definitions</label>
+        {definitions}
+        {pageData.synonyms.length ? (
+          <>
+            <label className="text-lg font-semibold">Synonyms</label>
+            {synonyms}
+          </>
+        ) : null}
 
-          {pageData.synonyms.length ? (
-            <>
-              <label className="text-lg font-semibold">Synonyms</label>
-              {synonyms}
-            </>
-          ) : null}
-
-          <div className="flex text-white mt-6 w-72 mx-auto">
-            {page !== 0 && (
-              <Button
-                text={"Previous"}
-                callback={decPage}
-                className="mr-auto"
-              />
-            )}
-            {page !== meanings.length - 1 && (
-              <Button text={"Next"} callback={incPage} className="ml-auto" />
-            )}
-          </div>
-          <div>
-            {page + 1}/{meanings.length}
-          </div>
+        <div className="flex text-white mt-6 w-72 mx-auto">
+          {page !== 0 && (
+            <Button text={"Previous"} callback={decPage} className="mr-auto" />
+          )}
+          {page !== meanings.length - 1 && (
+            <Button text={"Next"} callback={incPage} className="ml-auto" />
+          )}
+        </div>
+        <div>
+          {page + 1}/{meanings.length}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
