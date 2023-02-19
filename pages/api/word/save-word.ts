@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import * as fs from "fs/promises";
-import path from "path";
+import { supabase } from "../../../lib/supabaseClient";
 
 type Data = {
   word: string;
@@ -13,16 +12,22 @@ export default async function handler(
 ) {
   try {
     const word = req.body;
-    // Read the JSON file
-    const filePath = path.join(process.cwd(), "public/mock-data.json");
-    const data = await fs.readFile(filePath);
-    const wordArray: [string] = JSON.parse(data.toString()).words;
 
-    if (wordArray.includes(word)) {
+    // Check to see if word already saved by user
+    // TODO handle error
+    const { count, error } = await supabase
+      .from("words")
+      .select("name", { head: true, count: "exact" })
+      .eq("name", word);
+
+    if (count) {
       res.status(409).send("Word already saved");
     } else {
-      const updatedArray = wordArray.concat(word);
-      await fs.writeFile(filePath, JSON.stringify({ words: updatedArray }));
+      // TODO handle error
+      const { data, error } = await supabase
+        .from("words")
+        .insert({ name: word });
+      console.log("added");
       res.status(200).send("OK");
     }
   } catch (err) {

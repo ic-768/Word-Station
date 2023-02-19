@@ -1,12 +1,17 @@
-import { ChangeEventHandler, useEffect, useState } from "react";
+import { ChangeEventHandler, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquarePlus } from "@fortawesome/free-regular-svg-icons";
-import fsPromises from "fs/promises";
-import path from "path";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { supabase } from "../../lib/supabaseClient";
 
-export default function Words({ words }: { words: string[] }) {
+interface WordsProps {
+  wordData: { id: number; name: string }[];
+}
+
+export default function Words({ wordData }: WordsProps) {
+  const words = useMemo(() => wordData.map((d) => d.name), [wordData]);
+
   const [filter, setFilter] = useState("");
   const [filteredWords, setFilteredWords] = useState(words);
 
@@ -67,11 +72,11 @@ export default function Words({ words }: { words: string[] }) {
 }
 
 export async function getStaticProps() {
-  const filePath = path.join(process.cwd(), "public/mock-data.json");
-  const jsonData = await fsPromises.readFile(filePath);
-  const words = JSON.parse(jsonData.toString());
+  let { data } = await supabase.from("words").select();
 
   return {
-    props: words,
+    props: {
+      wordData: data,
+    },
   };
 }
