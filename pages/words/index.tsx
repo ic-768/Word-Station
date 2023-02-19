@@ -10,7 +10,7 @@ interface WordsProps {
 }
 
 export default function Words({ wordData }: WordsProps) {
-  const words = useMemo(() => wordData.map((d) => d.name), [wordData]);
+  const words = useMemo(() => wordData.map((d) => d.name).sort(), [wordData]);
 
   const [filter, setFilter] = useState("");
   const [filteredWords, setFilteredWords] = useState(words);

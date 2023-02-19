@@ -1,9 +1,9 @@
 import React, { Dispatch, SetStateAction } from "react";
-import { Notification } from "../types/Notification";
+import { NotificationProps } from "../components/Notification/Notification";
 
 type NotificationContextArgs = [
-  Notification | null,
-  Dispatch<SetStateAction<Notification | null>>
+  NotificationProps | null | undefined,
+  Dispatch<SetStateAction<NotificationProps | null | undefined>>
 ];
 
 /**

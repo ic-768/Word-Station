@@ -6,18 +6,18 @@ import {
   faInfo,
   faTriangleExclamation,
 } from "@fortawesome/free-solid-svg-icons";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 export interface NotificationProps {
   type?: "success" | "warning" | "error" | "informational";
   message: string;
 }
 
-// TODO css based on type
 const Notification = ({
   type = "informational",
   message,
 }: NotificationProps) => {
-  const [icon, color] = useMemo(() => {
+  const getStyle = (): [IconProp, string] => {
     switch (type) {
       case "success":
         return [faCheck, "text-green-600"];
@@ -28,7 +28,9 @@ const Notification = ({
       default:
         return [faInfo, "text-sky-600"];
     }
-  }, [type]);
+  };
+
+  const [icon, color] = useMemo(getStyle, [type]);
 
   return (
     <div

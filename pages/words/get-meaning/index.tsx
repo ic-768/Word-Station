@@ -5,11 +5,12 @@ import {
   useContext,
   useState,
 } from "react";
+import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+
 import { WordMeanings } from "../../../types/WordData";
 import { NotificationContext } from "../../../context/notification";
-import { useRouter } from "next/router";
 import { GoBackLayout } from "../../../components/Layouts/GoBack";
 
 /*
@@ -21,7 +22,6 @@ export default function GetMeaning() {
   const [word, setWord] = useState("");
   const router = useRouter();
 
-  // TODO in backend -> verify if word exists -> if no, save it -> else error
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 

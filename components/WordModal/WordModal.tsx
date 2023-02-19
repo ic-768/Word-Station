@@ -11,11 +11,6 @@ const WordModal = ({ meanings, word }: WordModalProps) => {
   const [page, setPage] = useState(0);
   const [_notification, setNotification] = useContext(NotificationContext);
 
-  // TODO styling
-  if (meanings.error) {
-    return <div>{meanings.error}</div>;
-  }
-
   const pageData = meanings[page];
 
   if (!pageData) return null;
