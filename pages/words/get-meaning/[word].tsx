@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 import GetMeaning from ".";
-import { GoBackLayout } from "../../../components/GoBackLayout";
+import { GoBackLayout } from "../../../components/Layouts/GoBack";
 import WordModal from "../../../components/WordModal/WordModal";
 import { WordMeanings } from "../../../types/WordData";
 import { getDictionaryReponse } from "../../../utils/api/getDictionaryResponse";

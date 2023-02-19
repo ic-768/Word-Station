@@ -1,12 +1,7 @@
-import { FormEvent, ReactElement, useContext, useState } from "react";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import { FormEvent, useContext, useState } from "react";
 import { NotificationContext } from "../../context/notification";
 import { WordMeanings } from "../../types/WordData";
 import Button from "./Button";
-import Link from "next/link";
-import { GoBackLayout } from "../GoBackLayout";
 
 interface WordModalProps {
   meanings: WordMeanings;
@@ -34,7 +29,7 @@ const WordModal = ({ meanings, word }: WordModalProps) => {
   );
 
   const synonyms = (
-    <ul className="list-disc ml-8">
+    <ul className="list-disc list-inside ml-8 max-h-64 overflow-y-auto">
       {pageData.synonyms.map((s) => (
         <li key={s}>{s}</li>
       ))}
@@ -84,7 +79,7 @@ const WordModal = ({ meanings, word }: WordModalProps) => {
 
   return (
     <div className="absolute top-32 bg-white rounded max-w-lg inset-x-0 mx-auto p-8 drop-shadow-md">
-      <div className="relative flex flex-col">
+      <div className="relative flex flex-col text-gray-500">
         <span className="text-xl font-semibold capitalize">{word}</span>
         {saveButton}
         <label className="text-lg font-semibold">Definitions</label>

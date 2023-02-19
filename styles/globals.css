@@ -16,10 +16,9 @@
   --background-end-rgb: 255, 255, 255;
 }
 
+/*TODO dark theme */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
   }
 }
 
@@ -34,6 +33,7 @@ body {
   height: 100vh;
   width: 100vw;
   overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 body {
