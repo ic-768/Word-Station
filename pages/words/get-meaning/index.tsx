@@ -61,7 +61,7 @@ export default function GetMeaning() {
         <div className="relative flex items-center content-center">
           <input
             placeholder="e.g. surreptitious"
-            className="w-full px-3 py-1.5 bg-white border border-solid border-gray-300
+            className="w-full px-3 py-1.5 bg-white border border-solid border-gray-300 text-gray-500
                        rounded transition-colors
                        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
             id="input"
