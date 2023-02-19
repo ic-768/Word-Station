@@ -27,7 +27,6 @@ export default async function handler(
       const { data, error } = await supabase
         .from("words")
         .insert({ name: word });
-      console.log("added");
       res.status(200).send("OK");
     }
   } catch (err) {
