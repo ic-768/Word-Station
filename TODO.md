@@ -1,2 +1,1 @@
-- Style Notification based on type
 - Currently saving whole API response to json. Eventually give user choice of which definitions/synonyms/pages of the response to save.

@@ -1,7 +1,7 @@
-import "../styles/globals.css";
 import { NextPage } from "next";
 import type { AppProps } from "next/app";
 import { ReactElement, ReactNode, useEffect, useState } from "react";
+import "../styles/globals.css";
 import { NotificationContext } from "../context/notification";
 import Notification, {
   NotificationProps,
@@ -22,7 +22,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
     if (notification) {
       setTimeout(() => {
         setNotification(null);
-      }, 4000500); // TODO change back
+      }, 4500);
     }
   }, [notification]);
 

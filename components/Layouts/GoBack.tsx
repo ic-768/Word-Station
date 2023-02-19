@@ -6,7 +6,7 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 export const GoBackLayout = ({ children }: { children: ReactElement }) => (
   <>
     <Link
-      className="absolute right-16 text-6xl transition-colors hover:text-blue-600"
+      className="z-10 absolute right-16 text-6xl transition-colors hover:text-blue-600"
       href="/words"
     >
       <FontAwesomeIcon icon={faArrowLeft} />
