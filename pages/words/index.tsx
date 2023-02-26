@@ -1,25 +1,52 @@
-import { ChangeEventHandler, useEffect, useMemo, useState } from "react";
+import {
+  ChangeEventHandler,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquarePlus } from "@fortawesome/free-regular-svg-icons";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { supabase } from "../../lib/supabaseClient";
+import { WordsContext } from "../../context/words";
 
 interface WordsProps {
   wordData: { id: number; name: string }[];
 }
 
 export default function Words({ wordData }: WordsProps) {
-  const words = useMemo(() => wordData.map((d) => d.name).sort(), [wordData]);
+  // alphabetize words fetched from server
+  const fetchedWords = useMemo(
+    () => wordData.map((d) => d.name).sort(),
+    [wordData]
+  );
+  // keep track of user's saved words in ctx
+  const [words, setWords] = useContext(WordsContext);
 
+  // for filtering words
   const [filter, setFilter] = useState("");
   const [filteredWords, setFilteredWords] = useState(words);
 
+  // update user's words
+  useEffect(() => {
+    if (fetchedWords) setWords(fetchedWords);
+  }, [fetchedWords, setWords]);
+
+  // update local storage
+  useEffect(() => {
+    if (words) localStorage.setItem("words", JSON.stringify(words));
+  }, [words]);
+
+  // update filtered words
   useEffect(() => {
     setFilteredWords(
-      words.filter((w) => w.toLowerCase().includes(filter.toLowerCase()))
+      words?.filter((w) => w.toLowerCase().includes(filter.toLowerCase()))
     );
   }, [words, filter]);
+
+  if (!filteredWords) return null;
 
   const onChangeFilter: ChangeEventHandler<HTMLInputElement> = (e) =>
     setFilter(e.target.value);
@@ -71,7 +98,7 @@ export default function Words({ wordData }: WordsProps) {
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   let { data } = await supabase.from("words").select();
 
   return {

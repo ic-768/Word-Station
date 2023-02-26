@@ -1,57 +1,33 @@
 import {
   ChangeEventHandler,
-  FormEvent,
+  FormEventHandler,
   ReactElement,
-  useContext,
   useState,
 } from "react";
 import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
-import { WordMeanings } from "../../../types/WordData";
-import { NotificationContext } from "../../../context/notification";
 import { GoBackLayout } from "../../../components/Layouts/GoBack";
 
 /*
  * User can submit a word in order for the backend to contact the dictionary API, and get the results.
  */
 export default function GetMeaning() {
-  const [_wordData, setWordData] = useState<WordMeanings[] | null>(null);
-  const [_notification, setNotification] = useContext(NotificationContext);
   const [word, setWord] = useState("");
   const router = useRouter();
-
-  const handleSubmit = async (event: FormEvent) => {
-    event.preventDefault();
-
-    const response = await fetch("/api/word/get-meaning", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(word),
-    });
-
-    try {
-      const word = await response.json();
-      setWordData(word.meanings);
-    } catch {
-      // TODO set error message depending on error code
-      setNotification({
-        type: "error",
-        message:
-          "Something went wrong when fetching the word. It's possible that the word may not exist or that your internet connection isn't great. It might also be the server at fault. Sorry!",
-      });
-    }
-  };
 
   const onTypeWord: ChangeEventHandler<HTMLInputElement> = (e) =>
     setWord(e.target?.value);
 
-  const onChooseWord = () => router.push(`/words/get-meaning/${word}`);
+  const onChooseWord: FormEventHandler = (e) => {
+    e.preventDefault();
+    router.push(`/words/get-meaning/${word}`);
+  };
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="mx-auto max-w-lg mt-12">
+      <form onSubmit={onChooseWord} className="mx-auto max-w-lg mt-12">
         <label
           className="block font-bold mb-2 text-gray-700 text-sm uppercase"
           htmlFor="input"
@@ -72,7 +48,7 @@ export default function GetMeaning() {
 
           <button
             className="absolute px-8 py-1 bg-indigo-400 hover:bg-indigo-500 text-white rounded right-1 font-bold"
-            onClick={onChooseWord}
+            type="submit"
           >
             <FontAwesomeIcon icon={faMagnifyingGlass} />
           </button>

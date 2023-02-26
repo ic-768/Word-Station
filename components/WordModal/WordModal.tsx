@@ -1,4 +1,14 @@
-import { FormEvent, useContext, useState } from "react";
+import {
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useContext,
+  useState,
+} from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
+
 import { NotificationContext } from "../../context/notification";
 import { WordMeanings } from "../../types/WordData";
 import Button from "./Button";
@@ -6,8 +16,17 @@ import Button from "./Button";
 interface WordModalProps {
   meanings: WordMeanings;
   word?: string;
+  words?: string[];
+  setWords: Dispatch<SetStateAction<string[] | undefined>>;
+  isWordSaved?: boolean;
 }
-const WordModal = ({ meanings, word }: WordModalProps) => {
+const WordModal = ({
+  meanings,
+  word,
+  words,
+  setWords,
+  isWordSaved,
+}: WordModalProps) => {
   const [page, setPage] = useState(0);
   const [_notification, setNotification] = useContext(NotificationContext);
 
@@ -34,7 +53,7 @@ const WordModal = ({ meanings, word }: WordModalProps) => {
   const decPage = () => setPage(page - 1);
   const incPage = () => setPage(page + 1);
 
-  // TODO have to keep state of all of user saved-words so as to keep track of if this word is already saved.
+  // TODO Use function that doesn't just save => pressing on heart should toggle whether word is saved
   const handleSave = async (event: FormEvent) => {
     event.preventDefault();
     try {
@@ -49,6 +68,13 @@ const WordModal = ({ meanings, word }: WordModalProps) => {
           type: "success",
           message: "Word saved successfully!",
         });
+
+        // Update words in state and localStorage
+        setWords(words?.concat(word!));
+        const localWords = localStorage.getItem("words") || "";
+        const parsedWords = JSON.parse(localWords);
+        parsedWords.push(word);
+        localStorage.setItem("words", JSON.stringify(parsedWords));
       } else {
         setNotification({
           type: "error",
@@ -63,20 +89,16 @@ const WordModal = ({ meanings, word }: WordModalProps) => {
     }
   };
 
-  const saveButton = (
-    <button
-      onClick={handleSave}
-      className="absolute top-10 text-white -right-16 bg-slate-600 p-2 rounded transition-colors hover:bg-slate-700"
-    >
-      Save
-    </button>
-  );
-
   return (
     <div className="absolute top-32 bg-white rounded max-w-lg inset-x-0 mx-auto p-8 drop-shadow-md">
       <div className="relative flex flex-col text-gray-500">
+        <FontAwesomeIcon
+          fontSize={24}
+          cursor="pointer"
+          onClick={handleSave}
+          icon={isWordSaved ? solidHeart : emptyHeart}
+        />
         <span className="text-xl font-semibold capitalize">{word}</span>
-        {saveButton}
         <label className="text-lg font-semibold">Definitions</label>
         {definitions}
         {pageData.synonyms.length ? (

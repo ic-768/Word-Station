@@ -6,6 +6,7 @@ import { NotificationContext } from "../context/notification";
 import Notification, {
   NotificationProps,
 } from "../components/Notification/Notification";
+import { WordsContext } from "../context/words";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -17,6 +18,7 @@ type AppPropsWithLayout = AppProps & {
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const [notification, setNotification] = useState<NotificationProps | null>();
+  const [words, setWords] = useState<string[]>();
 
   useEffect(() => {
     if (notification) {
@@ -33,9 +35,11 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         <Notification type={notification.type} message={notification.message} />
       )}
 
-      <NotificationContext.Provider value={[notification, setNotification]}>
-        {getLayout(<Component {...pageProps} />)}
-      </NotificationContext.Provider>
+      <WordsContext.Provider value={[words, setWords]}>
+        <NotificationContext.Provider value={[notification, setNotification]}>
+          {getLayout(<Component {...pageProps} />)}
+        </NotificationContext.Provider>
+      </WordsContext.Provider>
     </>
   );
 }

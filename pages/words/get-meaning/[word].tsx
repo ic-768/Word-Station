@@ -1,4 +1,6 @@
 import { ReactElement, useContext, useEffect } from "react";
+import { useRouter } from "next/router";
+
 import GetMeaning from "./index";
 import { GoBackLayout } from "../../../components/Layouts/GoBack";
 import WordModal from "../../../components/WordModal/WordModal";
@@ -6,7 +8,7 @@ import { WordMeanings } from "../../../types/WordData";
 import { getDictionaryReponse } from "../../../utils/api/getDictionaryResponse";
 import { parseDictionaryMeanings } from "../../../utils/api/parseDictionaryMeanings";
 import { NotificationContext } from "../../../context/notification";
-import { useRouter } from "next/router";
+import { WordsContext } from "../../../context/words";
 
 interface WordMeaningProps {
   word: string;
@@ -15,7 +17,22 @@ interface WordMeaningProps {
 
 export default function WordMeaning({ word, wordMeanings }: WordMeaningProps) {
   const [_notification, setNotification] = useContext(NotificationContext);
+  const [words, setWords] = useContext(WordsContext);
   const router = useRouter();
+
+  // if words in context not set, get words from localStorage
+  // TODO extract to hook
+  useEffect(() => {
+    if (!words) {
+      const locallySavedWords = localStorage.getItem("words");
+      if (locallySavedWords) {
+        const wordArray = JSON.parse(locallySavedWords);
+        setWords(wordArray);
+      }
+    }
+  }, [words, setWords]);
+
+  const isWordSaved = words?.includes(word);
 
   useEffect(() => {
     if (wordMeanings.error) {
@@ -31,7 +48,13 @@ export default function WordMeaning({ word, wordMeanings }: WordMeaningProps) {
   return (
     <>
       <GetMeaning />
-      <WordModal meanings={wordMeanings} word={word} />
+      <WordModal
+        meanings={wordMeanings}
+        word={word}
+        words={words}
+        setWords={setWords}
+        isWordSaved={isWordSaved}
+      />
     </>
   );
 }
