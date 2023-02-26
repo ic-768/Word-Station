@@ -1,5 +1,5 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMemo } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBan,
   faCheck,
@@ -13,31 +13,34 @@ export interface NotificationProps {
   message: string;
 }
 
+type NotificationStyle = [icon: IconProp, fgColor: string, bgColor: string];
+
 const Notification = ({
   type = "informational",
   message,
 }: NotificationProps) => {
-  const getStyle = (): [IconProp, string] => {
+  const getStyle = (): NotificationStyle => {
     switch (type) {
       case "success":
-        return [faCheck, "text-green-600"];
+        return [faCheck, "text-green-600", "bg-green-50"];
       case "error":
-        return [faBan, "text-red-600"];
+        return [faBan, "text-red-600", "bg-red-50"];
       case "warning":
-        return [faTriangleExclamation, "text-amber-600"];
+        return [faTriangleExclamation, "text-amber-600", "bg-amber-50"];
       default:
-        return [faInfo, "text-sky-600"];
+        return [faInfo, "text-sky-600", "bg-sky-50"];
     }
   };
 
-  const [icon, color] = useMemo(getStyle, [type]);
+  const [icon, fgColor, bgColor] = useMemo(getStyle, [type]);
 
   return (
     <div
       className={`
       z-10
       drop-shadow-md
-      ${color}
+      ${fgColor}
+      ${bgColor}
       flex
       items-center
       justify-center
