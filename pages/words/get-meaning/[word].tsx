@@ -1,4 +1,4 @@
-import { ReactElement, useContext, useEffect } from "react";
+import { ReactElement, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import GetMeaning from "./index";
@@ -8,31 +8,29 @@ import { WordMeanings } from "../../../types/WordData";
 import { getDictionaryReponse } from "../../../utils/api/getDictionaryResponse";
 import { parseDictionaryMeanings } from "../../../utils/api/parseDictionaryMeanings";
 import { NotificationContext } from "../../../context/notification";
-import { WordsContext } from "../../../context/words";
+import { supabase } from "../../../lib/supabaseClient";
 
 interface WordMeaningProps {
+  words: string[];
   word: string;
   wordMeanings: WordMeanings;
 }
 
-export default function WordMeaning({ word, wordMeanings }: WordMeaningProps) {
+export default function WordMeaning({
+  words,
+  word,
+  wordMeanings,
+}: WordMeaningProps) {
   const [_notification, setNotification] = useContext(NotificationContext);
-  const [words, setWords] = useContext(WordsContext);
-  const router = useRouter();
 
-  // if words in context not set, get words from localStorage
-  // TODO extract to hook
+  // initialized based on getServerSideProps - can then be updated locally
+  const [wordSaved, setWordSaved] = useState(words?.includes(word));
+
   useEffect(() => {
-    if (!words) {
-      const locallySavedWords = localStorage.getItem("words");
-      if (locallySavedWords) {
-        const wordArray = JSON.parse(locallySavedWords);
-        setWords(wordArray);
-      }
-    }
-  }, [words, setWords]);
+    setWordSaved(words?.includes(word));
+  }, [words, word]);
 
-  const isWordSaved = words?.includes(word);
+  const router = useRouter();
 
   useEffect(() => {
     if (wordMeanings.error) {
@@ -51,9 +49,8 @@ export default function WordMeaning({ word, wordMeanings }: WordMeaningProps) {
       <WordModal
         meanings={wordMeanings}
         word={word}
-        words={words}
-        setWords={setWords}
-        isWordSaved={isWordSaved}
+        wordSaved={wordSaved}
+        setIsWordSaved={setWordSaved}
       />
     </>
   );
@@ -69,5 +66,8 @@ export const getServerSideProps = async (context: any) => {
   const dictionaryResult = await getDictionaryReponse(word);
   const meanings = parseDictionaryMeanings(dictionaryResult);
 
-  return { props: { word, wordMeanings: meanings } };
+  let { data } = await supabase.from("words").select();
+  const words = data?.map((d) => d.name);
+
+  return { props: { words, word, wordMeanings: meanings } };
 };

@@ -10,7 +10,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquarePlus } from "@fortawesome/free-regular-svg-icons";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { supabase } from "../../lib/supabaseClient";
-import { WordsContext } from "../../context/words";
 
 interface WordsProps {
   wordData: { id: number; name: string }[];
@@ -18,26 +17,11 @@ interface WordsProps {
 
 export default function Words({ wordData }: WordsProps) {
   // alphabetize words fetched from server
-  const fetchedWords = useMemo(
-    () => wordData.map((d) => d.name).sort(),
-    [wordData]
-  );
-  // keep track of user's saved words in ctx
-  const [words, setWords] = useContext(WordsContext);
+  const words = useMemo(() => wordData.map((d) => d.name).sort(), [wordData]);
 
   // for filtering words
   const [filter, setFilter] = useState("");
   const [filteredWords, setFilteredWords] = useState(words);
-
-  // update user's words
-  useEffect(() => {
-    if (fetchedWords) setWords(fetchedWords);
-  }, [fetchedWords, setWords]);
-
-  // update local storage
-  useEffect(() => {
-    if (words) localStorage.setItem("words", JSON.stringify(words));
-  }, [words]);
 
   // update filtered words
   useEffect(() => {

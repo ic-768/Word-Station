@@ -17,15 +17,14 @@ interface WordModalProps {
   meanings: WordMeanings;
   word?: string;
   words?: string[];
-  setWords: Dispatch<SetStateAction<string[] | undefined>>;
-  isWordSaved?: boolean;
+  wordSaved?: boolean;
+  setIsWordSaved: Dispatch<SetStateAction<boolean>>;
 }
 const WordModal = ({
   meanings,
   word,
-  words,
-  setWords,
-  isWordSaved,
+  wordSaved,
+  setIsWordSaved,
 }: WordModalProps) => {
   const [page, setPage] = useState(0);
   const [_notification, setNotification] = useContext(NotificationContext);
@@ -68,13 +67,7 @@ const WordModal = ({
           type: "success",
           message: "Word saved successfully!",
         });
-
-        // Update words in state and localStorage
-        setWords(words?.concat(word!));
-        const localWords = localStorage.getItem("words") || "";
-        const parsedWords = JSON.parse(localWords);
-        parsedWords.push(word);
-        localStorage.setItem("words", JSON.stringify(parsedWords));
+        setIsWordSaved(true);
       } else {
         setNotification({
           type: "error",
@@ -96,7 +89,7 @@ const WordModal = ({
           fontSize={24}
           cursor="pointer"
           onClick={handleSave}
-          icon={isWordSaved ? solidHeart : emptyHeart}
+          icon={wordSaved ? solidHeart : emptyHeart}
         />
         <span className="text-xl font-semibold capitalize">{word}</span>
         <label className="text-lg font-semibold">Definitions</label>
