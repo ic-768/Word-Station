@@ -24,10 +24,10 @@ export default function WordMeaning({
   const [_notification, setNotification] = useContext(NotificationContext);
 
   // initialized based on getServerSideProps - can then be updated locally
-  const [wordSaved, setWordSaved] = useState(words?.includes(word));
+  const [isWordSaved, setIsWordSaved] = useState(words?.includes(word));
 
   useEffect(() => {
-    setWordSaved(words?.includes(word));
+    setIsWordSaved(words?.includes(word));
   }, [words, word]);
 
   const router = useRouter();
@@ -49,8 +49,8 @@ export default function WordMeaning({
       <WordModal
         meanings={wordMeanings}
         word={word}
-        wordSaved={wordSaved}
-        setIsWordSaved={setWordSaved}
+        isWordSaved={isWordSaved}
+        setIsWordSaved={setIsWordSaved}
       />
     </>
   );

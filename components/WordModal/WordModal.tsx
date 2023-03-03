@@ -17,13 +17,13 @@ interface WordModalProps {
   meanings: WordMeanings;
   word?: string;
   words?: string[];
-  wordSaved?: boolean;
+  isWordSaved?: boolean;
   setIsWordSaved: Dispatch<SetStateAction<boolean>>;
 }
 const WordModal = ({
   meanings,
   word,
-  wordSaved,
+  isWordSaved,
   setIsWordSaved,
 }: WordModalProps) => {
   const [page, setPage] = useState(0);
@@ -89,7 +89,7 @@ const WordModal = ({
           fontSize={24}
           cursor="pointer"
           onClick={handleSave}
-          icon={wordSaved ? solidHeart : emptyHeart}
+          icon={isWordSaved ? solidHeart : emptyHeart}
         />
         <span className="text-xl font-semibold capitalize">{word}</span>
         <label className="text-lg font-semibold">Definitions</label>

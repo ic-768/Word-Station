@@ -1,2 +1,2 @@
 - Currently saving whole API response to json. Eventually give user choice of which definitions/synonyms/pages of the response to save.
-- Allow deleting words => have to keep track of user words => when navigating to a word page, we can see if it exists in user DB. If yes, add label to delete
+- Allow deleting words
