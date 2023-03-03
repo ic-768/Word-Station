@@ -8,26 +8,26 @@ import { WordMeanings } from "../../../types/WordData";
 import { getDictionaryReponse } from "../../../utils/api/getDictionaryResponse";
 import { parseDictionaryMeanings } from "../../../utils/api/parseDictionaryMeanings";
 import { NotificationContext } from "../../../context/notification";
-import { supabase } from "../../../lib/supabaseClient";
+import { UserWordsContext } from "../../../context/user-words";
 
-interface WordMeaningProps {
-  words: string[];
-  word: string;
-}
-
-export default function WordMeaning({ words, word }: WordMeaningProps) {
-  const router = useRouter();
+export default function WordMeaning() {
+  const [userWords, _setUserWords] = useContext(UserWordsContext);
   const [_notification, setNotification] = useContext(NotificationContext);
+
+  const [word, setWord] = useState("");
   const [wordMeanings, setWordMeanings] = useState<WordMeanings>();
 
   // initialized based on getServerSideProps - can then be updated locally
-  const [isWordSaved, setIsWordSaved] = useState(words?.includes(word));
+  const [isWordSaved, setIsWordSaved] = useState(userWords.includes(word));
+
+  const router = useRouter();
 
   // set word based on url param
   useEffect(() => {
     if (router.query) {
       (async () => {
         const { word } = router.query;
+        setWord(word as string);
         const dictionaryResult = await getDictionaryReponse(word as string);
         const meanings = parseDictionaryMeanings(dictionaryResult);
         setWordMeanings(meanings);
@@ -37,8 +37,8 @@ export default function WordMeaning({ words, word }: WordMeaningProps) {
 
   // is word already saved by user?
   useEffect(() => {
-    setIsWordSaved(words?.includes(word));
-  }, [words, word]);
+    setIsWordSaved(userWords.includes(word));
+  }, [userWords, word]);
 
   // if word couldn't be found, redirect back
   useEffect(() => {
@@ -69,11 +69,4 @@ export default function WordMeaning({ words, word }: WordMeaningProps) {
 
 WordMeaning.getLayout = function getLayout(page: ReactElement) {
   return <GoBackLayout>{page}</GoBackLayout>;
-};
-
-export const getServerSideProps = async () => {
-  let { data } = await supabase.from("words").select();
-  const words = data?.map((d) => d.name);
-
-  return { props: { words } };
 };

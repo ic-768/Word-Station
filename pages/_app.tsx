@@ -1,11 +1,14 @@
 import { NextPage } from "next";
 import type { AppProps } from "next/app";
 import { ReactElement, ReactNode, useEffect, useState } from "react";
-import "../styles/globals.css";
+
 import { NotificationContext } from "../context/notification";
 import Notification, {
   NotificationProps,
 } from "../components/Notification/Notification";
+import { UserWordsContext } from "../context/user-words";
+
+import "../styles/globals.css";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -17,6 +20,7 @@ type AppPropsWithLayout = AppProps & {
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const [notification, setNotification] = useState<NotificationProps | null>();
+  const [userWords, setUserWords] = useState<string[]>([]);
   const [words, setWords] = useState<string[]>();
 
   useEffect(() => {
@@ -34,9 +38,11 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         <Notification type={notification.type} message={notification.message} />
       )}
 
-      <NotificationContext.Provider value={[notification, setNotification]}>
-        {getLayout(<Component {...pageProps} />)}
-      </NotificationContext.Provider>
+      <UserWordsContext.Provider value={[userWords, setUserWords]}>
+        <NotificationContext.Provider value={[notification, setNotification]}>
+          {getLayout(<Component {...pageProps} />)}
+        </NotificationContext.Provider>
+      </UserWordsContext.Provider>
     </>
   );
 }

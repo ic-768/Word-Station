@@ -1,34 +1,38 @@
-import {
-  ChangeEventHandler,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { ChangeEventHandler, useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquarePlus } from "@fortawesome/free-regular-svg-icons";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { supabase } from "../../lib/supabaseClient";
+import { getUserWords } from "../api/word/get-user-words";
+import { UserWordsContext } from "../../context/user-words";
 
-interface WordsProps {
-  wordData: { id: number; name: string }[];
-}
-
-export default function Words({ wordData }: WordsProps) {
-  // alphabetize words fetched from server
-  const words = useMemo(() => wordData.map((d) => d.name).sort(), [wordData]);
+export default function Words() {
+  const [_userWords, setUserWords] = useContext(UserWordsContext);
 
   // for filtering words
   const [filter, setFilter] = useState("");
-  const [filteredWords, setFilteredWords] = useState(words);
+  const [filteredWords, setFilteredWords] = useState<string[]>();
 
-  // update filtered words
+  // fetch user's words
   useEffect(() => {
-    setFilteredWords(
-      words?.filter((w) => w.toLowerCase().includes(filter.toLowerCase()))
-    );
-  }, [words, filter]);
+    (async () => {
+      const response = await getUserWords();
+      if (response.data) {
+        const sortedWords = response.data.map((d) => d.name).sort();
+        // set user words context
+        setUserWords(sortedWords);
+        console.log(sortedWords);
+        // set filtered words for display
+        setFilteredWords(
+          sortedWords?.filter((w) =>
+            w.toLowerCase().includes(filter.toLowerCase())
+          )
+        );
+      } else {
+        // TODO set error
+      }
+    })();
+  }, [filter, setUserWords]);
 
   if (!filteredWords) return null;
 
@@ -80,14 +84,4 @@ export default function Words({ wordData }: WordsProps) {
       </section>
     </div>
   );
-}
-
-export async function getServerSideProps() {
-  let { data } = await supabase.from("words").select();
-
-  return {
-    props: {
-      wordData: data,
-    },
-  };
 }
