@@ -13,27 +13,36 @@ import { supabase } from "../../../lib/supabaseClient";
 interface WordMeaningProps {
   words: string[];
   word: string;
-  wordMeanings: WordMeanings;
 }
 
-export default function WordMeaning({
-  words,
-  word,
-  wordMeanings,
-}: WordMeaningProps) {
+export default function WordMeaning({ words, word }: WordMeaningProps) {
+  const router = useRouter();
   const [_notification, setNotification] = useContext(NotificationContext);
+  const [wordMeanings, setWordMeanings] = useState<WordMeanings>();
 
   // initialized based on getServerSideProps - can then be updated locally
   const [isWordSaved, setIsWordSaved] = useState(words?.includes(word));
 
+  // set word based on url param
+  useEffect(() => {
+    if (router.query) {
+      (async () => {
+        const { word } = router.query;
+        const dictionaryResult = await getDictionaryReponse(word as string);
+        const meanings = parseDictionaryMeanings(dictionaryResult);
+        setWordMeanings(meanings);
+      })();
+    }
+  }, [router.query]);
+
+  // is word already saved by user?
   useEffect(() => {
     setIsWordSaved(words?.includes(word));
   }, [words, word]);
 
-  const router = useRouter();
-
+  // if word couldn't be found, redirect back
   useEffect(() => {
-    if (wordMeanings.error) {
+    if (wordMeanings?.error) {
       setNotification({
         type: "error",
         message: "Couldn't find that word!",
@@ -46,12 +55,14 @@ export default function WordMeaning({
   return (
     <>
       <GetMeaning />
-      <WordModal
-        meanings={wordMeanings}
-        word={word}
-        isWordSaved={isWordSaved}
-        setIsWordSaved={setIsWordSaved}
-      />
+      {wordMeanings && (
+        <WordModal
+          meanings={wordMeanings}
+          word={word}
+          isWordSaved={isWordSaved}
+          setIsWordSaved={setIsWordSaved}
+        />
+      )}
     </>
   );
 }
@@ -60,14 +71,9 @@ WordMeaning.getLayout = function getLayout(page: ReactElement) {
   return <GoBackLayout>{page}</GoBackLayout>;
 };
 
-export const getServerSideProps = async (context: any) => {
-  // Fetch data from the server based on the route
-  const word = context.params.word;
-  const dictionaryResult = await getDictionaryReponse(word);
-  const meanings = parseDictionaryMeanings(dictionaryResult);
-
+export const getServerSideProps = async () => {
   let { data } = await supabase.from("words").select();
   const words = data?.map((d) => d.name);
 
-  return { props: { words, word, wordMeanings: meanings } };
+  return { props: { words } };
 };
