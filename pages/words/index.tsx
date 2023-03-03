@@ -7,32 +7,34 @@ import { getUserWords } from "../api/word/get-user-words";
 import { UserWordsContext } from "../../context/user-words";
 
 export default function Words() {
-  const [_userWords, setUserWords] = useContext(UserWordsContext);
+  // list of user-saved words
+  const [userWords, setUserWords] = useContext(UserWordsContext);
 
   // for filtering words
   const [filter, setFilter] = useState("");
   const [filteredWords, setFilteredWords] = useState<string[]>();
 
-  // fetch user's words
+  // fetch user's words and alphabetize
   useEffect(() => {
     (async () => {
       const response = await getUserWords();
-      if (response.data) {
-        const sortedWords = response.data.map((d) => d.name).sort();
-        // set user words context
+      const data = response.data;
+      if (data) {
+        const sortedWords = data.map((d) => d.name).sort();
+        // update user words context
         setUserWords(sortedWords);
-        console.log(sortedWords);
-        // set filtered words for display
-        setFilteredWords(
-          sortedWords?.filter((w) =>
-            w.toLowerCase().includes(filter.toLowerCase())
-          )
-        );
       } else {
         // TODO set error
       }
     })();
-  }, [filter, setUserWords]);
+  }, [setUserWords]);
+
+  // filter
+  useEffect(() => {
+    setFilteredWords(
+      userWords.filter((w) => w.toLowerCase().includes(filter.toLowerCase()))
+    );
+  }, [filter, userWords, setUserWords]);
 
   if (!filteredWords) return null;
 
