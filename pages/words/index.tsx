@@ -42,41 +42,41 @@ export default function Words() {
     setFilter(e.target.value);
 
   return (
-    <div className="h-screen w-screen flex flex-col items-center relative">
-      <div className="flex items-center content-center gap-4 my-10">
+    <div className="relative flex flex-col items-center w-screen h-screen">
+      <div className="flex items-center content-center my-10 gap-4">
         <div className="flex flex-col width-max">
           <label>Filter words</label>
-          <div className="flex items-center gap-1 bg-white rounded-md focus-within:ring focus-within:ring-indigo-500 ">
+          <div className="flex items-center bg-white gap-1 rounded-md focus-within:ring focus-within:ring-indigo-500">
             <input
               onChange={onChangeFilter}
-              className="focus:outline-none transition-shadow py-2 px-4 leading-5 appearance-none bg-transparent text-black"
+              className="px-4 py-2 text-black bg-transparent appearance-none focus:outline-none transition-shadow leading-5"
             />
             <FontAwesomeIcon
               icon={faMagnifyingGlass}
-              className="text-black mx-2"
+              className="mx-2 text-black"
             />
           </div>
         </div>
         <div className="flex flex-col">
           <label>Add new word</label>
           <Link
-            className="text-neutral-900 text-4xl hover:text-blue-600 transition-colors"
+            className="text-4xl text-neutral-900 hover:text-blue-600 transition-colors"
             href="words/get-meaning"
           >
             <FontAwesomeIcon icon={faSquarePlus} />
           </Link>
         </div>
       </div>
-      <section className="h-screen w-screen p-8 overflow-x-auto h-4/5">
-        <div className="grid justify-center grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-6 gap-5 lg:gap-7">
+      <section className="w-screen h-screen p-8 overflow-x-auto h-4/5">
+        <div className="justify-center grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-6 gap-5 lg:gap-7">
           {filteredWords.map((w) => (
             <div
               key={w}
-              className="flex flex-col items-center content-center bg-white rounded-lg border shadow-md "
+              className="flex flex-col items-center content-center bg-white border rounded-lg shadow-md"
             >
               <Link
                 href={`words/get-meaning/${w}`}
-                className="p-3 text-neutral-900 text-center pointer hover:text-blue-600 w-full"
+                className="w-full p-3 text-center text-neutral-900 pointer hover:text-blue-600"
               >
                 {w}
               </Link>

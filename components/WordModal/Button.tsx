@@ -8,7 +8,7 @@ interface ButtonProps {
 
 const Button = ({ text, callback, className }: ButtonProps) => (
   <button
-    className={`bg-slate-600 p-2 rounded w-24 ${className} transition-colors hover:bg-slate-700 `}
+    className={`w-24 p-2 rounded bg-slate-600 ${className} transition-colors hover:bg-slate-700`}
     onClick={callback}
   >
     {text}

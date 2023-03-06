@@ -27,9 +27,9 @@ export default function GetMeaning() {
 
   return (
     <>
-      <form onSubmit={onChooseWord} className="mx-auto max-w-lg mt-12">
+      <form onSubmit={onChooseWord} className="max-w-lg mx-auto mt-12">
         <label
-          className="block font-bold mb-2 text-gray-700 text-sm uppercase"
+          className="block mb-2 text-sm font-bold text-gray-700 uppercase"
           htmlFor="input"
         >
           Search for a word
@@ -47,7 +47,7 @@ export default function GetMeaning() {
           />
 
           <button
-            className="absolute px-8 py-1 bg-indigo-400 hover:bg-indigo-500 text-white rounded right-1 font-bold"
+            className="absolute px-8 py-1 font-bold text-white bg-indigo-400 rounded hover:bg-indigo-500 right-1"
             type="submit"
           >
             <FontAwesomeIcon icon={faMagnifyingGlass} />

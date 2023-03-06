@@ -34,7 +34,7 @@ const WordModal = ({
   if (!pageData) return null;
 
   const definitions = (
-    <ul className="list-disc ml-8">
+    <ul className="ml-8 list-disc">
       {pageData.definitions.map((d) => (
         <li key={d.definition}>{d.definition}</li>
       ))}
@@ -42,7 +42,7 @@ const WordModal = ({
   );
 
   const synonyms = (
-    <ul className="list-disc list-inside ml-8 max-h-64 overflow-y-auto">
+    <ul className="ml-8 overflow-y-auto list-disc list-inside max-h-64">
       {pageData.synonyms.map((s) => (
         <li key={s}>{s}</li>
       ))}
@@ -83,7 +83,7 @@ const WordModal = ({
   };
 
   return (
-    <div className="absolute top-32 bg-white rounded max-w-lg inset-x-0 mx-auto p-8 drop-shadow-md">
+    <div className="absolute inset-x-0 max-w-lg p-8 mx-auto bg-white rounded top-32 drop-shadow-md">
       <div className="relative flex flex-col text-gray-500">
         <FontAwesomeIcon
           fontSize={24}
@@ -101,7 +101,7 @@ const WordModal = ({
           </>
         ) : null}
 
-        <div className="flex text-white mt-6 w-72 mx-auto">
+        <div className="flex mx-auto mt-6 text-white w-72">
           {page !== 0 && (
             <Button text={"Previous"} callback={decPage} className="mr-auto" />
           )}

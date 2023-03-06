@@ -36,21 +36,7 @@ const Notification = ({
 
   return (
     <div
-      className={`
-      z-10
-      drop-shadow-md
-      ${fgColor}
-      ${bgColor}
-      flex
-      items-center
-      justify-center
-      rounded-md
-      absolute
-      bg-white absolute flex items-center inset-0 px-8 py-2
-      mx-auto min-h-[60px] max-h-[10vh] min-w-[300px] max-w-[35vw]
-      animation-fill-forwards
-      animate-slide-notification-in
-      `}
+      className={`absolute inset-0 z-10 flex items-center justify-center px-8 py-2 mx-auto bg-white drop-shadow-md ${fgColor} ${bgColor} rounded-md min-h-[60px] max-h-[10vh] min-w-[300px] max-w-[35vw] animation-fill-forwards animate-slide-notification-in`}
     >
       <FontAwesomeIcon icon={icon} className="absolute text-4xl left-8" />
       {message}
