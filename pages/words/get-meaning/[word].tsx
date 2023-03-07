@@ -17,7 +17,6 @@ export default function WordMeaning() {
   const [word, setWord] = useState("");
   const [wordMeanings, setWordMeanings] = useState<WordMeanings>();
 
-  // initialized based on getServerSideProps - can then be updated locally
   const [isWordSaved, setIsWordSaved] = useState(userWords.includes(word));
 
   const router = useRouter();

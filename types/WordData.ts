@@ -1,7 +1,7 @@
 /**
  * Upon successful API request for a word, we parse the data and return an array of objects like this
  */
-interface ParsedWordData {
+export interface ParsedWordData {
   definitions: {
     definition: string;
     example: string;

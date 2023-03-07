@@ -1,21 +1,19 @@
-import {
-  Dispatch,
-  FormEvent,
-  SetStateAction,
-  useContext,
-  useState,
-} from "react";
+import { Dispatch, SetStateAction, useContext, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
 
 import { NotificationContext } from "../../context/notification";
 import { WordMeanings } from "../../types/WordData";
-import Button from "./Button";
+import { PageButtons } from "./PageButtons";
+import { PageCounter } from "./PageCounter";
+import { DefinitionsList } from "./DefinitionsList";
+import { SynonymsList } from "./SynonymsList";
+import { handleAPICall } from "./helpers";
 
 interface WordModalProps {
   meanings: WordMeanings;
-  word?: string;
+  word: string;
   isWordSaved?: boolean;
   setIsWordSaved: Dispatch<SetStateAction<boolean>>;
 }
@@ -33,80 +31,27 @@ const WordModal = ({
 
   if (!pageData) return null;
 
-  const definitions = (
-    <ul className="ml-8 list-disc">
-      {pageData.definitions.map((d) => (
-        <li key={d.definition}>{d.definition}</li>
-      ))}
-    </ul>
-  );
+  const handleSave = async () =>
+    await handleAPICall(
+      word,
+      "save-word",
+      "POST",
+      "Word saved successfully!",
+      "Word is already saved",
+      setNotification,
+      setIsWordSaved
+    );
 
-  const synonyms = (
-    <ul className="ml-8 overflow-y-auto list-disc list-inside max-h-64">
-      {pageData.synonyms.map((s) => (
-        <li key={s}>{s}</li>
-      ))}
-    </ul>
-  );
-
-  const decPage = () => setPage(page - 1);
-  const incPage = () => setPage(page + 1);
-
-  const handleSave = async (event: FormEvent) => {
-    event.preventDefault();
-    try {
-      const response = await fetch("/api/word/save-word", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(word),
-      });
-
-      if (response.ok) {
-        setNotification({
-          type: "success",
-          message: "Word saved successfully!",
-        });
-        setIsWordSaved(true);
-      } else {
-        setNotification({
-          type: "error",
-          message: "Word is already saved!",
-        });
-      }
-    } catch {
-      setNotification({
-        type: "error",
-        message: "Oops! something went wrong.",
-      });
-    }
-  };
-
-  const handleDelete = async () => {
-    try {
-      const response = await fetch("/api/word/delete-word", {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(word),
-      });
-      if (response.ok) {
-        setNotification({
-          type: "success",
-          message: "Word removed successfully!",
-        });
-        setIsWordSaved(false);
-      } else {
-        setNotification({
-          type: "error",
-          message: "Something went wrong!",
-        });
-      }
-    } catch {
-      setNotification({
-        type: "error",
-        message: "Oops! something went wrong.",
-      });
-    }
-  };
+  const handleDelete = async () =>
+    await handleAPICall(
+      word,
+      "delete-word",
+      "DELETE",
+      "Word removed successfully!",
+      "Something went wrong",
+      setNotification,
+      setIsWordSaved
+    );
 
   return (
     <div className="absolute inset-x-0 max-w-lg p-8 mx-auto bg-white rounded top-32 drop-shadow-md">
@@ -119,26 +64,11 @@ const WordModal = ({
         />
 
         <span className="text-xl font-semibold capitalize">{word}</span>
-        <label className="text-lg font-semibold">Definitions</label>
-        {definitions}
-        {pageData.synonyms.length ? (
-          <>
-            <label className="text-lg font-semibold">Synonyms</label>
-            {synonyms}
-          </>
-        ) : null}
+        <DefinitionsList pageData={pageData} />
+        <SynonymsList pageData={pageData} />
 
-        <div className="flex mx-auto mt-6 text-white w-72">
-          {page !== 0 && (
-            <Button text={"Previous"} callback={decPage} className="mr-auto" />
-          )}
-          {page !== meanings.length - 1 && (
-            <Button text={"Next"} callback={incPage} className="ml-auto" />
-          )}
-        </div>
-        <div>
-          {page + 1}/{meanings.length}
-        </div>
+        <PageButtons page={page} numPages={meanings.length} setPage={setPage} />
+        <PageCounter page={page} numPages={meanings.length} />
       </div>
     </div>
   );
