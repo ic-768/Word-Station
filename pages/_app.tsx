@@ -7,9 +7,9 @@ import Notification, {
   NotificationProps,
 } from "../components/Notification/Notification";
 import { UserWordsContext } from "../context/user-words";
+import { getUserWords } from "./api/word/get-user-words";
 
 import "../styles/globals.css";
-import { getUserWords } from "./api/word/get-user-words";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -39,6 +39,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
     })();
   }, []);
 
+  // remove notifications after a fixed amount of time
   useEffect(() => {
     if (notification) {
       setTimeout(() => {

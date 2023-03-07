@@ -9,6 +9,7 @@ import { getDictionaryReponse } from "../../../utils/api/getDictionaryResponse";
 import { parseDictionaryMeanings } from "../../../utils/api/parseDictionaryMeanings";
 import { NotificationContext } from "../../../context/notification";
 import { UserWordsContext } from "../../../context/user-words";
+import MeaningSearch from "../../../components/MeaningSearch/MeaningSearch";
 
 export default function WordMeaning() {
   const [userWords, _setUserWords] = useContext(UserWordsContext);
@@ -53,7 +54,7 @@ export default function WordMeaning() {
 
   return (
     <>
-      <GetMeaning />
+      <MeaningSearch />
       {wordMeanings && (
         <WordModal
           meanings={wordMeanings}
