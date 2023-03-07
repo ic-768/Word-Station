@@ -1,15 +1,14 @@
-import { Dispatch, SetStateAction, useContext, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
 
-import { NotificationContext } from "../../context/notification";
 import { WordMeanings } from "../../types/WordData";
 import { PageButtons } from "./PageButtons";
 import { PageCounter } from "./PageCounter";
 import { DefinitionsList } from "./DefinitionsList";
 import { SynonymsList } from "./SynonymsList";
-import { handleAPICall } from "./helpers";
+import { useWordCRUD } from "./hooks";
 
 interface WordModalProps {
   meanings: WordMeanings;
@@ -25,32 +24,29 @@ const WordModal = ({
   setIsWordSaved,
 }: WordModalProps) => {
   const [page, setPage] = useState(0);
-  const [_notification, setNotification] = useContext(NotificationContext);
-
+  const wordCRUD = useWordCRUD();
   const pageData = meanings[page];
 
   if (!pageData) return null;
 
   const handleSave = async () =>
-    await handleAPICall(
+    await wordCRUD(
       word,
       "save-word",
       "POST",
       "Word saved successfully!",
       "Word is already saved",
-      setNotification,
-      setIsWordSaved
+      () => setIsWordSaved(true)
     );
 
   const handleDelete = async () =>
-    await handleAPICall(
+    await wordCRUD(
       word,
       "delete-word",
       "DELETE",
       "Word removed successfully!",
       "Something went wrong",
-      setNotification,
-      setIsWordSaved
+      () => setIsWordSaved(false)
     );
 
   return (
