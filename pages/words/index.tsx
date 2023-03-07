@@ -3,38 +3,22 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquarePlus } from "@fortawesome/free-regular-svg-icons";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { getUserWords } from "../api/word/get-user-words";
 import { UserWordsContext } from "../../context/user-words";
 
 export default function Words() {
   // list of user-saved words
-  const [userWords, setUserWords] = useContext(UserWordsContext);
+  const [userWords, _setUserWords] = useContext(UserWordsContext);
 
   // for filtering words
   const [filter, setFilter] = useState("");
   const [filteredWords, setFilteredWords] = useState<string[]>();
-
-  // fetch user's words and alphabetize
-  useEffect(() => {
-    (async () => {
-      const response = await getUserWords();
-      const data = response.data;
-      if (data) {
-        const sortedWords = data.map((d) => d.name).sort();
-        // update user words context
-        setUserWords(sortedWords);
-      } else {
-        // TODO set error
-      }
-    })();
-  }, [setUserWords]);
 
   // filter
   useEffect(() => {
     setFilteredWords(
       userWords.filter((w) => w.toLowerCase().includes(filter.toLowerCase()))
     );
-  }, [filter, userWords, setUserWords]);
+  }, [filter, userWords]);
 
   if (!filteredWords) return null;
 
@@ -67,7 +51,7 @@ export default function Words() {
           </Link>
         </div>
       </div>
-      <section className="w-screen h-screen p-8 overflow-x-auto h-4/5">
+      <section className="w-screen p-8 overflow-x-auto h-4/5">
         <div className="justify-center grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-6 gap-5 lg:gap-7">
           {filteredWords.map((w) => (
             <div

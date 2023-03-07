@@ -9,6 +9,7 @@ import Notification, {
 import { UserWordsContext } from "../context/user-words";
 
 import "../styles/globals.css";
+import { getUserWords } from "./api/word/get-user-words";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -20,8 +21,23 @@ type AppPropsWithLayout = AppProps & {
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const [notification, setNotification] = useState<NotificationProps | null>();
+  // list of user-saved words
   const [userWords, setUserWords] = useState<string[]>([]);
-  const [words, setWords] = useState<string[]>();
+
+  // fetch user's words and alphabetize
+  useEffect(() => {
+    (async () => {
+      const response = await getUserWords();
+      const data = response.data;
+      if (data) {
+        const sortedWords = data.map((d) => d.name).sort();
+        // update user words context
+        setUserWords(sortedWords);
+      } else {
+        // TODO set error
+      }
+    })();
+  }, [setUserWords]);
 
   useEffect(() => {
     if (notification) {

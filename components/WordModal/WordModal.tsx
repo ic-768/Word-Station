@@ -16,10 +16,11 @@ import Button from "./Button";
 interface WordModalProps {
   meanings: WordMeanings;
   word?: string;
-  words?: string[];
   isWordSaved?: boolean;
   setIsWordSaved: Dispatch<SetStateAction<boolean>>;
 }
+
+//THOUGHT: could use useEffect to set isWordSaved
 const WordModal = ({
   meanings,
   word,
@@ -82,6 +83,19 @@ const WordModal = ({
     }
   };
 
+  // TODO handle toggle
+  const handleDelete = async () => {
+    try {
+      await fetch("/api/word/delete-word", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(word),
+      });
+    } catch {
+      // TODO catch
+    }
+  };
+
   return (
     <div className="absolute inset-x-0 max-w-lg p-8 mx-auto bg-white rounded top-32 drop-shadow-md">
       <div className="relative flex flex-col text-gray-500">
@@ -91,6 +105,8 @@ const WordModal = ({
           onClick={handleSave}
           icon={isWordSaved ? solidHeart : emptyHeart}
         />
+
+        <button onClick={handleDelete}>DELETE</button>
         <span className="text-xl font-semibold capitalize">{word}</span>
         <label className="text-lg font-semibold">Definitions</label>
         {definitions}
