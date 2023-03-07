@@ -37,7 +37,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         // TODO set error
       }
     })();
-  }, [setUserWords]);
+  }, []);
 
   useEffect(() => {
     if (notification) {

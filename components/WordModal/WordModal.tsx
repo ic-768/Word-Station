@@ -20,7 +20,6 @@ interface WordModalProps {
   setIsWordSaved: Dispatch<SetStateAction<boolean>>;
 }
 
-//THOUGHT: could use useEffect to set isWordSaved
 const WordModal = ({
   meanings,
   word,
@@ -53,7 +52,6 @@ const WordModal = ({
   const decPage = () => setPage(page - 1);
   const incPage = () => setPage(page + 1);
 
-  // TODO Use function that doesn't just save => pressing on heart should toggle whether word is saved
   const handleSave = async (event: FormEvent) => {
     event.preventDefault();
     try {
@@ -83,16 +81,30 @@ const WordModal = ({
     }
   };
 
-  // TODO handle toggle
   const handleDelete = async () => {
     try {
-      await fetch("/api/word/delete-word", {
+      const response = await fetch("/api/word/delete-word", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(word),
       });
+      if (response.ok) {
+        setNotification({
+          type: "success",
+          message: "Word removed successfully!",
+        });
+        setIsWordSaved(false);
+      } else {
+        setNotification({
+          type: "error",
+          message: "Something went wrong!",
+        });
+      }
     } catch {
-      // TODO catch
+      setNotification({
+        type: "error",
+        message: "Oops! something went wrong.",
+      });
     }
   };
 
@@ -102,11 +114,10 @@ const WordModal = ({
         <FontAwesomeIcon
           fontSize={24}
           cursor="pointer"
-          onClick={handleSave}
+          onClick={isWordSaved ? handleDelete : handleSave}
           icon={isWordSaved ? solidHeart : emptyHeart}
         />
 
-        <button onClick={handleDelete}>DELETE</button>
         <span className="text-xl font-semibold capitalize">{word}</span>
         <label className="text-lg font-semibold">Definitions</label>
         {definitions}

@@ -6,7 +6,6 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { UserWordsContext } from "../../context/user-words";
 
 export default function Words() {
-  // list of user-saved words
   const [userWords, _setUserWords] = useContext(UserWordsContext);
 
   // for filtering words
