@@ -51,22 +51,33 @@ const WordModal = ({
       () => setIsWordSaved(false)
     );
 
+  const [onClick, icon] = isWordSaved
+    ? [handleDelete, solidHeart]
+    : [handleSave, emptyHeart];
+
   return (
-    <div className="absolute inset-x-0 max-w-lg p-8 mx-auto bg-white rounded top-32 drop-shadow-md">
-      <div className="relative flex flex-col text-neutral-800">
+    <div className="absolute inset-x-0 max-w-lg p-8 mx-auto bg-white rounded top-32 h-4/6">
+      <div className="relative flex flex-col h-full overflow-y-auto text-neutral-800 max-h-max">
         <FontAwesomeIcon
           fontSize={24}
           cursor="pointer"
-          onClick={isWordSaved ? handleDelete : handleSave}
-          icon={isWordSaved ? solidHeart : emptyHeart}
+          onClick={onClick}
+          icon={icon}
         />
 
         <span className="text-xl font-semibold capitalize">{word}</span>
         <DefinitionsList pageData={pageData} />
         <SynonymsList pageData={pageData} />
 
-        <PageButtons page={page} numPages={meanings.length} setPage={setPage} />
-        <PageCounter page={page} numPages={meanings.length} />
+        {/*TODO this is a footer*/}
+        <div className="sticky bottom-0 pt-4 mt-auto bg-white">
+          <PageButtons
+            page={page}
+            numPages={meanings.length}
+            setPage={setPage}
+          />
+          <PageCounter page={page} numPages={meanings.length} />
+        </div>
       </div>
     </div>
   );

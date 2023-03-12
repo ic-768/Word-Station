@@ -1,2 +1,2 @@
-- Loader and skeleton loaders e.g. for word modal when fetching word
+- Loader and skeleton components for words => fixed height for word modal
 - Different branch for authentication - will be convenient to have a demo-purpose branch that can just log in immediately
