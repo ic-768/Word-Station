@@ -1,2 +1,2 @@
-- Loader
+- Loader and skeleton loaders e.g. for word modal when fetching word
 - Different branch for authentication - will be convenient to have a demo-purpose branch that can just log in immediately

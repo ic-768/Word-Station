@@ -5,10 +5,10 @@ import Link from "next/link";
 /**
  * Button to redirect user to search for a new word
  */
-export const FindNewWordButton = () => (
+const FindNewWordButton = () => (
   <button className="flex flex-col">
     <Link
-      className="flex items-center p-2 text-white bg-green-500 border rounded-lg border-lime-300 transition-colors gap-2 hover:bg-green-600"
+      className="flex items-center p-2 text-white bg-green-600 rounded-lg transition-colors gap-2 hover:bg-green-700"
       href="words/get-meaning"
     >
       <FontAwesomeIcon className="text-xl" icon={faPlus} />
@@ -16,3 +16,5 @@ export const FindNewWordButton = () => (
     </Link>
   </button>
 );
+
+export default FindNewWordButton;

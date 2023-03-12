@@ -7,7 +7,7 @@ interface PageButtonsProps {
   setPage: Dispatch<SetStateAction<number>>;
 }
 
-export const PageButtons = ({ page, numPages, setPage }: PageButtonsProps) => {
+const PageButtons = ({ page, numPages, setPage }: PageButtonsProps) => {
   const incPage = () => setPage(page + 1);
   const decPage = () => setPage(page - 1);
   return (
@@ -21,3 +21,5 @@ export const PageButtons = ({ page, numPages, setPage }: PageButtonsProps) => {
     </div>
   );
 };
+
+export default PageButtons;

@@ -6,7 +6,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 /*
  * User can submit a word in order for the backend to contact the dictionary API, and get the results.
  */
-export default function MeaningSearch() {
+const MeaningSearch = () => {
   const [word, setWord] = useState("");
   const router = useRouter();
 
@@ -47,4 +47,6 @@ export default function MeaningSearch() {
       </form>
     </>
   );
-}
+};
+
+export default MeaningSearch;

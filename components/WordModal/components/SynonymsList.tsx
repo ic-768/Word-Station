@@ -1,6 +1,6 @@
-import { ParsedWordData } from "../../types/WordData";
+import { ParsedWordData } from "../../../types/WordData";
 
-export const SynonymsList = ({ pageData }: { pageData: ParsedWordData }) =>
+const SynonymsList = ({ pageData }: { pageData: ParsedWordData }) =>
   pageData.synonyms.length ? (
     <>
       <label className="text-lg font-semibold">Synonyms</label>
@@ -11,3 +11,5 @@ export const SynonymsList = ({ pageData }: { pageData: ParsedWordData }) =>
       </ul>
     </>
   ) : null;
+
+export default SynonymsList;

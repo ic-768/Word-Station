@@ -1,8 +1,8 @@
 import { ChangeEventHandler, useContext, useEffect, useState } from "react";
 import { UserWordsContext } from "../../context/user-words";
-import { WordList } from "../../components/WordList/WordList";
-import { WordFilter } from "../../components/WordFilter/WordFilter";
-import { FindNewWordButton } from "../../components/FindNewWordButton/FindNewWordButton";
+import WordList from "../../components/WordList";
+import WordFilter from "../../components/WordFilter";
+import FindNewWordButton from "../../components/FindNewWordButton";
 
 export default function Words() {
   const [userWords, _setUserWords] = useContext(UserWordsContext);

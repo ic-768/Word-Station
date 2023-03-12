@@ -1,4 +1,4 @@
-import { NotificationProps } from "./Notification";
+import { NotificationProps } from "../Notification";
 import {
   errorStyle,
   informationalStyle,

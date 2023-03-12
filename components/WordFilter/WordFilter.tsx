@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 /**
  * Input used to filter the user's words
  */
-export const WordFilter = ({
+const WordFilter = ({
   onChangeFilter,
 }: {
   onChangeFilter: ChangeEventHandler<HTMLInputElement>;
@@ -21,3 +21,5 @@ export const WordFilter = ({
     </div>
   </div>
 );
+
+export default WordFilter;

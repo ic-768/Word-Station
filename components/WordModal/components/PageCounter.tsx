@@ -3,8 +3,10 @@ interface PageCounterProps {
   numPages: number;
 }
 
-export const PageCounter = ({ page, numPages }: PageCounterProps) => (
+const PageCounter = ({ page, numPages }: PageCounterProps) => (
   <div>
     {page + 1}/{numPages}
   </div>
 );
+
+export default PageCounter;

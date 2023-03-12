@@ -4,11 +4,13 @@ import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
 
 import { WordMeanings } from "../../types/WordData";
-import { PageButtons } from "./PageButtons";
-import { PageCounter } from "./PageCounter";
-import { DefinitionsList } from "./DefinitionsList";
-import { SynonymsList } from "./SynonymsList";
-import { useWordCRUD } from "./hooks";
+import { useWordCRUD } from "../../hooks";
+import {
+  DefinitionsList,
+  SynonymsList,
+  PageButtons,
+  PageCounter,
+} from "./components";
 
 interface WordModalProps {
   meanings: WordMeanings;
@@ -51,7 +53,7 @@ const WordModal = ({
 
   return (
     <div className="absolute inset-x-0 max-w-lg p-8 mx-auto bg-white rounded top-32 drop-shadow-md">
-      <div className="relative flex flex-col text-gray-500">
+      <div className="relative flex flex-col text-neutral-800">
         <FontAwesomeIcon
           fontSize={24}
           cursor="pointer"

@@ -1,6 +1,6 @@
-import { ParsedWordData } from "../../types/WordData";
+import { ParsedWordData } from "../../../types/WordData";
 
-export const DefinitionsList = ({ pageData }: { pageData: ParsedWordData }) => (
+const DefinitionsList = ({ pageData }: { pageData: ParsedWordData }) => (
   <>
     <label className="text-lg font-semibold">Definitions</label>
     <ul className="ml-8 list-disc">
@@ -10,3 +10,5 @@ export const DefinitionsList = ({ pageData }: { pageData: ParsedWordData }) => (
     </ul>
   </>
 );
+
+export default DefinitionsList;
