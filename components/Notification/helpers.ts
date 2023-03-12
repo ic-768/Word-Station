@@ -1,26 +1,23 @@
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import {
-  faBan,
-  faCheck,
-  faInfo,
-  faTriangleExclamation,
-} from "@fortawesome/free-solid-svg-icons";
-
 import { NotificationProps } from "./Notification";
-
-type NotificationStyle = [icon: IconProp, fgColor: string, bgColor: string];
+import {
+  errorStyle,
+  informationalStyle,
+  NotificationStyle,
+  successStyle,
+  warningStyle,
+} from "./styles";
 
 export const getStyle = (
   type: NotificationProps["type"]
 ): NotificationStyle => {
   switch (type) {
     case "success":
-      return [faCheck, "text-green-600", "bg-green-50"];
+      return successStyle;
     case "error":
-      return [faBan, "text-red-600", "bg-red-50"];
+      return errorStyle;
     case "warning":
-      return [faTriangleExclamation, "text-amber-600", "bg-amber-50"];
+      return warningStyle;
     default:
-      return [faInfo, "text-sky-600", "bg-sky-50"];
+      return informationalStyle;
   }
 };

@@ -1,2 +1,2 @@
-- Currently saving whole API response to json. Eventually give user choice of which definitions/synonyms/pages of the response to save.
+- Loader
 - Different branch for authentication - will be convenient to have a demo-purpose branch that can just log in immediately
