@@ -1,7 +1,6 @@
 import { ReactElement, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-import GetMeaning from "./index";
 import { GoBackLayout } from "../../../components/Layouts/GoBack";
 import WordModal from "../../../components/WordModal/WordModal";
 import { WordMeanings } from "../../../types/WordData";

@@ -22,17 +22,15 @@ export default function MeaningSearch() {
     <>
       <form onSubmit={onChooseWord} className="max-w-lg mx-auto mt-12">
         <label
-          className="block mb-2 text-sm font-bold text-gray-700 uppercase"
+          className="block mb-2 text-sm font-bold uppercase"
           htmlFor="input"
         >
           Search for a word
         </label>
-        <div className="relative flex items-center content-center">
+        <div className="relative flex items-center content-center overflow-hidden rounded-md focus-within:ring focus-within:ring-indigo-500 transition">
           <input
             placeholder="e.g. surreptitious"
-            className="w-full px-3 py-1.5 bg-white border border-solid border-gray-300 text-gray-500
-                       rounded transition-colors
-                       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+            className="w-full px-3 py-1.5 text-gray-500 focus:text-gray-700 focus:outline-none"
             id="input"
             type="text"
             value={word}
@@ -40,7 +38,7 @@ export default function MeaningSearch() {
           />
 
           <button
-            className="absolute px-8 py-1 font-bold text-white bg-indigo-400 rounded hover:bg-indigo-500 right-1"
+            className="absolute right-0 px-8 py-2 font-bold text-white bg-indigo-400 rounded hover:bg-indigo-500 transition-colors"
             type="submit"
           >
             <FontAwesomeIcon icon={faMagnifyingGlass} />
