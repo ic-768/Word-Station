@@ -9,7 +9,7 @@ module.exports = {
       keyframes: {
         "slide-notification-in": {
           "0%": { marginTop: "-300px" },
-          "100%": { marginTop: "20px" },
+          "100%": { marginTop: "10px" },
         },
       },
       animation: {

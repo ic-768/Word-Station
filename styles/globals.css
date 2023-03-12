@@ -8,6 +8,10 @@
   margin: 0;
 }
 
+.animation-fill-forwards {
+  animation-fill-mode: forwards;
+}
+
 html,
 body {
   height: 100vh;
