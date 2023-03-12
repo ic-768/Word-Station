@@ -8,6 +8,7 @@ export const GoBackLayout = ({ children }: { children: ReactElement }) => (
     <Link
       className="absolute z-10 text-6xl right-16 transition-colors hover:text-blue-600"
       href="/words"
+      title="Back to words"
     >
       <FontAwesomeIcon icon={faArrowLeft} />
     </Link>

@@ -1,2 +1,2 @@
-- When directly opening page of a saved word => shown as unsaved
 - Currently saving whole API response to json. Eventually give user choice of which definitions/synonyms/pages of the response to save.
+- Different branch for authentication - will be convenient to have a demo-purpose branch that can just log in immediately

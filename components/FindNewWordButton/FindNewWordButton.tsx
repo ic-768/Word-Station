@@ -1,4 +1,4 @@
-import { faSquarePlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
@@ -6,13 +6,13 @@ import Link from "next/link";
  * Button to redirect user to search for a new word
  */
 export const FindNewWordButton = () => (
-  <div className="flex flex-col">
-    <label>Add new word</label>
+  <button className="flex flex-col">
     <Link
-      className="text-4xl text-neutral-900 hover:text-blue-600 transition-colors"
+      className="flex items-center p-2 text-white bg-green-500 border rounded-lg border-lime-300 transition-colors gap-2 hover:bg-green-600"
       href="words/get-meaning"
     >
-      <FontAwesomeIcon icon={faSquarePlus} />
+      <FontAwesomeIcon className="text-xl" icon={faPlus} />
+      <label className="pointer-events-none">Add new word</label>
     </Link>
-  </div>
+  </button>
 );

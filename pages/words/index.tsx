@@ -25,7 +25,7 @@ export default function Words() {
 
   return (
     <div className="relative flex flex-col items-center w-screen h-screen">
-      <div className="flex items-center content-center my-10 gap-4">
+      <div className="flex items-end my-10 gap-4">
         <WordFilter onChangeFilter={onChangeFilter} />
         <FindNewWordButton />
       </div>
