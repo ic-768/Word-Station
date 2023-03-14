@@ -1,15 +1,12 @@
 import { Dispatch, SetStateAction, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
-import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
 
 import { WordMeanings } from "../../types/WordData";
 import { useWordCRUD } from "../../hooks";
 import {
   DefinitionsList,
   SynonymsList,
-  PageButtons,
-  PageCounter,
+  LikeWordButton,
+  Footer,
 } from "./components";
 
 interface WordModalProps {
@@ -51,34 +48,20 @@ const WordModal = ({
       () => setIsWordSaved(false)
     );
 
-  const [onClick, icon, color] = isWordSaved
-    ? [handleDelete, solidHeart, "text-red-600"]
-    : [handleSave, emptyHeart, "text-neutral-800"];
-
   return (
     <div className="absolute inset-x-0 max-w-lg p-8 mx-auto bg-white rounded top-32 h-4/6">
       <div className="relative flex flex-col h-full overflow-y-auto text-neutral-800 max-h-max">
-        <FontAwesomeIcon
-          fontSize={24}
-          cursor="pointer"
-          onClick={onClick}
-          icon={icon}
-          className={`self-center w-12 ${color} hover:text-red-800`}
+        <LikeWordButton
+          isWordSaved={isWordSaved}
+          handleSave={handleSave}
+          handleDelete={handleDelete}
         />
 
-        <span className="text-xl font-semibold capitalize">{word}</span>
+        <span className="text-lg font-semibold uppercase">{word}</span>
         <DefinitionsList pageData={pageData} />
         <SynonymsList pageData={pageData} />
 
-        {/*TODO this is a footer*/}
-        <div className="sticky bottom-0 pt-4 mt-auto bg-white">
-          <PageButtons
-            page={page}
-            numPages={meanings.length}
-            setPage={setPage}
-          />
-          <PageCounter page={page} numPages={meanings.length} />
-        </div>
+        <Footer page={page} numPages={meanings.length} setPage={setPage} />
       </div>
     </div>
   );
