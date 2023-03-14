@@ -38,7 +38,7 @@ const MeaningSearch = () => {
           />
 
           <button
-            className="absolute right-0 px-8 py-2 font-bold text-white bg-indigo-400 rounded hover:bg-indigo-500 transition-colors"
+            className="absolute right-0 px-8 py-2 font-bold text-white bg-indigo-600 rounded hover:bg-indigo-700 transition-colors"
             type="submit"
           >
             <FontAwesomeIcon icon={faMagnifyingGlass} />

@@ -51,9 +51,9 @@ const WordModal = ({
       () => setIsWordSaved(false)
     );
 
-  const [onClick, icon] = isWordSaved
-    ? [handleDelete, solidHeart]
-    : [handleSave, emptyHeart];
+  const [onClick, icon, color] = isWordSaved
+    ? [handleDelete, solidHeart, "text-red-600"]
+    : [handleSave, emptyHeart, "text-neutral-800"];
 
   return (
     <div className="absolute inset-x-0 max-w-lg p-8 mx-auto bg-white rounded top-32 h-4/6">
@@ -63,6 +63,7 @@ const WordModal = ({
           cursor="pointer"
           onClick={onClick}
           icon={icon}
+          className={`self-center w-12 ${color} hover:text-red-800`}
         />
 
         <span className="text-xl font-semibold capitalize">{word}</span>
