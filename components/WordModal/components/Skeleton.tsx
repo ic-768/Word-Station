@@ -2,16 +2,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 const Skeleton = () => {
-  // to achieve shine effect with animation
-  const gradientBackground = {
-    background:
-      "linear-gradient(90deg, #71717a 33%, #d4d4d8 50%,#71717a 66%) #71717a",
-  };
   const Line = ({ classes }: { classes: string }) => (
-    <span
-      className={`h-3 my-2 rounded ${classes} bg-zinc-500 animate-gradient-x`}
-      style={gradientBackground}
-    ></span>
+    <div
+      className={`h-3 my-2 rounded ${classes} bg-zinc-500 animate-gradient-x bg-skeleton-shine`}
+    ></div>
   );
 
   return (
@@ -36,15 +30,9 @@ const Skeleton = () => {
         ))}
 
         <div className="sticky bottom-0 flex mx-auto mt-auto text-white w-72">
-          <span
-            className="w-24 h-10 ml-auto rounded animate-gradient-x"
-            style={gradientBackground}
-          ></span>
+          <div className="w-24 h-10 ml-auto rounded animate-gradient-x bg-skeleton-shine"></div>
         </div>
-        <span
-          className="w-6 h-6 mr-auto rounded bg-zinc-500 animate-gradient-x"
-          style={gradientBackground}
-        ></span>
+        <div className="w-6 h-6 mr-auto rounded bg-zinc-500 animate-gradient-x bg-skeleton-shine"></div>
       </div>
     </div>
   );

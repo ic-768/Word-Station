@@ -26,6 +26,10 @@ module.exports = {
         "gradient-x": "gradient-x 2s ease infinite",
         "slide-notification-in": "slide-notification-in 1s ease-in-out",
       },
+      backgroundImage: {
+        "skeleton-shine":
+          "linear-gradient(90deg, #71717a 33%, #d4d4d8 50%,#71717a 66%)",
+      },
     },
   },
   plugins: [],
