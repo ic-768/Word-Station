@@ -11,8 +11,19 @@ module.exports = {
           "0%": { marginTop: "-300px" },
           "100%": { marginTop: "10px" },
         },
+        "gradient-x": {
+          "0%": {
+            "background-size": "300% 100%",
+            "background-position": "right",
+          },
+          "100%": {
+            "background-size": "300% 100%",
+            "background-position": "left",
+          },
+        },
       },
       animation: {
+        "gradient-x": "gradient-x 2s ease infinite",
         "slide-notification-in": "slide-notification-in 1s ease-in-out",
       },
     },
