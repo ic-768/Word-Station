@@ -10,6 +10,7 @@ interface PageButtonsProps {
 const PageButtons = ({ page, numPages, setPage }: PageButtonsProps) => {
   const incPage = () => setPage(page + 1);
   const decPage = () => setPage(page - 1);
+
   return (
     <div className="flex mx-auto text-white w-72">
       {page !== 0 && (

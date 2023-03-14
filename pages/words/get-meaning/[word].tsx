@@ -54,14 +54,12 @@ export default function WordMeaning() {
   return (
     <>
       <MeaningSearch />
-      {wordMeanings && (
-        <WordModal
-          meanings={wordMeanings}
-          word={word}
-          isWordSaved={isWordSaved}
-          setIsWordSaved={setIsWordSaved}
-        />
-      )}
+      <WordModal
+        meanings={wordMeanings}
+        word={word}
+        isWordSaved={isWordSaved}
+        setIsWordSaved={setIsWordSaved}
+      />
     </>
   );
 }

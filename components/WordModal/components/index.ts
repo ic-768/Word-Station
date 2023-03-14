@@ -5,6 +5,7 @@ import PageCounter from "./PageCounter";
 import SynonymsList from "./SynonymsList";
 import Footer from "./Footer";
 import LikeWordButton from "./LikeWordButton";
+import Skeleton from "./Skeleton";
 
 export {
   Button,
@@ -14,4 +15,5 @@ export {
   SynonymsList,
   Footer,
   LikeWordButton,
+  Skeleton,
 };

@@ -7,10 +7,11 @@ import {
   SynonymsList,
   LikeWordButton,
   Footer,
+  Skeleton,
 } from "./components";
 
 interface WordModalProps {
-  meanings: WordMeanings;
+  meanings?: WordMeanings;
   word: string;
   isWordSaved?: boolean;
   setIsWordSaved: Dispatch<SetStateAction<boolean>>;
@@ -24,9 +25,9 @@ const WordModal = ({
 }: WordModalProps) => {
   const [page, setPage] = useState(0);
   const wordCRUD = useWordCRUD();
-  const pageData = meanings[page];
+  const pageData = meanings?.[page];
 
-  if (!pageData) return null;
+  if (!pageData) return <Skeleton />;
 
   const handleSave = async () =>
     await wordCRUD(

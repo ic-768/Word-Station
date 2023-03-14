@@ -19,33 +19,28 @@ const MeaningSearch = () => {
   };
 
   return (
-    <>
-      <form onSubmit={onChooseWord} className="max-w-lg mx-auto mt-12">
-        <label
-          className="block mb-2 text-sm font-bold uppercase"
-          htmlFor="input"
-        >
-          Search for a word
-        </label>
-        <div className="relative flex items-center content-center overflow-hidden rounded-md focus-within:ring focus-within:ring-indigo-500 transition">
-          <input
-            placeholder="e.g. surreptitious"
-            className="w-full px-3 py-1.5 text-gray-500 focus:text-gray-700 focus:outline-none"
-            id="input"
-            type="text"
-            value={word}
-            onChange={onTypeWord}
-          />
+    <form onSubmit={onChooseWord} className="max-w-lg mx-auto mt-12">
+      <label className="block mb-2 text-sm font-bold uppercase" htmlFor="input">
+        Search for a word
+      </label>
+      <div className="relative flex items-center content-center overflow-hidden rounded-md focus-within:ring focus-within:ring-indigo-500 transition">
+        <input
+          placeholder="e.g. surreptitious"
+          className="w-full px-3 py-1.5 text-gray-500 focus:text-gray-700 focus:outline-none"
+          id="input"
+          type="text"
+          value={word}
+          onChange={onTypeWord}
+        />
 
-          <button
-            className="absolute right-0 px-8 py-2 font-bold text-white bg-indigo-600 rounded hover:bg-indigo-700 transition-colors"
-            type="submit"
-          >
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
-          </button>
-        </div>
-      </form>
-    </>
+        <button
+          className="absolute right-0 px-8 py-2 font-bold text-white bg-indigo-600 rounded hover:bg-indigo-700 transition-colors"
+          type="submit"
+        >
+          <FontAwesomeIcon icon={faMagnifyingGlass} />
+        </button>
+      </div>
+    </form>
   );
 };
 
