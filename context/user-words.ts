@@ -1,6 +1,9 @@
 import React, { Dispatch, SetStateAction } from "react";
 
-type UserWordsContextArgs = [string[], Dispatch<SetStateAction<string[]>>];
+type UserWordsContextArgs = [
+  string[] | null,
+  Dispatch<SetStateAction<string[] | null>>
+];
 
 /**
  * Ctx to provide UserWords and setUserWords to subcomponents.

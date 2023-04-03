@@ -17,7 +17,7 @@ export default function WordMeaning() {
   const [word, setWord] = useState("");
   const [wordMeanings, setWordMeanings] = useState<WordMeanings>();
 
-  const [isWordSaved, setIsWordSaved] = useState(userWords.includes(word));
+  const [isWordSaved, setIsWordSaved] = useState(!!userWords?.includes(word));
 
   const router = useRouter();
 
@@ -36,7 +36,7 @@ export default function WordMeaning() {
 
   // is word already saved by user?
   useEffect(() => {
-    setIsWordSaved(userWords.includes(word));
+    setIsWordSaved(!!userWords?.includes(word));
   }, [userWords, word]);
 
   // if word couldn't be found, redirect back

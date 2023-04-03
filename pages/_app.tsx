@@ -19,8 +19,8 @@ type AppPropsWithLayout = AppProps & {
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const [notification, setNotification] = useState<NotificationProps | null>();
-  // list of user-saved words
-  const [userWords, setUserWords] = useState<string[]>([]);
+  // list of user-saved words - null means not fetched yet
+  const [userWords, setUserWords] = useState<string[] | null>(null);
 
   // fetch user's words and alphabetize
   useEffect(() => {
