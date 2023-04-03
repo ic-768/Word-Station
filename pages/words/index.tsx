@@ -29,7 +29,7 @@ export default function Words() {
 
   return (
     <div className="relative flex flex-col items-center w-screen h-screen">
-      <div className="flex items-end p-4 my-10 rounded outline outline-2 gap-4 outline-slate-600">
+      <div className="flex items-end p-4 my-10 rounded outline outline-2 gap-4 outline-slate-600 bg-slate-800">
         <WordFilter onChangeFilter={onChangeFilter} />
         <FindNewWordButton />
       </div>

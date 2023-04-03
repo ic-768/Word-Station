@@ -16,6 +16,7 @@ export default async function handler(
       .from("words")
       .delete()
       .match({ name: word });
+    //TODO handle error
 
     res.status(200).send("OK");
   } catch (err) {
