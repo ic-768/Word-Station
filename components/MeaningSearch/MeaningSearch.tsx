@@ -19,7 +19,10 @@ const MeaningSearch = () => {
   };
 
   return (
-    <form onSubmit={onChooseWord} className="max-w-lg mx-auto mt-12">
+    <form
+      onSubmit={onChooseWord}
+      className="max-w-sm mx-auto mt-12 sm:max-w-lg"
+    >
       <label className="block mb-2 text-sm font-bold uppercase" htmlFor="input">
         Search for a word
       </label>

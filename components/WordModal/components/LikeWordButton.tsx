@@ -22,7 +22,7 @@ const LikeWordButton = ({
       cursor="pointer"
       onClick={onClick}
       icon={icon}
-      className={`self-center w-12 ${color} hover:text-red-800`}
+      className={`w-12 ${color} hover:text-red-800`}
     />
   );
 };

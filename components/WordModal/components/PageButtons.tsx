@@ -12,7 +12,7 @@ const PageButtons = ({ page, numPages, setPage }: PageButtonsProps) => {
   const decPage = () => setPage(page - 1);
 
   return (
-    <div className="flex mx-auto text-white w-72">
+    <div className="flex w-4/5 mx-auto text-white">
       {page !== 0 && (
         <Button text={"Previous"} callback={decPage} className="mr-auto" />
       )}

@@ -50,20 +50,18 @@ const WordModal = ({
     );
 
   return (
-    <div className="absolute inset-x-0 max-w-lg p-8 mx-auto bg-white rounded top-32 h-4/6">
-      <div className="relative flex flex-col h-full overflow-y-auto text-neutral-800 max-h-max">
-        <LikeWordButton
-          isWordSaved={isWordSaved}
-          handleSave={handleSave}
-          handleDelete={handleDelete}
-        />
-
+    <div className="absolute inset-x-0 flex flex-col items-center max-w-sm p-8 mx-auto bg-white rounded top-32 h-4/6 sm:max-w-lg">
+      <LikeWordButton
+        isWordSaved={isWordSaved}
+        handleSave={handleSave}
+        handleDelete={handleDelete}
+      />
+      <div className="relative flex flex-col w-full h-full overflow-y-auto text-neutral-800 max-h-max">
         <span className="text-lg font-semibold uppercase">{word}</span>
         <DefinitionsList pageData={pageData} />
         <SynonymsList pageData={pageData} />
-
-        <Footer page={page} numPages={meanings.length} setPage={setPage} />
       </div>
+      <Footer page={page} numPages={meanings.length} setPage={setPage} />
     </div>
   );
 };
