@@ -1,11 +1,11 @@
 import { ChangeEventHandler, useContext, useEffect, useState } from "react";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+
 import { UserWordsContext } from "../../context/user-words";
 import WordList from "../../components/WordList";
-import WordFilter from "../../components/WordFilter";
 import FindNewWordButton from "../../components/FindNewWordButton";
 import Loader from "../../components/Loader";
-import InputWithIcon from "../../components/InputWithIcon";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import InputWithButton from "../../components/InputWithButton";
 
 export default function Words() {
   const [userWords, _setUserWords] = useContext(UserWordsContext);
@@ -34,7 +34,7 @@ export default function Words() {
       <div className="flex flex-col items-center w-full p-4 my-10 rounded outline outline-2 gap-4 outline-slate-600 bg-slate-800 sm:w-auto sm:flex-row sm:items-end">
         <div className="flex flex-col">
           <label>Filter words</label>
-          <InputWithIcon
+          <InputWithButton
             placeholder="e.g. surreptitious"
             text={filter}
             setText={onChangeFilter}

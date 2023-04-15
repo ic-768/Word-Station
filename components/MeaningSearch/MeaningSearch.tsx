@@ -1,7 +1,7 @@
 import { ChangeEventHandler, FormEventHandler, useState } from "react";
 import { useRouter } from "next/router";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import InputWithIcon from "../InputWithIcon";
+import InputWithButton from "../inputs/InputWithButton";
 
 /*
  * User can submit a word in order for the backend to contact the dictionary API, and get the results.
@@ -27,7 +27,7 @@ const MeaningSearch = () => {
         Search for a word
       </label>
 
-      <InputWithIcon
+      <InputWithButton
         placeholder="e.g. surreptitious"
         text={word}
         setText={onTypeWord}

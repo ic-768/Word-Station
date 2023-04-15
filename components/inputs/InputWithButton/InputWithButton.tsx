@@ -2,7 +2,7 @@ import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ChangeEventHandler } from "react";
 
-interface InputWithIconProps {
+interface InputWithButtonProps {
   placeholder: string;
   setText: ChangeEventHandler<HTMLInputElement>;
   icon: IconProp;
@@ -11,19 +11,19 @@ interface InputWithIconProps {
   type?: string;
 }
 
-const InputWithIcon = ({
+const InputWithButton = ({
   placeholder,
   text,
   setText,
   icon,
   id = "input",
   type = "text",
-}: InputWithIconProps) => {
+}: InputWithButtonProps) => {
   return (
     <div className="relative flex items-center content-center overflow-hidden rounded-md focus-within:ring focus-within:ring-indigo-500 transition">
       <input
         placeholder={placeholder}
-        className="w-full px-3 py-1.5 text-gray-500 focus:text-gray-700 focus:outline-none"
+        className="w-11/12 px-3 py-1.5 text-gray-500 focus:text-gray-700 focus:outline-none"
         id={id}
         type={type}
         value={text}
@@ -31,13 +31,16 @@ const InputWithIcon = ({
       />
 
       <button
-        className="absolute right-0 px-8 py-2 font-bold text-white bg-indigo-600 rounded hover:bg-indigo-700 transition-colors"
+        className="absolute right-0 flex items-center h-full px-8 py-2 font-bold text-white bg-indigo-600 rounded hover:bg-indigo-700 transition-colors"
         type="submit"
       >
-        <FontAwesomeIcon icon={icon} />
+        <FontAwesomeIcon
+          icon={icon}
+          className="absolute right-0 w-full h-2/4"
+        />
       </button>
     </div>
   );
 };
 
-export default InputWithIcon;
+export default InputWithButton;
