@@ -8,7 +8,7 @@ import Link from "next/link";
 const FindNewWordButton = () => (
   <button className="flex flex-col">
     <Link
-      className="flex items-center p-2 text-white bg-green-600 rounded-lg transition-colors gap-2 hover:bg-green-700"
+      className="flex items-center p-2 text-white bg-green-600 rounded-lg whitespace-nowrap transition-colors gap-2 hover:bg-green-700"
       href="words/get-meaning"
     >
       <FontAwesomeIcon className="text-xl" icon={faPlus} />
