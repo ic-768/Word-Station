@@ -52,7 +52,7 @@ export default function Home() {
         text="Don't have an account? Register"
         link="/register"
       />
-      <SubmitButton text="Log in" onSubmit={onLogin} />
+      <SubmitButton text="Log in" />
     </form>
   );
 }
