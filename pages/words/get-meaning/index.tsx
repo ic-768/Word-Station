@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 
-import GoBackLayout from "../../../components/app/Layouts/GoBack";
+import GoBackLayout from "../../../components/layouts/GoBackLayout";
 import MeaningSearch from "../../../components/app/MeaningSearch";
 
 /*
