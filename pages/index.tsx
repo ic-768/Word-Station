@@ -40,40 +40,43 @@ export default function Home() {
             <span className="text-2xl font-bold text-neutral-100 whitespace-nowrap">
               Log in to Word-Station
             </span>
-            <div className="flex flex-col p-8 border border-teal-600 rounded-lg bg-neutral-900">
+            <div className="flex flex-col p-8 border border-teal-600 rounded-lg shadow-md bg-neutral-900 shadow-cyan-600/50 focus-within:shadow-emerald-500/50">
               <label className="text-lg" htmlFor="username">
                 Username
               </label>
               <InputWithIcon
+                id="username"
                 text={username}
                 setText={updateUsername}
                 icon={faUser}
               />
             </div>
-            <div className="flex flex-col p-8 border border-teal-600 rounded-lg bg-neutral-900">
-              <label className="text-lg" htmlFor="password">
+            <div className="flex flex-col p-8 border border-teal-600 rounded-lg shadow-md bg-neutral-900 shadow-cyan-600/50 focus-within:shadow-emerald-500/50">
+              <label className="text-lg shadow-emerald-200" htmlFor="password">
                 Password
               </label>
               <InputWithIcon
+                id="password"
                 text={password}
                 setText={updatePassword}
                 icon={faLock}
               />
             </div>
-            <div className="flex justify-center gap-3">
-              <button
-                onClick={onLogin}
-                className="w-2/5 px-6 py-4 bg-green-600 rounded-lg transition-colors whitespace-nowrap focus:ring-teal-600 hover:bg-green-700 sm:w-2/4"
-              >
-                Log in
-              </button>
+            <span>
+              Don&apos;t have an account? Register
               <Link
-                href="/sign-up"
-                className="w-2/5 px-6 py-4 bg-indigo-700 rounded-lg transition-colors focus:ring-teal-600 hover:bg-indigo-800 sm:w-2/4 sm:whitespace-nowrap"
+                href="/register"
+                className="p-1 rounded-full text-emerald-300 transition-colors hover:text-emerald-500"
               >
-                Create account
+                here
               </Link>
-            </div>
+            </span>
+            <button
+              onClick={onLogin}
+              className="self-center w-2/5 px-6 py-4 bg-green-600 rounded-lg transition-all whitespace-nowrap focus:ring-teal-600 hover:bg-green-700 sm:w-2/4 hover:scale-110"
+            >
+              Log in
+            </button>
           </div>
         </div>
       </main>
