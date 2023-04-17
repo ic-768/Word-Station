@@ -31,7 +31,7 @@ const InputWithButton = ({
       />
 
       <button
-        className="absolute right-0 flex items-center h-full px-8 py-2 font-bold text-white bg-indigo-600 rounded hover:bg-indigo-700 transition-colors"
+        className="absolute right-0 flex items-center h-full px-8 py-2 font-bold text-white bg-indigo-600 rounded-r-md hover:bg-indigo-700 transition-colors"
         type="submit"
       >
         <FontAwesomeIcon

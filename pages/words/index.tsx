@@ -5,7 +5,7 @@ import { UserWordsContext } from "../../context/user-words";
 import WordList from "../../components/WordList";
 import FindNewWordButton from "../../components/FindNewWordButton";
 import Loader from "../../components/Loader";
-import InputWithButton from "../../components/InputWithButton";
+import InputWithButton from "../../components/inputs/InputWithButton";
 
 export default function Words() {
   const [userWords, _setUserWords] = useContext(UserWordsContext);
