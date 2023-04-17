@@ -14,7 +14,7 @@ const LoginLayout = ({ children }: { children: ReactElement }) => (
     </Head>
     <main className="flex flex-col items-center justify-center w-full h-full">
       <div className="flex items-center justify-center w-11/12 p-2 rounded-lg bg-neutral-800 h-3/5 sm:w-4/5 sm:p-12">
-        <div className="flex flex-col w-full p-8 gap-5 sm:w-96">{children}</div>
+        <div className="flex flex-col w-full p-8 sm:w-96">{children}</div>
       </div>
     </main>
   </>

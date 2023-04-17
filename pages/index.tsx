@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import {
   ChangeEventHandler,
-  MouseEventHandler,
+  FormEventHandler,
   ReactElement,
   useState,
 } from "react";
@@ -25,13 +25,14 @@ export default function Home() {
   const updatePassword: ChangeEventHandler<HTMLInputElement> = (e) =>
     setPassword(e.target?.value);
 
-  const onLogin: MouseEventHandler<HTMLButtonElement> = () => {
+  const onLogin: FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
     //TODO
     router.push("/words");
   };
 
   return (
-    <>
+    <form className="flex flex-col items-center gap-5" onSubmit={onLogin}>
       <PageTitle title="Log in to Word-Station" />
       <CredentialPanel
         label="Username"
@@ -52,7 +53,7 @@ export default function Home() {
         link="/register"
       />
       <SubmitButton text="Log in" onSubmit={onLogin} />
-    </>
+    </form>
   );
 }
 

@@ -1,8 +1,7 @@
-import Head from "next/head";
 import { useRouter } from "next/router";
 import {
   ChangeEventHandler,
-  MouseEventHandler,
+  FormEventHandler,
   ReactElement,
   useState,
 } from "react";
@@ -30,7 +29,8 @@ export default function Register() {
   const updatePasswordValidation: ChangeEventHandler<HTMLInputElement> = (e) =>
     setPasswordValidation(e.target?.value);
 
-  const onRegister: MouseEventHandler<HTMLButtonElement> = () => {
+  const onRegister: FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
     if (password !== passwordValidation) {
       //TODO
     } else {
@@ -40,7 +40,7 @@ export default function Register() {
   };
 
   return (
-    <>
+    <form className="flex flex-col items-center gap-5" onSubmit={onRegister}>
       <PageTitle title="Create a new account" />
       <CredentialPanel
         label="Username"
@@ -64,8 +64,8 @@ export default function Register() {
         icon={faLock}
       />
       <AlternateActionText text="Already have an account? Log in" link="/" />
-      <SubmitButton text="Register" onSubmit={onRegister} />
-    </>
+      <SubmitButton text="Register" />
+    </form>
   );
 }
 
