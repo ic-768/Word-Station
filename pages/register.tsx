@@ -1,10 +1,11 @@
 import Head from "next/head";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { ChangeEventHandler, MouseEventHandler, useState } from "react";
 import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 
-import InputWithIcon from "../components/common/inputs/InputWithIcon";
+import CredentialPanel from "../components/login/CredentialPanel";
+import SubmitButton from "../components/login/SubmitButton";
+import AlternateActionText from "../components/login/AlternateActionText";
 
 export default function Register() {
   const [username, setUsername] = useState("");
@@ -48,63 +49,33 @@ export default function Register() {
             <span className="text-2xl font-bold text-neutral-100 whitespace-nowrap">
               Create a new account
             </span>
-            <div className="flex flex-col p-8 border border-teal-600 rounded-lg shadow-md bg-neutral-900 shadow-cyan-600/50 focus-within:shadow-emerald-500/50">
-              <label className="text-lg" htmlFor="username">
-                Username
-              </label>
-              <InputWithIcon
-                id="username"
-                text={username}
-                setText={updateUsername}
-                icon={faUser}
-              />
-            </div>
-            <div className="flex flex-col p-8 border border-teal-600 rounded-lg shadow-md bg-neutral-900 shadow-cyan-600/50 focus-within:shadow-emerald-500/50">
-              <label className="text-lg shadow-emerald-200" htmlFor="password">
-                Password
-              </label>
-              <InputWithIcon
-                id="password"
-                text={password}
-                setText={updatePassword}
-                icon={faLock}
-              />
-            </div>
-            <div className="flex flex-col p-8 border border-teal-600 rounded-lg shadow-md bg-neutral-900 shadow-cyan-600/50 focus-within:shadow-emerald-500/50">
-              <label
-                className="text-lg shadow-emerald-200"
-                htmlFor="password-validation"
-              >
-                Re-enter Password
-              </label>
-              <InputWithIcon
-                id="password-validation"
-                text={passwordValidation}
-                setText={updatePasswordValidation}
-                icon={faLock}
-              />
-            </div>
-            <span>
-              Already have an account? Log in
-              <div className="relative inline">
-                <Link
-                  href="/"
-                  className="p-1 rounded-full text-emerald-300 transition-colors hover:text-emerald-400
-              relative before:content-[''] before:absolute before:block before:w-full before:h-[1px]
-              before:bottom-0 before:left-1 before:bg-emerald-400
-              before:hover:scale-x-90 before:scale-x-0 before:origin-top-left
-              before:transition before:ease-in-out before:duration-300"
-                >
-                  here
-                </Link>
-              </div>
-            </span>
-            <button
-              onClick={onRegister}
-              className="self-center w-2/5 px-6 py-4 bg-green-600 rounded-lg transition-all whitespace-nowrap hover:bg-green-700 sm:w-2/4 hover:scale-110"
-            >
-              Log in
-            </button>
+            <CredentialPanel
+              label="Username"
+              id="username"
+              text={username}
+              setText={updateUsername}
+              icon={faUser}
+            />
+            <CredentialPanel
+              label="Password"
+              id="password"
+              text={password}
+              setText={updatePassword}
+              icon={faLock}
+            />
+            <CredentialPanel
+              label="Repeat password"
+              id="password-validation"
+              text={passwordValidation}
+              setText={updatePasswordValidation}
+              icon={faLock}
+            />
+
+            <AlternateActionText
+              text="Already have an account? Log in"
+              link="/"
+            />
+            <SubmitButton text="Register" onSubmit={onRegister} />
           </div>
         </div>
       </main>
