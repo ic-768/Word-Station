@@ -1,5 +1,7 @@
 import Head from "next/head";
-import { ChangeEventHandler, useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { ChangeEventHandler, MouseEventHandler, useState } from "react";
 import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 
 import InputWithIcon from "../components/inputs/InputWithIcon";
@@ -8,11 +10,18 @@ export default function Home() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const router = useRouter();
+
   const updateUsername: ChangeEventHandler<HTMLInputElement> = (e) =>
     setUsername(e.target?.value);
 
   const updatePassword: ChangeEventHandler<HTMLInputElement> = (e) =>
     setPassword(e.target?.value);
+
+  const onLogin: MouseEventHandler<HTMLButtonElement> = () => {
+    //TODO
+    router.push("/words");
+  };
 
   return (
     <>
@@ -51,13 +60,19 @@ export default function Home() {
                 icon={faLock}
               />
             </div>
-            <div className="flex justify-center gap-8">
-              <button className="px-6 py-4 bg-green-600 rounded-lg whitespace-nowrap">
+            <div className="flex justify-center gap-3">
+              <button
+                onClick={onLogin}
+                className="w-2/5 px-6 py-4 bg-green-600 rounded-lg transition-colors whitespace-nowrap focus:ring-teal-600 hover:bg-green-700 sm:w-2/4"
+              >
                 Log in
               </button>
-              <button className="px-6 py-4 bg-indigo-700 rounded-lg whitespace-nowrap">
+              <Link
+                href="/sign-up"
+                className="w-2/5 px-6 py-4 bg-indigo-700 rounded-lg transition-colors focus:ring-teal-600 hover:bg-indigo-800 sm:w-2/4 sm:whitespace-nowrap"
+              >
                 Create account
-              </button>
+              </Link>
             </div>
           </div>
         </div>
