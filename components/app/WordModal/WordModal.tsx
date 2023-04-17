@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useState } from "react";
+import { useWordCRUD } from "../../../hooks";
+import { WordMeanings } from "../../../types/WordData";
 
-import { WordMeanings } from "../../types/WordData";
-import { useWordCRUD } from "../../hooks";
 import {
   DefinitionsList,
   SynonymsList,

@@ -3,7 +3,9 @@ import type { AppProps } from "next/app";
 import { ReactElement, ReactNode, useEffect, useState } from "react";
 
 import { NotificationContext } from "../context/notification";
-import Notification, { NotificationProps } from "../components/Notification";
+import Notification, {
+  NotificationProps,
+} from "../components/common/Notification";
 import { UserWordsContext } from "../context/user-words";
 import { getUserWords } from "./api/word/get-user-words";
 

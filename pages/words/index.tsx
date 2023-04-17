@@ -2,10 +2,10 @@ import { ChangeEventHandler, useContext, useEffect, useState } from "react";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 import { UserWordsContext } from "../../context/user-words";
-import WordList from "../../components/WordList";
-import FindNewWordButton from "../../components/FindNewWordButton";
-import Loader from "../../components/Loader";
-import InputWithButton from "../../components/inputs/InputWithButton";
+import InputWithButton from "../../components/common/inputs/InputWithButton";
+import FindNewWordButton from "../../components/app/FindNewWordButton";
+import Loader from "../../components/common/Loader";
+import WordList from "../../components/app/WordList";
 
 export default function Words() {
   const [userWords, _setUserWords] = useContext(UserWordsContext);

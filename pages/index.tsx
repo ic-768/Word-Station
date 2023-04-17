@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { ChangeEventHandler, MouseEventHandler, useState } from "react";
 import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 
-import InputWithIcon from "../components/inputs/InputWithIcon";
+import InputWithIcon from "../components/common/inputs/InputWithIcon";
 
 export default function Home() {
   const [username, setUsername] = useState("");
@@ -68,12 +68,10 @@ export default function Home() {
                 <Link
                   href="/register"
                   className="p-1 rounded-full text-emerald-300 transition-colors hover:text-emerald-400
-
               relative before:content-[''] before:absolute before:block before:w-full before:h-[1px]
               before:bottom-0 before:left-1 before:bg-emerald-400
               before:hover:scale-x-90 before:scale-x-0 before:origin-top-left
-              before:transition before:ease-in-out before:duration-300
-                  "
+              before:transition before:ease-in-out before:duration-300"
                 >
                   here
                 </Link>
@@ -81,7 +79,7 @@ export default function Home() {
             </span>
             <button
               onClick={onLogin}
-              className="self-center w-2/5 px-6 py-4 bg-green-600 rounded-lg transition-all whitespace-nowrap focus:ring-teal-600 hover:bg-green-700 sm:w-2/4 hover:scale-110"
+              className="self-center w-2/5 px-6 py-4 bg-green-600 rounded-lg transition-all whitespace-nowrap hover:bg-green-700 sm:w-2/4 hover:scale-110"
             >
               Log in
             </button>

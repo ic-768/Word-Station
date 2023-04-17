@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
 
-import GoBackLayout from "../../../components/Layouts/GoBack";
-import MeaningSearch from "../../../components/MeaningSearch";
+import GoBackLayout from "../../../components/app/Layouts/GoBack";
+import MeaningSearch from "../../../components/app/MeaningSearch";
 
 /*
  * User can submit a word in order for the backend to contact the dictionary API, and get the results.
