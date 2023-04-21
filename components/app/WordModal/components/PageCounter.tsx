@@ -4,7 +4,7 @@ interface PageCounterProps {
 }
 
 const PageCounter = ({ page, numPages }: PageCounterProps) => (
-  <div className="self-end px-2 py-1 text-white bg-red-600 rounded-2xl">
+  <div className="text-black self-center px-2 py-1 text-white bg-purple-100 rounded">
     {page + 1}/{numPages}
   </div>
 );

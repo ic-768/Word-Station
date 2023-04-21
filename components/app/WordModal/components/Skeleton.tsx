@@ -33,7 +33,7 @@ const Skeleton = () => {
         <div className="flex w-4/5 mx-auto text-white">
           <div className="w-24 h-10 ml-auto rounded animate-gradient-x bg-skeleton-shine"></div>
         </div>
-        <div className="self-end w-8 px-2 py-1 rounded h-7 bg-zinc-500 animate-gradient-x bg-skeleton-shine"></div>
+        <div className="self-center w-9 px-2 py-1 rounded h-7 bg-zinc-500 animate-gradient-x bg-skeleton-shine"></div>
       </div>
     </div>
   );

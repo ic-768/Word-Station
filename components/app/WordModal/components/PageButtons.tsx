@@ -8,17 +8,30 @@ interface PageButtonsProps {
 }
 
 const PageButtons = ({ page, numPages, setPage }: PageButtonsProps) => {
-  const incPage = () => setPage(page + 1);
-  const decPage = () => setPage(page - 1);
+  const isFirstPage = page === 0;
+  const isLastPage = page === numPages - 1;
+
+  const decPage = () => !isFirstPage && setPage(page - 1);
+  const incPage = () => !isLastPage && setPage(page + 1);
+
+  const getActivityStyles = (shouldBeDisabled: boolean) =>
+    shouldBeDisabled ? "bg-neutral-400  text-black" : "bg-emerald-700";
+
+  const decButtonColor = getActivityStyles(isFirstPage);
+  const incButtonColor = getActivityStyles(isLastPage);
 
   return (
     <div className="flex w-4/5 mx-auto text-white">
-      {page !== 0 && (
-        <Button text={"Previous"} callback={decPage} className="mr-auto" />
-      )}
-      {page !== numPages - 1 && (
-        <Button text={"Next"} callback={incPage} className="ml-auto" />
-      )}
+      <Button
+        text={"Previous"}
+        callback={decPage}
+        className={`mr-auto ${decButtonColor}`}
+      />
+      <Button
+        text={"Next"}
+        callback={incPage}
+        className={`ml-auto ${incButtonColor}`}
+      />
     </div>
   );
 };
