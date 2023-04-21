@@ -13,6 +13,8 @@ import FindNewWordButton from "../../components/app/FindNewWordButton";
 import Loader from "../../components/common/Loader";
 import WordList from "../../components/app/WordList";
 import UserStatusLayout from "../../components/layouts/UserStatusLayout";
+import { UserSessionContext } from "../../context/user-session";
+import Router from "next/router";
 
 export default function Words() {
   const [userWords, _setUserWords] = useContext(UserWordsContext);
@@ -21,6 +23,8 @@ export default function Words() {
   const [filter, setFilter] = useState("");
   // null means not fetched yet
   const [filteredWords, setFilteredWords] = useState<string[] | null>(null);
+
+  const [session] = useContext(UserSessionContext);
 
   // filter
   useEffect(() => {
@@ -32,6 +36,14 @@ export default function Words() {
       setFilteredWords(null);
     }
   }, [filter, userWords]);
+
+  //undefined means it hasn't been initialised yet
+  useEffect(() => {
+    if (session === null) {
+      console.log("session is null");
+      Router.push("/");
+    }
+  }, [session]);
 
   const onChangeFilter: ChangeEventHandler<HTMLInputElement> = (e) =>
     setFilter(e.target.value);

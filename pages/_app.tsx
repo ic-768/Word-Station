@@ -28,7 +28,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   // list of user-saved words - null means not fetched yet
   const [userWords, setUserWords] = useState<string[] | null>(null);
 
-  const [session, setSession] = useState<Session | null>(null);
+  const [session, setSession] = useState<Session | null | undefined>(undefined);
 
   // update auth context whenever session changes
   supabase.auth.onAuthStateChange((_, newSession) => {
@@ -40,6 +40,8 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       const { data, error } = await supabase.auth.getSession();
       if (data?.session) {
         setSession(data.session);
+      } else {
+        setSession(null);
       }
     };
 
