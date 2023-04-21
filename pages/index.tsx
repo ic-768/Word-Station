@@ -16,24 +16,16 @@ import LoginLayout from "../components/layouts/LoginLayout";
 import PageTitle from "../components/login/PageTitle";
 import { NotificationContext } from "../context/notification";
 import { supabase } from "../lib/supabaseClient";
+import { UserSessionContext } from "../context/user-session";
 
 export default function Home() {
   const [email, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
 
-  const getSession = async () => {
-    const { data, error } = await supabase.auth.getSession();
-    if (data?.session?.user) {
-      router.push("/words");
-    }
-  };
-
-  useEffect(() => {
-    getSession();
-  }, []);
-
   const [_notification, setNotification] = useContext(NotificationContext);
+  const [session] = useContext(UserSessionContext);
+  console.log("session in index is ", session);
 
   const updateEmail: ChangeEventHandler<HTMLInputElement> = (e) =>
     setUsername(e.target?.value);

@@ -1,4 +1,10 @@
-import { ChangeEventHandler, useContext, useEffect, useState } from "react";
+import {
+  ChangeEventHandler,
+  ReactElement,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 import { UserWordsContext } from "../../context/user-words";
@@ -6,6 +12,7 @@ import InputWithButton from "../../components/common/inputs/InputWithButton";
 import FindNewWordButton from "../../components/app/FindNewWordButton";
 import Loader from "../../components/common/Loader";
 import WordList from "../../components/app/WordList";
+import UserStatusLayout from "../../components/layouts/UserStatusLayout";
 
 export default function Words() {
   const [userWords, _setUserWords] = useContext(UserWordsContext);
@@ -48,3 +55,7 @@ export default function Words() {
     </div>
   );
 }
+
+Words.getLayout = function getLayout(page: ReactElement) {
+  return <UserStatusLayout>{page}</UserStatusLayout>;
+};

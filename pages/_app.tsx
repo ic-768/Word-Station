@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import Router from "next/router";
 import type { AppProps } from "next/app";
 import { ReactElement, ReactNode, useEffect, useState } from "react";
 
@@ -10,6 +11,9 @@ import { UserWordsContext } from "../context/user-words";
 import { getUserWords } from "./api/word/get-user-words";
 
 import "../styles/globals.css";
+import { Session } from "@supabase/supabase-js";
+import { supabase } from "../lib/supabaseClient";
+import { UserSessionContext } from "../context/user-session";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -23,6 +27,30 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const [notification, setNotification] = useState<NotificationProps | null>();
   // list of user-saved words - null means not fetched yet
   const [userWords, setUserWords] = useState<string[] | null>(null);
+
+  const [session, setSession] = useState<Session | null>(null);
+
+  // update auth context whenever session changes
+  supabase.auth.onAuthStateChange((_, newSession) => {
+    setSession(newSession);
+  });
+
+  useEffect(() => {
+    const initialiseSession = async () => {
+      const { data, error } = await supabase.auth.getSession();
+      if (data?.session) {
+        setSession(data.session);
+      }
+    };
+
+    initialiseSession();
+  }, []);
+
+  useEffect(() => {
+    if (session) {
+      Router.push("/words");
+    }
+  }, [session]);
 
   // fetch user's words and alphabetize
   useEffect(() => {
@@ -55,11 +83,13 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         <Notification type={notification.type} message={notification.message} />
       )}
 
-      <UserWordsContext.Provider value={[userWords, setUserWords]}>
-        <NotificationContext.Provider value={[notification, setNotification]}>
-          {getLayout(<Component {...pageProps} />)}
-        </NotificationContext.Provider>
-      </UserWordsContext.Provider>
+      <UserSessionContext.Provider value={[session, setSession]}>
+        <UserWordsContext.Provider value={[userWords, setUserWords]}>
+          <NotificationContext.Provider value={[notification, setNotification]}>
+            {getLayout(<Component {...pageProps} />)}
+          </NotificationContext.Provider>
+        </UserWordsContext.Provider>
+      </UserSessionContext.Provider>
     </>
   );
 }

@@ -9,6 +9,7 @@ import { UserWordsContext } from "../../../context/user-words";
 import MeaningSearch from "../../../components/app/MeaningSearch";
 import WordModal from "../../../components/app/WordModal";
 import GoBackLayout from "../../../components/layouts/GoBackLayout";
+import UserStatusLayout from "../../../components/layouts/UserStatusLayout";
 
 export default function WordMeaning() {
   const [userWords, _setUserWords] = useContext(UserWordsContext);
@@ -65,5 +66,9 @@ export default function WordMeaning() {
 }
 
 WordMeaning.getLayout = function getLayout(page: ReactElement) {
-  return <GoBackLayout>{page}</GoBackLayout>;
+  return (
+    <UserStatusLayout>
+      <GoBackLayout>{page}</GoBackLayout>
+    </UserStatusLayout>
+  );
 };
