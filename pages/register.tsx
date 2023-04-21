@@ -3,25 +3,29 @@ import {
   ChangeEventHandler,
   FormEventHandler,
   ReactElement,
+  useContext,
   useState,
 } from "react";
 import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
+import { supabase } from "../lib/supabaseClient";
 
 import CredentialPanel from "../components/login/CredentialPanel";
 import SubmitButton from "../components/login/SubmitButton";
 import AlternateActionText from "../components/login/AlternateActionText";
 import LoginLayout from "../components/layouts/LoginLayout";
 import PageTitle from "../components/login/PageTitle";
+import { NotificationContext } from "../context/notification";
 
 export default function Register() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordValidation, setPasswordValidation] = useState("");
 
   const router = useRouter();
+  const [_notification, setNotification] = useContext(NotificationContext);
 
-  const updateUsername: ChangeEventHandler<HTMLInputElement> = (e) =>
-    setUsername(e.target?.value);
+  const updateEmail: ChangeEventHandler<HTMLInputElement> = (e) =>
+    setEmail(e.target?.value);
 
   const updatePassword: ChangeEventHandler<HTMLInputElement> = (e) =>
     setPassword(e.target?.value);
@@ -29,13 +33,29 @@ export default function Register() {
   const updatePasswordValidation: ChangeEventHandler<HTMLInputElement> = (e) =>
     setPasswordValidation(e.target?.value);
 
+  const signUp = async () => {
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+    });
+
+    if (error) {
+      console.log("error");
+      setNotification({ type: "error", message: "Couldn't sign you up!" });
+    }
+  };
+
   const onRegister: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     if (password !== passwordValidation) {
-      //TODO
+      setNotification({ type: "error", message: "Passwords don't match!" });
     } else {
-      //TODO
-      router.push("/words");
+      signUp();
+      setNotification({
+        type: "success",
+        message: "You have successfully signed up!",
+      });
+      router.push("/");
     }
   };
 
@@ -43,10 +63,10 @@ export default function Register() {
     <form className="flex flex-col items-center gap-5" onSubmit={onRegister}>
       <PageTitle title="Create a new account" />
       <CredentialPanel
-        label="Username"
-        id="username"
-        text={username}
-        setText={updateUsername}
+        label="Email"
+        id="email"
+        text={email}
+        setText={updateEmail}
         icon={faUser}
       />
       <CredentialPanel
