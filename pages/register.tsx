@@ -45,12 +45,12 @@ export default function Register() {
     }
   };
 
-  const onRegister: FormEventHandler<HTMLFormElement> = (e) => {
+  const onRegister: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     if (password !== passwordValidation) {
       setNotification({ type: "error", message: "Passwords don't match!" });
     } else {
-      signUp();
+      await signUp();
       setNotification({
         type: "success",
         message: "You have successfully signed up!",

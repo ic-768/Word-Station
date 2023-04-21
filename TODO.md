@@ -1,2 +1,3 @@
+- Next/Previous page buttons on-hover styling
 - Handle user log-in session and data fetching
 - Different branch for authentication - will be convenient to have a demo-purpose branch that can just log in immediately

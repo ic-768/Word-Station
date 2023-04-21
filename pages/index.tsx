@@ -3,6 +3,7 @@ import {
   ChangeEventHandler,
   FormEventHandler,
   ReactElement,
+  useContext,
   useState,
 } from "react";
 import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
@@ -12,33 +13,68 @@ import SubmitButton from "../components/login/SubmitButton";
 import AlternateActionText from "../components/login/AlternateActionText";
 import LoginLayout from "../components/layouts/LoginLayout";
 import PageTitle from "../components/login/PageTitle";
+import { NotificationContext } from "../context/notification";
+import { supabase } from "../lib/supabaseClient";
 
 export default function Home() {
-  const [username, setUsername] = useState("");
+  const [email, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const router = useRouter();
+  const [_notification, setNotification] = useContext(NotificationContext);
 
-  const updateUsername: ChangeEventHandler<HTMLInputElement> = (e) =>
+  const updateEmail: ChangeEventHandler<HTMLInputElement> = (e) =>
     setUsername(e.target?.value);
 
   const updatePassword: ChangeEventHandler<HTMLInputElement> = (e) =>
     setPassword(e.target?.value);
 
-  const onLogin: FormEventHandler<HTMLFormElement> = (e) => {
+  const login = async () => {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) throw Error("Bad login");
+
+    //TODO what to do with user data
+    console.log(data);
+  };
+
+  const onLogin: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    //TODO
-    router.push("/words");
+
+    if (email && password) {
+      try {
+        await login();
+      } catch {
+        setNotification({
+          type: "error",
+          message: "Please Make sure your credentials are correct!",
+        });
+        return;
+      }
+      setNotification({
+        type: "success",
+        message: "Welcome!",
+      });
+      router.push("/words");
+    } else {
+      setNotification({
+        type: "error",
+        message: "Username or password is missing!",
+      });
+    }
   };
 
   return (
     <form className="flex flex-col items-center gap-5" onSubmit={onLogin}>
       <PageTitle title="Log in to Word-Station" />
       <CredentialPanel
-        label="Username"
-        id="username"
-        text={username}
-        setText={updateUsername}
+        label="Email"
+        id="email"
+        text={email}
+        setText={updateEmail}
         icon={faUser}
       />
       <CredentialPanel
