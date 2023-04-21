@@ -4,6 +4,7 @@ import {
   FormEventHandler,
   ReactElement,
   useContext,
+  useEffect,
   useState,
 } from "react";
 import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
@@ -19,8 +20,19 @@ import { supabase } from "../lib/supabaseClient";
 export default function Home() {
   const [email, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
   const router = useRouter();
+
+  const getSession = async () => {
+    const { data, error } = await supabase.auth.getSession();
+    if (data?.session?.user) {
+      router.push("/words");
+    }
+  };
+
+  useEffect(() => {
+    getSession();
+  }, []);
+
   const [_notification, setNotification] = useContext(NotificationContext);
 
   const updateEmail: ChangeEventHandler<HTMLInputElement> = (e) =>
