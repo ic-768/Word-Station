@@ -1,5 +1,4 @@
 import { NextPage } from "next";
-import Router from "next/router";
 import type { AppProps } from "next/app";
 import { ReactElement, ReactNode, useEffect, useState } from "react";
 
@@ -47,12 +46,6 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
     initialiseSession();
   }, []);
-
-  useEffect(() => {
-    if (session) {
-      Router.push("/words");
-    }
-  }, [session]);
 
   // fetch user's words and alphabetize
   useEffect(() => {

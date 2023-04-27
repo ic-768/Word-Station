@@ -4,7 +4,6 @@ import {
   FormEventHandler,
   ReactElement,
   useContext,
-  useEffect,
   useState,
 } from "react";
 import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
@@ -16,7 +15,7 @@ import LoginLayout from "../components/layouts/LoginLayout";
 import PageTitle from "../components/login/PageTitle";
 import { NotificationContext } from "../context/notification";
 import { supabase } from "../lib/supabaseClient";
-import { UserSessionContext } from "../context/user-session";
+import useAuthorizedRedirect from "../hooks/useAuthorizedRedirect";
 
 export default function Home() {
   const [email, setUsername] = useState("");
@@ -24,7 +23,8 @@ export default function Home() {
   const router = useRouter();
 
   const [_notification, setNotification] = useContext(NotificationContext);
-  const [session] = useContext(UserSessionContext);
+
+  useAuthorizedRedirect();
 
   const updateEmail: ChangeEventHandler<HTMLInputElement> = (e) =>
     setUsername(e.target?.value);

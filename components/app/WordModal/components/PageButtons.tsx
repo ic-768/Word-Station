@@ -15,7 +15,9 @@ const PageButtons = ({ page, numPages, setPage }: PageButtonsProps) => {
   const incPage = () => !isLastPage && setPage(page + 1);
 
   const getActivityStyles = (shouldBeDisabled: boolean) =>
-    shouldBeDisabled ? "bg-neutral-400  text-black" : "bg-emerald-700";
+    shouldBeDisabled
+      ? "bg-neutral-400 text-black"
+      : "bg-emerald-700 hover:bg-emerald-800";
 
   const decButtonColor = getActivityStyles(isFirstPage);
   const incButtonColor = getActivityStyles(isLastPage);
