@@ -14,7 +14,7 @@ import Loader from "../../components/common/Loader";
 import WordList from "../../components/app/WordList";
 import UserStatusLayout from "../../components/layouts/UserStatusLayout";
 import { UserSessionContext } from "../../context/user-session";
-import Router from "next/router";
+import useAuthorizedRedirect from "../../hooks/useAuthorizedRedirect";
 
 export default function Words() {
   const [userWords, _setUserWords] = useContext(UserWordsContext);
@@ -38,11 +38,7 @@ export default function Words() {
   }, [filter, userWords]);
 
   //undefined means it hasn't been initialised yet
-  useEffect(() => {
-    if (session === null) {
-      Router.push("/");
-    }
-  }, [session]);
+  useAuthorizedRedirect(session === null);
 
   const onChangeFilter: ChangeEventHandler<HTMLInputElement> = (e) =>
     setFilter(e.target.value);
