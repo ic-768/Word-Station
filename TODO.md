@@ -1,4 +1,3 @@
-- handle supabase error when signing up with bad email format
+- Instead of use authorized redirect, conditionally render
 - On logout next error?
-- Improve onGoBackLayout styling
 - Different branch for authentication - will be convenient to have a demo-purpose branch that can just log in immediately

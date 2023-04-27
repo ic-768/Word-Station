@@ -45,7 +45,13 @@ export default function Register() {
 
     if (error) {
       console.log("error");
-      setNotification({ type: "error", message: "Couldn't sign you up!" });
+      setNotification({ type: "error", message: error.message });
+    } else {
+      setNotification({
+        type: "success",
+        message: "You have successfully signed up!",
+      });
+      router.push("/");
     }
   };
 
@@ -59,13 +65,7 @@ export default function Register() {
         message: "Password must be atleast 6 characters",
       });
     } else {
-      // TODO password might be too short
       await signUp();
-      setNotification({
-        type: "success",
-        message: "You have successfully signed up!",
-      });
-      router.push("/");
     }
   };
 

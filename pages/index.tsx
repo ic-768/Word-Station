@@ -38,10 +38,7 @@ export default function Home() {
       password,
     });
 
-    if (error) throw Error("Bad login");
-
-    //TODO what to do with user data
-    console.log(data);
+    if (error) throw Error(error.message);
   };
 
   const onLogin: FormEventHandler<HTMLFormElement> = async (e) => {
