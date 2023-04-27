@@ -49,25 +49,27 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
   // fetch user's words and alphabetize
   useEffect(() => {
-    (async () => {
-      const response = await getUserWords();
-      const data = response.data;
-      if (data) {
-        const sortedWords = data.map((d) => d.name).sort();
-        // update user words context
-        setUserWords(sortedWords);
-      } else {
-        // TODO set error
-      }
-    })();
-  }, []);
+    if (session?.user.id) {
+      (async () => {
+        const response = await getUserWords(session.user.id);
+        const data = response.data;
+        if (data) {
+          const sortedWords = data.map((d) => d.name).sort();
+          // update user words context
+          setUserWords(sortedWords);
+        } else {
+          // TODO set error
+        }
+      })();
+    }
+  }, [session?.user.id]);
 
   // remove notifications after a fixed amount of time
   useEffect(() => {
     if (notification) {
       setTimeout(() => {
         setNotification(null);
-      }, 4500);
+      }, 450000);
     }
   }, [notification]);
 

@@ -1,3 +1,4 @@
-- Next/Previous page buttons on-hover styling
-- Handle user log-in session and data fetching
+- handle supabase error when signing up with bad email format
+- On logout next error?
+- Improve onGoBackLayout styling
 - Different branch for authentication - will be convenient to have a demo-purpose branch that can just log in immediately

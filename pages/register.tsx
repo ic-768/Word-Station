@@ -53,7 +53,13 @@ export default function Register() {
     e.preventDefault();
     if (password !== passwordValidation) {
       setNotification({ type: "error", message: "Passwords don't match!" });
+    } else if (password.length < 6) {
+      setNotification({
+        type: "error",
+        message: "Password must be atleast 6 characters",
+      });
     } else {
+      // TODO password might be too short
       await signUp();
       setNotification({
         type: "success",
