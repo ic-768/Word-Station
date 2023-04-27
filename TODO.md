@@ -1,3 +1,1 @@
-- Instead of use authorized redirect, conditionally render
-- On logout next error?
 - Different branch for authentication - will be convenient to have a demo-purpose branch that can just log in immediately

@@ -1,5 +1,5 @@
 import Router from "next/router";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserSessionContext } from "../context/user-session";
 
 /**
@@ -8,11 +8,15 @@ import { UserSessionContext } from "../context/user-session";
 const useAuthorizedRedirect = () => {
   const [session] = useContext(UserSessionContext);
 
+  // Make sure we don't push twice in quick succession (patches 'abort fetching component for route' error )
+  const [isPushing, setIsPushing] = useState(false);
+
   useEffect(() => {
-    if (session) {
+    if (session && !isPushing) {
       Router.push("/words");
+      setIsPushing(true);
     }
-  }, [session]);
+  }, [session, isPushing]);
 };
 
 export default useAuthorizedRedirect;
