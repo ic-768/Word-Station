@@ -25,7 +25,6 @@ export default function Home() {
 
   const [_notification, setNotification] = useContext(NotificationContext);
   const [session] = useContext(UserSessionContext);
-  console.log("session in index is ", session);
 
   const updateEmail: ChangeEventHandler<HTMLInputElement> = (e) =>
     setUsername(e.target?.value);

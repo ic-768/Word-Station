@@ -1,4 +1,5 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useContext, useState } from "react";
+import { UserWordsContext } from "../../../context/user-words";
 import { useWordCRUD } from "../../../hooks";
 import { WordMeanings } from "../../../types/WordData";
 
@@ -26,6 +27,7 @@ const WordModal = ({
   const [page, setPage] = useState(0);
   const wordCRUD = useWordCRUD();
   const pageData = meanings?.[page];
+  const [userWords, setUserWords] = useContext(UserWordsContext);
 
   if (!pageData) return <Skeleton />;
 
@@ -36,7 +38,13 @@ const WordModal = ({
       "POST",
       "Word saved successfully!",
       "Word is already saved",
-      () => setIsWordSaved(true)
+      () => {
+        setIsWordSaved(true);
+        if (userWords) {
+          const updatedWords = userWords?.concat(word);
+          setUserWords(updatedWords);
+        }
+      }
     );
 
   const handleDelete = async () =>
@@ -46,7 +54,13 @@ const WordModal = ({
       "DELETE",
       "Word removed successfully!",
       "Something went wrong",
-      () => setIsWordSaved(false)
+      () => {
+        setIsWordSaved(false);
+        if (userWords) {
+          const updatedWords = userWords?.filter((w) => w !== word);
+          setUserWords(updatedWords);
+        }
+      }
     );
 
   return (

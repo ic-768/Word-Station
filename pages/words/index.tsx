@@ -40,7 +40,6 @@ export default function Words() {
   //undefined means it hasn't been initialised yet
   useEffect(() => {
     if (session === null) {
-      console.log("session is null");
       Router.push("/");
     }
   }, [session]);

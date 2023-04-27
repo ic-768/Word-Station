@@ -11,22 +11,23 @@ export default async function handler(
   res: NextApiResponse<Data | string>
 ) {
   try {
-    const word = req.body;
+    const data = req.body;
+    const { word, id } = data;
 
     // Check to see if word already saved by user
     // TODO handle error
     const { count, error } = await supabase
       .from("words")
       .select("name", { head: true, count: "exact" })
-      .eq("name", word);
-
+      .eq("name", word)
+      .eq("user_id", id);
     if (count) {
       res.status(409).send("Word already saved");
     } else {
       // TODO handle error
       const { data, error } = await supabase
         .from("words")
-        .insert({ name: word });
+        .insert({ name: word, user_id: id });
       res.status(200).send("OK");
     }
   } catch (err) {

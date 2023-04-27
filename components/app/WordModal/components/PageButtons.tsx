@@ -20,7 +20,7 @@ const PageButtons = ({ page, numPages, setPage }: PageButtonsProps) => {
   const decButtonColor = getActivityStyles(isFirstPage);
   const incButtonColor = getActivityStyles(isLastPage);
 
-  return (
+  return numPages === 1 ? null : (
     <div className="flex w-4/5 mx-auto text-white">
       <Button
         text={"Previous"}
