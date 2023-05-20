@@ -1,3 +1,3 @@
-- Fix router redirect error ( still happening )
+- Fix router redirect error ( still happening ) => use pageguard instead of redirection hook
 - Screenshots, deployment link in README.md
 - Different branch for authentication - will be convenient to have a demo-purpose branch that can just log in immediately

@@ -11,7 +11,7 @@ const UserStatusLayout = ({ children }: { children: ReactElement }) => {
 
   const onSignOut = async () => {
     const { error } = await supabase.auth.signOut();
-    router.push("/");
+    router.push("/login");
   };
 
   return (

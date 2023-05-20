@@ -1,10 +1,9 @@
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import {
   ChangeEventHandler,
   FormEventHandler,
   ReactElement,
   useContext,
-  useEffect,
   useState,
 } from "react";
 import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
@@ -16,7 +15,6 @@ import AlternateActionText from "../components/login/AlternateActionText";
 import LoginLayout from "../components/layouts/LoginLayout";
 import PageTitle from "../components/login/PageTitle";
 import { NotificationContext } from "../context/notification";
-import useAuthorizedRedirect from "../hooks/useAuthorizedRedirect";
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -25,8 +23,6 @@ export default function Register() {
 
   const router = useRouter();
   const [_notification, setNotification] = useContext(NotificationContext);
-
-  useAuthorizedRedirect();
 
   const updateEmail: ChangeEventHandler<HTMLInputElement> = (e) =>
     setEmail(e.target?.value);
@@ -51,7 +47,7 @@ export default function Register() {
         type: "success",
         message: "You have successfully signed up!",
       });
-      router.push("/");
+      router.push("/login");
     }
   };
 
