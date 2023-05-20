@@ -13,7 +13,6 @@ import FindNewWordButton from "../../components/app/FindNewWordButton";
 import Loader from "../../components/common/Loader";
 import WordList from "../../components/app/WordList";
 import UserStatusLayout from "../../components/layouts/UserStatusLayout";
-import { UserSessionContext } from "../../context/user-session";
 
 export default function Words() {
   const [userWords, _setUserWords] = useContext(UserWordsContext);
