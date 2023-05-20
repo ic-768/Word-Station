@@ -13,6 +13,7 @@ import "../styles/globals.css";
 import { Session } from "@supabase/supabase-js";
 import { supabase } from "../lib/supabaseClient";
 import { UserSessionContext } from "../context/user-session";
+import RouteGuard from "../components/common/RouteGuard";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -81,11 +82,15 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       )}
 
       <UserSessionContext.Provider value={[session, setSession]}>
-        <UserWordsContext.Provider value={[userWords, setUserWords]}>
-          <NotificationContext.Provider value={[notification, setNotification]}>
-            {getLayout(<Component {...pageProps} />)}
-          </NotificationContext.Provider>
-        </UserWordsContext.Provider>
+        <RouteGuard>
+          <UserWordsContext.Provider value={[userWords, setUserWords]}>
+            <NotificationContext.Provider
+              value={[notification, setNotification]}
+            >
+              {getLayout(<Component {...pageProps} />)}
+            </NotificationContext.Provider>
+          </UserWordsContext.Provider>
+        </RouteGuard>
       </UserSessionContext.Provider>
     </>
   );
