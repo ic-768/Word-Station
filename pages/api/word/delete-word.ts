@@ -11,11 +11,12 @@ export default async function handler(
   res: NextApiResponse<Data | string>
 ) {
   try {
-    const word = req.body;
+    const data = req.body;
+    const { word, id } = data;
     const { error } = await supabase
       .from("words")
       .delete()
-      .match({ name: word });
+      .match({ name: word, user_id: id });
     //TODO handle error
 
     res.status(200).send("OK");
