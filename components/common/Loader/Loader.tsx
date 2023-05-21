@@ -8,7 +8,7 @@ const Loader = () => (
     viewBox="0 0 120 30"
     xmlns="http://www.w3.org/2000/svg"
     fill="#fff"
-    className="absolute inset-y-0 my-auto"
+    className="absolute inset-0 m-auto"
   >
     <circle cx="15" cy="15" r="15">
       <animate
