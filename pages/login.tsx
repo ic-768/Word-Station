@@ -8,13 +8,14 @@ import {
 } from "react";
 import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 
+import { supabase } from "../lib/supabaseClient";
 import CredentialPanel from "../components/login/CredentialPanel";
 import SubmitButton from "../components/login/SubmitButton";
 import AlternateActionText from "../components/login/AlternateActionText";
 import LoginLayout from "../components/layouts/LoginLayout";
 import PageTitle from "../components/login/PageTitle";
 import { NotificationContext } from "../context/notification";
-import { supabase } from "../lib/supabaseClient";
+import { LoaderContext } from "../context/loader";
 
 export default function Login() {
   const [email, setUsername] = useState("");
@@ -22,6 +23,7 @@ export default function Login() {
   const router = useRouter();
 
   const [_notification, setNotification] = useContext(NotificationContext);
+  const [_loading, setIsLoading] = useContext(LoaderContext);
 
   const updateEmail: ChangeEventHandler<HTMLInputElement> = (e) =>
     setUsername(e.target?.value);
@@ -39,6 +41,7 @@ export default function Login() {
   };
 
   const onLogin: FormEventHandler<HTMLFormElement> = async (e) => {
+    setIsLoading(true);
     e.preventDefault();
 
     if (email && password) {
@@ -62,6 +65,7 @@ export default function Login() {
         message: "Username or password is missing!",
       });
     }
+    setIsLoading(false);
   };
 
   return (

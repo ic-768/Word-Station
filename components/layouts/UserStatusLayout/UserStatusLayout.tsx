@@ -1,17 +1,22 @@
 import { ReactElement, useContext } from "react";
 import { useRouter } from "next/router";
-import { supabase } from "../../../lib/supabaseClient";
-import { UserSessionContext } from "../../../context/user-session";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightFromBracket, faUser } from "@fortawesome/free-solid-svg-icons";
+
+import { supabase } from "../../../lib/supabaseClient";
+import { UserSessionContext } from "../../../context/user-session";
+import { LoaderContext } from "../../../context/loader";
 
 const UserStatusLayout = ({ children }: { children: ReactElement }) => {
   const router = useRouter();
   const [session] = useContext(UserSessionContext);
+  const [_isLoading, setIsLoading] = useContext(LoaderContext);
 
   const onSignOut = async () => {
+    setIsLoading(true);
     const { error } = await supabase.auth.signOut();
     router.push("/login");
+    setIsLoading(false);
   };
 
   return (

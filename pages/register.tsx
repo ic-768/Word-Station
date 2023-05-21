@@ -7,14 +7,15 @@ import {
   useState,
 } from "react";
 import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
-import { supabase } from "../lib/supabaseClient";
 
+import { supabase } from "../lib/supabaseClient";
 import CredentialPanel from "../components/login/CredentialPanel";
 import SubmitButton from "../components/login/SubmitButton";
 import AlternateActionText from "../components/login/AlternateActionText";
 import LoginLayout from "../components/layouts/LoginLayout";
 import PageTitle from "../components/login/PageTitle";
 import { NotificationContext } from "../context/notification";
+import { LoaderContext } from "../context/loader";
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -22,7 +23,9 @@ export default function Register() {
   const [passwordValidation, setPasswordValidation] = useState("");
 
   const router = useRouter();
+
   const [_notification, setNotification] = useContext(NotificationContext);
+  const [_loading, setIsLoading] = useContext(LoaderContext);
 
   const updateEmail: ChangeEventHandler<HTMLInputElement> = (e) =>
     setEmail(e.target?.value);
@@ -34,6 +37,7 @@ export default function Register() {
     setPasswordValidation(e.target?.value);
 
   const signUp = async () => {
+    setIsLoading(true);
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
@@ -89,7 +93,10 @@ export default function Register() {
         setText={updatePasswordValidation}
         icon={faLock}
       />
-      <AlternateActionText text="Already have an account? Log in" link="/" />
+      <AlternateActionText
+        text="Already have an account? Log in"
+        link="/login"
+      />
       <SubmitButton text="Register" />
     </form>
   );
