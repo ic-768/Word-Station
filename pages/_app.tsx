@@ -2,18 +2,20 @@ import { NextPage } from "next";
 import type { AppProps } from "next/app";
 import { ReactElement, ReactNode, useEffect, useState } from "react";
 
+import { Session } from "@supabase/supabase-js";
+
 import { NotificationContext } from "../context/notification";
 import Notification, {
   NotificationProps,
 } from "../components/common/Notification";
 import { UserWordsContext } from "../context/user-words";
 import { getUserWords } from "./api/word/get-user-words";
-
-import "../styles/globals.css";
-import { Session } from "@supabase/supabase-js";
 import { supabase } from "../lib/supabaseClient";
 import { UserSessionContext } from "../context/user-session";
 import RouteGuard from "../components/common/RouteGuard";
+import "../styles/globals.css";
+import { LoaderContext } from "../context/loader";
+import Loader from "../components/common/Loader";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -24,11 +26,16 @@ type AppPropsWithLayout = AppProps & {
 };
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
-  const [notification, setNotification] = useState<NotificationProps | null>();
   // list of user-saved words - null means not fetched yet
   const [userWords, setUserWords] = useState<string[] | null>(null);
 
+  // user login session
   const [session, setSession] = useState<Session | null | undefined>(undefined);
+
+  // to render loading spinner
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  // to render notifications
+  const [notification, setNotification] = useState<NotificationProps | null>();
 
   // update auth context whenever session changes
   supabase.auth.onAuthStateChange((_, newSession) => {
@@ -81,15 +88,19 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         <Notification type={notification.type} message={notification.message} />
       )}
 
+      {isLoading && <Loader />}
+
       <UserSessionContext.Provider value={[session, setSession]}>
         <RouteGuard>
-          <UserWordsContext.Provider value={[userWords, setUserWords]}>
-            <NotificationContext.Provider
-              value={[notification, setNotification]}
-            >
-              {getLayout(<Component {...pageProps} />)}
-            </NotificationContext.Provider>
-          </UserWordsContext.Provider>
+          <LoaderContext.Provider value={[isLoading, setIsLoading]}>
+            <UserWordsContext.Provider value={[userWords, setUserWords]}>
+              <NotificationContext.Provider
+                value={[notification, setNotification]}
+              >
+                {getLayout(<Component {...pageProps} />)}
+              </NotificationContext.Provider>
+            </UserWordsContext.Provider>
+          </LoaderContext.Provider>
         </RouteGuard>
       </UserSessionContext.Provider>
     </>

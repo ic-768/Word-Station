@@ -10,9 +10,9 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { UserWordsContext } from "../../context/user-words";
 import InputWithButton from "../../components/common/inputs/InputWithButton";
 import FindNewWordButton from "../../components/app/FindNewWordButton";
-import Loader from "../../components/common/Loader";
 import WordList from "../../components/app/WordList";
 import UserStatusLayout from "../../components/layouts/UserStatusLayout";
+import { LoaderContext } from "../../context/loader";
 
 export default function Words() {
   const [userWords, _setUserWords] = useContext(UserWordsContext);
@@ -22,16 +22,21 @@ export default function Words() {
   // null means not fetched yet
   const [filteredWords, setFilteredWords] = useState<string[] | null>(null);
 
+  const [_isLoading, setIsLoading] = useContext(LoaderContext);
+
+  useEffect(() => {
+    setIsLoading(true);
+  }, [setIsLoading]);
+
   // filter
   useEffect(() => {
     if (userWords) {
       setFilteredWords(
         userWords.filter((w) => w.toLowerCase().includes(filter.toLowerCase()))
       );
-    } else {
-      setFilteredWords(null);
+      setIsLoading(false);
     }
-  }, [filter, userWords]);
+  }, [filter, userWords, setIsLoading]);
 
   const onChangeFilter: ChangeEventHandler<HTMLInputElement> = (e) =>
     setFilter(e.target.value);
@@ -51,7 +56,7 @@ export default function Words() {
         </div>
         <FindNewWordButton />
       </div>
-      {filteredWords === null ? <Loader /> : <WordList words={filteredWords} />}
+      {filteredWords !== null && <WordList words={filteredWords} />}
     </div>
   );
 }
