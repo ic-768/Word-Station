@@ -3,11 +3,13 @@ import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
 
 interface LikeWordButtonProps {
+  isLoading?: boolean;
   isWordSaved?: boolean;
   handleDelete: () => void;
   handleSave: () => void;
 }
 const LikeWordButton = ({
+  isLoading,
   isWordSaved,
   handleDelete,
   handleSave,
@@ -22,7 +24,9 @@ const LikeWordButton = ({
       cursor="pointer"
       onClick={onClick}
       icon={icon}
-      className={`w-12 ${color} hover:text-red-800 hover`}
+      className={`w-12 ${color} hover:text-red-800 ${
+        isLoading ? "animate-spin" : ""
+      }`}
     />
   );
 };

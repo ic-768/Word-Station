@@ -26,6 +26,7 @@ const WordModal = ({
   setIsWordSaved,
 }: WordModalProps) => {
   const [page, setPage] = useState(0);
+  const [isWordLikeStatusLoading, setIsWordLikeStatusLoading] = useState(false);
   const wordCRUD = useWordCRUD();
   const pageData = meanings?.[page];
   const [userWords, setUserWords] = useContext(UserWordsContext);
@@ -34,6 +35,7 @@ const WordModal = ({
   if (!pageData) return <Skeleton />;
 
   const handleSave = async () => {
+    setIsWordLikeStatusLoading(true);
     await wordCRUD(
       word,
       "save-word",
@@ -48,9 +50,11 @@ const WordModal = ({
         }
       }
     );
+    setIsWordLikeStatusLoading(false);
   };
 
   const handleDelete = async () => {
+    setIsWordLikeStatusLoading(true);
     await wordCRUD(
       word,
       "delete-word",
@@ -65,11 +69,13 @@ const WordModal = ({
         }
       }
     );
+    setIsWordLikeStatusLoading(false);
   };
 
   return (
     <div className="absolute inset-x-0 flex flex-col items-center max-w-sm p-8 mx-auto bg-white rounded top-32 h-4/6 sm:max-w-lg">
       <LikeWordButton
+        isLoading={isWordLikeStatusLoading}
         isWordSaved={isWordSaved}
         handleSave={handleSave}
         handleDelete={handleDelete}

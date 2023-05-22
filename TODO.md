@@ -1,4 +1,3 @@
-- Heart animation when liking / unliking
 - Redirect logged in users away from /, /login, /register
 - Homepage
 - Fade in notifications
