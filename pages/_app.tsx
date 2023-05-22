@@ -14,7 +14,11 @@ import { supabase } from "../lib/supabaseClient";
 import { UserSessionContext } from "../context/user-session";
 import RouteGuard from "../components/common/RouteGuard";
 import "../styles/globals.css";
-import { LoaderArgs, LoaderContext } from "../context/loader";
+import {
+  isPositionedLoader,
+  LoaderArgs,
+  LoaderContext,
+} from "../context/loader";
 import Loader from "../components/common/Loader";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
@@ -90,8 +94,10 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       )}
 
       {/* loader is true or showLoader property is set */}
-      {loader !== false && (loader === true || loader?.showLoader) && (
-        <Loader />
+      {loader && (
+        <Loader
+          position={isPositionedLoader(loader) ? loader.position : undefined}
+        />
       )}
 
       <UserSessionContext.Provider value={[session, setSession]}>

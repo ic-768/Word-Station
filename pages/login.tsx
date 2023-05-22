@@ -41,7 +41,7 @@ export default function Login() {
   };
 
   const onLogin: FormEventHandler<HTMLFormElement> = async (e) => {
-    setLoader(true);
+    setLoader({ showLoader: true, position: "inset-x-0 mx-auto top-16" });
     e.preventDefault();
 
     if (email && password) {

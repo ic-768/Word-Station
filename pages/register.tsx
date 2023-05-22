@@ -37,7 +37,7 @@ export default function Register() {
     setPasswordValidation(e.target?.value);
 
   const signUp = async () => {
-    setLoader({ showLoader: true });
+    setLoader({ showLoader: true, position: "inset-x-0 mx-auto top-16" });
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
@@ -53,6 +53,7 @@ export default function Register() {
       });
       router.push("/login");
     }
+    setLoader(false);
   };
 
   const onRegister: FormEventHandler<HTMLFormElement> = async (e) => {

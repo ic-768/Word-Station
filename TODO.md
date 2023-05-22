@@ -1,4 +1,5 @@
-- Allow loader positioning => when logging in keep it top
+- Heart animation when liking / unliking
+- Redirect logged in users away from /, /login, /register
 - Homepage
 - Fade in notifications
 - Screenshots, deployment link in README.md

@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, useContext, useState } from "react";
+import { LoaderContext } from "../../../context/loader";
 import { UserWordsContext } from "../../../context/user-words";
 import { useWordCRUD } from "../../../hooks";
 import { WordMeanings } from "../../../types/WordData";
@@ -28,10 +29,11 @@ const WordModal = ({
   const wordCRUD = useWordCRUD();
   const pageData = meanings?.[page];
   const [userWords, setUserWords] = useContext(UserWordsContext);
+  const [_loader, setLoader] = useContext(LoaderContext);
 
   if (!pageData) return <Skeleton />;
 
-  const handleSave = async () =>
+  const handleSave = async () => {
     await wordCRUD(
       word,
       "save-word",
@@ -46,8 +48,9 @@ const WordModal = ({
         }
       }
     );
+  };
 
-  const handleDelete = async () =>
+  const handleDelete = async () => {
     await wordCRUD(
       word,
       "delete-word",
@@ -62,6 +65,7 @@ const WordModal = ({
         }
       }
     );
+  };
 
   return (
     <div className="absolute inset-x-0 flex flex-col items-center max-w-sm p-8 mx-auto bg-white rounded top-32 h-4/6 sm:max-w-lg">
