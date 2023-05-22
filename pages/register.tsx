@@ -37,7 +37,7 @@ export default function Register() {
     setPasswordValidation(e.target?.value);
 
   const signUp = async () => {
-    setIsLoading(true);
+    setIsLoading({ showLoader: true });
     const { data, error } = await supabase.auth.signUp({
       email,
       password,

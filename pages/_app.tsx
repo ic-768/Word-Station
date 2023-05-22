@@ -14,7 +14,7 @@ import { supabase } from "../lib/supabaseClient";
 import { UserSessionContext } from "../context/user-session";
 import RouteGuard from "../components/common/RouteGuard";
 import "../styles/globals.css";
-import { LoaderContext } from "../context/loader";
+import { LoaderArgs, LoaderContext } from "../context/loader";
 import Loader from "../components/common/Loader";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
@@ -33,7 +33,9 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const [session, setSession] = useState<Session | null | undefined>(undefined);
 
   // to render loading spinner
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [loader, setLoader] = useState<LoaderArgs>({
+    showLoader: false,
+  });
   // to render notifications
   const [notification, setNotification] = useState<NotificationProps | null>();
 
@@ -82,17 +84,21 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   }, [notification]);
 
   const getLayout = Component.getLayout || ((page) => page);
+
   return (
     <>
       {notification && (
         <Notification type={notification.type} message={notification.message} />
       )}
 
-      {isLoading && <Loader />}
+      {/* loader is true or showLoader property is set */}
+      {loader !== false && (loader === true || loader?.showLoader) && (
+        <Loader />
+      )}
 
       <UserSessionContext.Provider value={[session, setSession]}>
         <RouteGuard>
-          <LoaderContext.Provider value={[isLoading, setIsLoading]}>
+          <LoaderContext.Provider value={[loader, setLoader]}>
             <UserWordsContext.Provider value={[userWords, setUserWords]}>
               <NotificationContext.Provider
                 value={[notification, setNotification]}
