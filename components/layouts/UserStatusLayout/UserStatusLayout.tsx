@@ -10,13 +10,13 @@ import { LoaderContext } from "../../../context/loader";
 const UserStatusLayout = ({ children }: { children: ReactElement }) => {
   const router = useRouter();
   const [session] = useContext(UserSessionContext);
-  const [_isLoading, setIsLoading] = useContext(LoaderContext);
+  const [_loader, setLoader] = useContext(LoaderContext);
 
   const onSignOut = async () => {
-    setIsLoading(true);
+    setLoader(true);
     const { error } = await supabase.auth.signOut();
     router.push("/login");
-    setIsLoading(false);
+    setLoader(false);
   };
 
   return (

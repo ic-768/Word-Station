@@ -22,11 +22,11 @@ export default function Words() {
   // null means not fetched yet
   const [filteredWords, setFilteredWords] = useState<string[] | null>(null);
 
-  const [_isLoading, setIsLoading] = useContext(LoaderContext);
+  const [_loader, setLoader] = useContext(LoaderContext);
 
   useEffect(() => {
-    setIsLoading(true);
-  }, [setIsLoading]);
+    setLoader(true);
+  }, [setLoader]);
 
   // filter
   useEffect(() => {
@@ -34,9 +34,9 @@ export default function Words() {
       setFilteredWords(
         userWords.filter((w) => w.toLowerCase().includes(filter.toLowerCase()))
       );
-      setIsLoading(false);
+      setLoader(false);
     }
-  }, [filter, userWords, setIsLoading]);
+  }, [filter, userWords, setLoader]);
 
   const onChangeFilter: ChangeEventHandler<HTMLInputElement> = (e) =>
     setFilter(e.target.value);

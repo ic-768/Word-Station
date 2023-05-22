@@ -23,7 +23,7 @@ export default function Login() {
   const router = useRouter();
 
   const [_notification, setNotification] = useContext(NotificationContext);
-  const [_loading, setIsLoading] = useContext(LoaderContext);
+  const [_loader, setLoader] = useContext(LoaderContext);
 
   const updateEmail: ChangeEventHandler<HTMLInputElement> = (e) =>
     setUsername(e.target?.value);
@@ -41,7 +41,7 @@ export default function Login() {
   };
 
   const onLogin: FormEventHandler<HTMLFormElement> = async (e) => {
-    setIsLoading(true);
+    setLoader(true);
     e.preventDefault();
 
     if (email && password) {
@@ -65,7 +65,7 @@ export default function Login() {
         message: "Username or password is missing!",
       });
     }
-    setIsLoading(false);
+    setLoader(false);
   };
 
   return (

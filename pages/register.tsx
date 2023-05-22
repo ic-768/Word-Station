@@ -25,7 +25,7 @@ export default function Register() {
   const router = useRouter();
 
   const [_notification, setNotification] = useContext(NotificationContext);
-  const [_loading, setIsLoading] = useContext(LoaderContext);
+  const [_loader, setLoader] = useContext(LoaderContext);
 
   const updateEmail: ChangeEventHandler<HTMLInputElement> = (e) =>
     setEmail(e.target?.value);
@@ -37,7 +37,7 @@ export default function Register() {
     setPasswordValidation(e.target?.value);
 
   const signUp = async () => {
-    setIsLoading({ showLoader: true });
+    setLoader({ showLoader: true });
     const { data, error } = await supabase.auth.signUp({
       email,
       password,

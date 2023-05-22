@@ -33,9 +33,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const [session, setSession] = useState<Session | null | undefined>(undefined);
 
   // to render loading spinner
-  const [loader, setLoader] = useState<LoaderArgs>({
-    showLoader: false,
-  });
+  const [loader, setLoader] = useState<LoaderArgs>(false);
   // to render notifications
   const [notification, setNotification] = useState<NotificationProps | null>();
 
