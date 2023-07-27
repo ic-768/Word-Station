@@ -7,9 +7,9 @@ module.exports = {
   theme: {
     extend: {
       keyframes: {
-        "slide-notification-in": {
-          "0%": { marginTop: "-300px" },
-          "100%": { marginTop: "10px" },
+        "fade-notification-in": {
+          "0%": { opacity: 0 },
+          "100%": { opacity: 1 },
         },
         "gradient-x": {
           "0%": {
@@ -24,7 +24,7 @@ module.exports = {
       },
       animation: {
         "gradient-x": "gradient-x 2s ease infinite",
-        "slide-notification-in": "slide-notification-in 1s ease-in-out",
+        "fade-notification-in": "fade-notification-in 1s ease-in-out",
       },
       backgroundImage: {
         "skeleton-shine":
