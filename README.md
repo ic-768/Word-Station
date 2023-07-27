@@ -1,5 +1,5 @@
 # Word Station
-Use case:
+**Use case:**\
 Sometimes I read literary books with weird words in them. I might google them, go "aha", and *think* that I've learnt them. But too many times I've ended up reading the same word a few months later with no clue of what it means.
 
 This project allows the user to create an account and search for any word they want. The app will show a complete list of definitions, synonyms, and antonyms. They can then 'favorite' the word and add it to their word list.
