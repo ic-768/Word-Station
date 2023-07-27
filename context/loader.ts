@@ -11,9 +11,7 @@ type LoaderContextArgs = [LoaderArgs, Dispatch<SetStateAction<LoaderArgs>>];
 
 export const isPositionedLoader = (
   loaderArgs: any
-): loaderArgs is LoaderComponentArgs => {
-  return loaderArgs.position;
-};
+): loaderArgs is LoaderComponentArgs => loaderArgs.position;
 
 /**
  * Ctx to provide isLoading and setIsLoading to subcomponents. Is provided with state in outer app component.
