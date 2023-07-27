@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 import TextCard from "../components/homepage/TextCard";
 
 export default function Home() {
@@ -13,7 +14,16 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="h-full p-16 flex flex-col items-center gap-8 overflow-auto text-center">
+
+      <div className="flex gap-6 justify-end w-full border-b border-slate-50 text-black p-2 bg-white h-16 ">
+        <Link
+          className="flex items-center text-lg rounded-lg transition-colors duration-500 whitespace-nowrap hover:text-green-700 mr-4"
+          href="/login"
+        >
+          Log In
+        </Link>
+      </div>
+      <main className="h-full p-20 flex flex-col items-center gap-8 overflow-auto text-center">
         <h1 className="text-3xl sm:text-5xl font-bold">
           WordStation - Discover, Learn, Remember
         </h1>
@@ -51,7 +61,6 @@ export default function Home() {
             ease."
           ></TextCard>
         </ul>
-
         <p>
           Unlock the Power of Words with WordStation: Take your vocabulary to
           new heights and let the beauty of language inspire you. Download
