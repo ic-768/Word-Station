@@ -1,3 +1,1 @@
-- Fade in notifications
-- Screenshots, deployment link in README.md
 - Flash card mode
