@@ -12,7 +12,7 @@ import { UserWordsContext } from "../context/user-words";
 import { getUserWords } from "./api/word/get-user-words";
 import { supabase } from "../lib/supabaseClient";
 import { UserSessionContext } from "../context/user-session";
-import RouteGuard from "../components/common/RouteGuard";
+import ProtectedRouteGuard from "../components/common/ProtectedRouteGuard";
 import "../styles/globals.css";
 import {
   isPositionedLoader,
@@ -101,7 +101,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       )}
 
       <UserSessionContext.Provider value={[session, setSession]}>
-        <RouteGuard>
+        <ProtectedRouteGuard>
           <LoaderContext.Provider value={[loader, setLoader]}>
             <UserWordsContext.Provider value={[userWords, setUserWords]}>
               <NotificationContext.Provider
@@ -111,7 +111,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
               </NotificationContext.Provider>
             </UserWordsContext.Provider>
           </LoaderContext.Provider>
-        </RouteGuard>
+        </ProtectedRouteGuard>
       </UserSessionContext.Provider>
     </>
   );

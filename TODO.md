@@ -1,4 +1,3 @@
-- Redirect logged in users away from /, /login, /register
 - Homepage
 - Fade in notifications
 - Screenshots, deployment link in README.md

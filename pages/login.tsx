@@ -52,6 +52,7 @@ export default function Login() {
           type: "error",
           message: "Please Make sure your credentials are correct!",
         });
+        setLoader(false);
         return;
       }
       setNotification({
