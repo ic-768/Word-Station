@@ -21,7 +21,7 @@ const UserStatusLayout = ({ children }: { children: ReactElement }) => {
 
   return (
     <>
-      <div className="absolute top-0 w-full h-8 bg-white text-black p-4 flex items-center z-10 whitespace-nowrap sm:h-12">
+      <div className="sticky top-0 w-full h-8 bg-white text-black p-4 flex items-center z-10 whitespace-nowrap sm:h-12">
         <div className="flex gap-2 items-center">
           <FontAwesomeIcon icon={faUser} className="h-full w-4" />
           <span>{session?.user.email}</span>
