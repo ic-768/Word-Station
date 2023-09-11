@@ -1,10 +1,14 @@
 import { ParsedWordData } from "../../../../types/WordData";
 
-const DefinitionsList = ({ pageData }: { pageData: ParsedWordData }) => (
+const DefinitionsList = ({
+  definitions,
+}: {
+  definitions: ParsedWordData["definitions"];
+}) => (
   <>
     <label className="text-lg font-semibold">Definitions</label>
     <ul className="ml-8 list-disc">
-      {pageData.definitions.map((d) => (
+      {definitions.map((d) => (
         <li key={d.definition}>{d.definition}</li>
       ))}
     </ul>

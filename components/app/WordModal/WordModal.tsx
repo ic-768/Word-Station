@@ -82,8 +82,8 @@ const WordModal = ({
       />
       <div className="relative flex flex-col w-full h-full overflow-y-auto text-neutral-800 max-h-max">
         <span className="text-lg font-semibold uppercase">{word}</span>
-        <DefinitionsList pageData={pageData} />
-        <SynonymsList pageData={pageData} />
+        <DefinitionsList definitions={pageData.definitions} />
+        <SynonymsList synonyms={pageData.synonyms} />
       </div>
       <Footer page={page} numPages={meanings.length} setPage={setPage} />
     </div>
