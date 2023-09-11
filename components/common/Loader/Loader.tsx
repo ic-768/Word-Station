@@ -1,11 +1,11 @@
 /*
  * Simple spinning loader to indicate that content is loading
  */
-export interface LoaderComponentArgs {
+export interface LoaderComponentProps {
   position?: string;
 }
 
-const Loader = ({ position = "inset-0 m-auto" }: LoaderComponentArgs) => (
+const Loader = ({ position = "inset-0 m-auto" }: LoaderComponentProps) => (
   <svg
     width="120"
     height="30"

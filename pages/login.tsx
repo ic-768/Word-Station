@@ -85,6 +85,7 @@ export default function Login() {
         text={password}
         setText={updatePassword}
         icon={faLock}
+        type="password"
       />
       <AlternateActionText
         text="Don't have an account? Register"

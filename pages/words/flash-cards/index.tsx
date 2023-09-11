@@ -7,16 +7,18 @@ import { UserFlashCardsContext } from "../../../context/user-flashcard-groups";
  * Page for user to create and organise groups of word flashcards.
  */
 export default function FlashCards() {
-  const [userFlashCards, _setUserFlashCards] = useContext(
+  const [userFlashCardGroups, _setUserFlashCardGroups] = useContext(
     UserFlashCardsContext
   );
 
   return (
     <div className="relative flex flex-col items-center w-screen h-screen p-8">
       <span className="text-lg font-bold">Flash card groups</span>
-      {userFlashCards?.map((w, i) => (
-        <div key={i} className="flex">
-          <div>{w}</div>
+      {userFlashCardGroups?.map((group, i) => (
+        <div key={i} className="flex flex-col border-2 border-white p-2">
+          {group.map((word, i) => (
+            <span key={word + i}>{word}</span>
+          ))}
         </div>
       ))}
     </div>

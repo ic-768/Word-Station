@@ -9,7 +9,9 @@ import {
 import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 
 import { supabase } from "../lib/supabaseClient";
-import CredentialPanel from "../components/login/CredentialPanel";
+import CredentialPanel, {
+  CredentialPanelProps,
+} from "../components/login/CredentialPanel";
 import SubmitButton from "../components/login/SubmitButton";
 import AlternateActionText from "../components/login/AlternateActionText";
 import LoginLayout from "../components/layouts/LoginLayout";
@@ -70,30 +72,38 @@ export default function Register() {
     }
   };
 
+  const emailPanel: CredentialPanelProps = {
+    label: "Email",
+    id: "email",
+    text: email,
+    setText: updateEmail,
+    icon: faUser,
+  };
+
+  const passwordPanel: CredentialPanelProps = {
+    label: "Password",
+    id: "password",
+    text: password,
+    setText: updatePassword,
+    icon: faLock,
+    type: "password",
+  };
+
+  const repeatPasswordPanel: CredentialPanelProps = {
+    label: "Repeat password",
+    id: "password-validation",
+    text: passwordValidation,
+    setText: updatePasswordValidation,
+    icon: faLock,
+    type: "password",
+  };
+
   return (
     <form className="flex flex-col items-center gap-5" onSubmit={onRegister}>
       <PageTitle title="Create a new account" />
-      <CredentialPanel
-        label="Email"
-        id="email"
-        text={email}
-        setText={updateEmail}
-        icon={faUser}
-      />
-      <CredentialPanel
-        label="Password"
-        id="password"
-        text={password}
-        setText={updatePassword}
-        icon={faLock}
-      />
-      <CredentialPanel
-        label="Repeat password"
-        id="password-validation"
-        text={passwordValidation}
-        setText={updatePasswordValidation}
-        icon={faLock}
-      />
+      <CredentialPanel {...emailPanel} />
+      <CredentialPanel {...passwordPanel} />
+      <CredentialPanel {...repeatPasswordPanel} />
       <AlternateActionText
         text="Already have an account? Log in"
         link="/login"
