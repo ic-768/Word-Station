@@ -17,10 +17,10 @@ export const UserFlashCardsContext =
   React.createContext<UserFlashCardsContextArgs>([
     [
       { title: "Stephen King", words: ["atest", "string", "pillow"] },
-      { title: "Stephen King", words: ["atest", "string", "pillow"] },
-      { title: "Stephen King", words: ["atest", "string", "pillow"] },
-      { title: "Stephen King", words: ["atest", "string", "pillow"] },
-      { title: "Stephen King", words: ["atest", "string", "pillow"] },
+      { title: "Test0", words: ["basket", "straw", "pillow"] },
+      { title: "Test1", words: ["daisy", "psychology", "donut"] },
+      { title: "Test2", words: ["roll", "foe", "test"] },
+      { title: "Test3", words: ["blanket", "deter", "fair"] },
       {
         title: "Newspaper",
         words: [

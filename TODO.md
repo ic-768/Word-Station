@@ -1,1 +1,4 @@
 - Flash card mode
+- Reward system 
+  - Animations
+  - Correct streaks
