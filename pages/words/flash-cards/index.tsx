@@ -1,6 +1,6 @@
 import { ReactElement, useContext } from "react";
-import FlashCardGroup from "../../../components/app/FlashCardGroup";
 
+import FlashCardGroup from "../../../components/app/FlashCardGroup";
 import GoBackLayout from "../../../components/layouts/GoBackLayout";
 import UserStatusLayout from "../../../components/layouts/UserStatusLayout";
 import { UserFlashCardsContext } from "../../../context/user-flashcard-groups";
