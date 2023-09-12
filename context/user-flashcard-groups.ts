@@ -1,8 +1,13 @@
 import React, { Dispatch, SetStateAction } from "react";
 
+export interface FlashCardGroup {
+  title: string;
+  words: string[];
+}
+
 type UserFlashCardsContextArgs = [
-  string[][] | null,
-  Dispatch<SetStateAction<string[][] | null>>
+  FlashCardGroup[] | null,
+  Dispatch<SetStateAction<FlashCardGroup[] | null>>
 ];
 
 /**
@@ -11,8 +16,23 @@ type UserFlashCardsContextArgs = [
 export const UserFlashCardsContext =
   React.createContext<UserFlashCardsContextArgs>([
     [
-      ["atest", "string", "pillow"],
-      ["scrub", "literature"],
+      { title: "Stephen King", words: ["atest", "string", "pillow"] },
+      { title: "Stephen King", words: ["atest", "string", "pillow"] },
+      { title: "Stephen King", words: ["atest", "string", "pillow"] },
+      { title: "Stephen King", words: ["atest", "string", "pillow"] },
+      { title: "Stephen King", words: ["atest", "string", "pillow"] },
+      {
+        title: "Newspaper",
+        words: [
+          "scrub",
+          "literature",
+          "test1",
+          "test2",
+          "test3",
+          "test4",
+          "test5",
+        ],
+      },
     ],
     () => [],
   ]);

@@ -41,7 +41,7 @@ export default function Words() {
     setFilter(e.target.value);
 
   return (
-    <div className="relative flex flex-col items-center w-screen h-screen p-8">
+    <div className="relative flex flex-col items-center w-screen p-8">
       <div className="flex my-10 items-center gap-8">
         <WordSearchPanel filter={filter} onChangeFilter={onChangeFilter} />
         <Link
