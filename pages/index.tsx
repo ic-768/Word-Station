@@ -30,16 +30,16 @@ export default function Home() {
         <p className="text-md sm:text-lg mx-auto text-slate-200">
           Expand your vocabulary and boost your language skills. WordStation is
           designed to make learning words engaging and effortless. You can
-          explore a vast dictionary, &quot;like&quot; intriguing words, and dive
-          deeper into their definitions, synonyms, and antonyms. Let the power
-          of words inspire you on your journey to linguistic mastery.
+          explore a vast dictionary, like intriguing words, and dive deeper into
+          their definitions, synonyms, and antonyms. Let the power of words
+          inspire you on your journey to linguistic mastery.
         </p>
         <h2 className="text-2xl sm:text-3xl font-bold">Why WordStation?</h2>
         <ul className="grid grid-cols-1 gap-6 lg:gap-8 sm:grid-cols-2 lg:grid-cols-3">
           <TextCard
-            text='Personalized Vocabulary Building: WordStation allows you to curate your own collection of captivating words. Browse through an
-            extensive dictionary and "like" the words that catch your
-            attention.'
+            text="Personalized Vocabulary Building: WordStation allows you to curate your own collection of captivating words. Browse through an
+            extensive dictionary and like the words that catch your
+            attention."
           />
           <TextCard
             text="Explore Word Definitions: WordStation provides comprehensive

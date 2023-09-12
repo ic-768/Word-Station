@@ -19,7 +19,7 @@ export default function GetMeaning() {
   );
 
   // TODO retrieve and store meanings for each word
-  const [meanings, setMeanings] = [];
+  const [meanings, setMeanings] = useState<string[]>([]);
 
   // set group based on url param
   useEffect(() => {
