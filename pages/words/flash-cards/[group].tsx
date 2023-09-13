@@ -5,6 +5,8 @@ import {
   FlashCardGroup,
   UserFlashCardsContext,
 } from "../../../context/user-flashcard-groups";
+import { getDictionaryReponse } from "../../../utils/api/getDictionaryResponse";
+import { parseDictionaryMeanings } from "../../../utils/api/parseDictionaryMeanings";
 
 /**
  * User can submit a group in order for the backend to contact the dictionary API, and get the results.
@@ -18,8 +20,26 @@ export default function GetMeaning() {
     UserFlashCardsContext
   );
 
-  // TODO retrieve and store meanings for each word
+  // TODO Correct type
   const [meanings, setMeanings] = useState<string[]>([]);
+
+  useEffect(() => {
+    // TODO error handling
+    const fetchMeanings = async () => {
+      if (!group) return;
+
+      const dictionaryResults = await Promise.all(
+        group.words.map(async (w) => await getDictionaryReponse(w))
+      );
+      const fetchedMeanings = dictionaryResults.map((r) =>
+        parseDictionaryMeanings(r)
+      );
+
+      setMeanings(fetchedMeanings);
+    };
+
+    fetchMeanings();
+  }, [group]);
 
   // set group based on url param
   useEffect(() => {
