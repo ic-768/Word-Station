@@ -5,6 +5,7 @@ import {
   FlashCardGroup,
   UserFlashCardsContext,
 } from "../../../context/user-flashcard-groups";
+import { WordMeanings } from "../../../types/WordData";
 import { getDictionaryReponse } from "../../../utils/api/getDictionaryResponse";
 import { parseDictionaryMeanings } from "../../../utils/api/parseDictionaryMeanings";
 
@@ -20,8 +21,7 @@ export default function GetMeaning() {
     UserFlashCardsContext
   );
 
-  // TODO Correct type
-  const [meanings, setMeanings] = useState<string[]>([]);
+  const [meanings, setMeanings] = useState<WordMeanings[]>([]);
 
   useEffect(() => {
     // TODO error handling
@@ -55,20 +55,23 @@ export default function GetMeaning() {
     if (group === null) router.push("/words/flash-cards");
   }, [group, router]);
 
+  // TODO grid layout
   return group ? (
-    <div>
+    <div className="flex flex-col">
       {group.title}
-      <ul>
-        {group.words.map((w) => (
-          <li key={w + "l"}>{w}</li>
-        ))}
-      </ul>
+      <div className="flex">
+        <ul className="flex flex-col">
+          {group.words.map((w) => (
+            <li key={w + "l"}>{w}</li>
+          ))}
+        </ul>
 
-      <ul>
-        {group.words.map((w) => (
-          <li key={w + "l"}>{w}</li>
-        ))}
-      </ul>
+        <ul className="flex flex-col">
+          {meanings.map((m, i) => (
+            <li key={i + "r"}>{m[0].definitions[0].definition}</li>
+          ))}
+        </ul>
+      </div>
     </div>
   ) : null;
 }
