@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
+import FlashCardGrid from "../../../components/app/FlashCardGrid";
 
 import {
   FlashCardGroup,
@@ -12,7 +13,7 @@ import { parseDictionaryMeanings } from "../../../utils/api/parseDictionaryMeani
 /**
  * User can submit a group in order for the backend to contact the dictionary API, and get the results.
  */
-export default function GetMeaning() {
+export default function FlashCardsGroup() {
   const router = useRouter();
 
   // if null, name is wrong (e.g. mangled url param)
@@ -52,23 +53,5 @@ export default function GetMeaning() {
     if (group === null) router.push("/words/flash-cards");
   }, [group, router]);
 
-  // TODO grid layout
-  return group ? (
-    <div className="flex flex-col">
-      {group.title}
-      <div className="flex">
-        <ul className="flex flex-col">
-          {group.words.map((w) => (
-            <li key={w + "l"}>{w}</li>
-          ))}
-        </ul>
-
-        <ul className="flex flex-col">
-          {meanings.map((m, i) => (
-            <li key={i + "r"}>{m[0].definitions[0].definition}</li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  ) : null;
+  return group ? <FlashCardGrid group={group} meanings={meanings} /> : null;
 }

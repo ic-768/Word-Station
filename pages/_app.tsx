@@ -1,7 +1,6 @@
 import { NextPage } from "next";
 import type { AppProps } from "next/app";
 import { ReactElement, ReactNode, useEffect, useState } from "react";
-
 import { Session } from "@supabase/supabase-js";
 
 import { NotificationContext } from "../context/notification";
@@ -13,13 +12,13 @@ import { getUserWords } from "./api/word/get-user-words";
 import { supabase } from "../lib/supabaseClient";
 import { UserSessionContext } from "../context/user-session";
 import ProtectedRouteGuard from "../components/common/ProtectedRouteGuard";
-import "../styles/globals.css";
 import {
   isPositionedLoader,
   LoaderArgs,
   LoaderContext,
 } from "../context/loader";
 import Loader from "../components/common/Loader";
+import "../styles/globals.css";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;

@@ -23,9 +23,7 @@ export default function Words() {
 
   const [_loader, setLoader] = useContext(LoaderContext);
 
-  useEffect(() => {
-    setLoader(true);
-  }, [setLoader]);
+  useEffect(() => setLoader(true), [setLoader]);
 
   // filter
   useEffect(() => {

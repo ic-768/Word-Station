@@ -24,21 +24,22 @@ export default function WordMeaning() {
 
   // set word based on url param
   useEffect(() => {
-    if (router.query) {
-      (async () => {
-        const { word } = router.query;
-        setWord(word as string);
-        const dictionaryResult = await getDictionaryReponse(word as string);
-        const meanings = parseDictionaryMeanings(dictionaryResult);
-        setWordMeanings(meanings);
-      })();
-    }
+    if (!router.query) return;
+
+    (async () => {
+      const { word } = router.query;
+      setWord(word as string);
+      const dictionaryResult = await getDictionaryReponse(word as string);
+      const meanings = parseDictionaryMeanings(dictionaryResult);
+      setWordMeanings(meanings);
+    })();
   }, [router.query]);
 
   // is word already saved by user?
-  useEffect(() => {
-    setIsWordSaved(!!userWords?.includes(word));
-  }, [userWords, word]);
+  useEffect(
+    () => setIsWordSaved(!!userWords?.includes(word)),
+    [userWords, word]
+  );
 
   // if word couldn't be found, redirect back
   useEffect(() => {

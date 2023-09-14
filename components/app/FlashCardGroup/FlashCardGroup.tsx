@@ -16,9 +16,9 @@ const FlashCardGroup = ({
     <div className="bg-gray-800 text-white rounded-lg shadow-md p-4 h-full">
       <h2 className="text-2xl font-semibold mb-4">{title}</h2>
       <ul className="list-disc pl-6">
-        {words.map((word, index) => (
-          <li key={word + index} className="mb-2">
-            {word}
+        {words.map((w, i) => (
+          <li key={w + i} className="mb-2">
+            {w}
           </li>
         ))}
       </ul>
