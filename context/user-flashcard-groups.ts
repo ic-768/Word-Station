@@ -23,15 +23,7 @@ export const UserFlashCardsContext =
       { title: "Test3", words: ["blanket", "deter", "fair"] },
       {
         title: "Newspaper",
-        words: [
-          "scrub",
-          "literature",
-          "test1",
-          "test2",
-          "test3",
-          "test4",
-          "test5",
-        ],
+        words: ["scrub", "literature"],
       },
     ],
     () => [],

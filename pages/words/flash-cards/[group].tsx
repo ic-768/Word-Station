@@ -28,12 +28,9 @@ export default function GetMeaning() {
     const fetchMeanings = async () => {
       if (!group) return;
 
-      const dictionaryResults = await Promise.all(
-        group.words.map(async (w) => await getDictionaryReponse(w))
-      );
-      const fetchedMeanings = dictionaryResults.map((r) =>
-        parseDictionaryMeanings(r)
-      );
+      const dictionaryRequests = group.words.map(getDictionaryReponse);
+      const dictionaryResults = await Promise.all(dictionaryRequests);
+      const fetchedMeanings = dictionaryResults.map(parseDictionaryMeanings);
 
       setMeanings(fetchedMeanings);
     };
