@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
-import { Fragment, useContext, useEffect, useState } from "react";
-import FlashCardGrid from "../../../components/app/FlashCardGrid";
+import { useContext, useEffect, useState } from "react";
 
+import FlashCardGrid from "../../../components/app/FlashCardGrid";
 import {
   FlashCardGroup,
   UserFlashCardsContext,
