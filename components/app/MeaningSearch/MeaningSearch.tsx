@@ -30,7 +30,7 @@ const MeaningSearch = () => {
       <InputWithButton
         placeholder="e.g. surreptitious"
         text={word}
-        setText={onTypeWord}
+        onChange={onTypeWord}
         id="input"
         icon={faMagnifyingGlass}
       />

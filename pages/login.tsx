@@ -76,14 +76,14 @@ export default function Login() {
         label="Email"
         id="email"
         text={email}
-        setText={updateEmail}
+        onChange={updateEmail}
         icon={faUser}
       />
       <CredentialPanel
         label="Password"
         id="password"
         text={password}
-        setText={updatePassword}
+        onChange={updatePassword}
         icon={faLock}
         type="password"
       />

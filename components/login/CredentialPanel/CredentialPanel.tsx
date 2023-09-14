@@ -7,7 +7,7 @@ export interface CredentialPanelProps {
   label: string;
   id: string;
   text: string;
-  setText: ChangeEventHandler<HTMLInputElement>;
+  onChange: ChangeEventHandler<HTMLInputElement>;
   icon: IconProp;
   type?: "text" | "password";
 }

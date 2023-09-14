@@ -15,7 +15,7 @@ const WordFilter = ({ filter, onChangeFilter }: WordFilterProps) => (
     <InputWithButton
       placeholder="e.g. surreptitious"
       text={filter}
-      setText={onChangeFilter}
+      onChange={onChangeFilter}
       id="input"
       icon={faMagnifyingGlass}
     />

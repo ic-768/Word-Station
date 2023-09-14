@@ -76,7 +76,7 @@ export default function Register() {
     label: "Email",
     id: "email",
     text: email,
-    setText: updateEmail,
+    onChange: updateEmail,
     icon: faUser,
   };
 
@@ -84,7 +84,7 @@ export default function Register() {
     label: "Password",
     id: "password",
     text: password,
-    setText: updatePassword,
+    onChange: updatePassword,
     icon: faLock,
     type: "password",
   };
@@ -93,7 +93,7 @@ export default function Register() {
     label: "Repeat password",
     id: "password-validation",
     text: passwordValidation,
-    setText: updatePasswordValidation,
+    onChange: updatePasswordValidation,
     icon: faLock,
     type: "password",
   };

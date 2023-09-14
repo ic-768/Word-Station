@@ -78,9 +78,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   // remove notifications after a fixed amount of time
   useEffect(() => {
     if (notification) {
-      setTimeout(() => {
-        setNotification(null);
-      }, 4500);
+      setTimeout(() => setNotification(null), 4500);
     }
   }, [notification]);
 
