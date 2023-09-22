@@ -4,8 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightFromBracket, faUser } from "@fortawesome/free-solid-svg-icons";
 
 import { supabase } from "../../lib/supabaseClient";
-import { UserSessionContext } from "../../context";
-import { LoaderContext } from "../../context";
+import { UserSessionContext, LoaderContext } from "../../context";
 
 const UserStatusLayout = ({ children }: { children: ReactElement }) => {
   const router = useRouter();
