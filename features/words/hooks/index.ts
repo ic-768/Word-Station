@@ -1,3 +1,1 @@
-import useWordCRUD from "./useWordCrud";
-
-export { useWordCRUD };
+export * from "./useWordCrud";

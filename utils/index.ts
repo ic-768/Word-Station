@@ -1,3 +1,1 @@
-import { getDictionaryReponse, parseDictionaryMeanings } from "./api";
-
-export { getDictionaryReponse, parseDictionaryMeanings };
+export * from "./api";

@@ -8,7 +8,6 @@ import {
 } from "react";
 import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 
-import { supabase } from "lib/supabaseClient";
 import { NotificationContext, LoaderContext } from "context";
 import { LoginLayout } from "layouts";
 import {
@@ -17,6 +16,7 @@ import {
   SubmitButton,
   CredentialPanel,
   CredentialPanelProps,
+  signup,
 } from "features/auth";
 
 export default function Register() {
@@ -38,13 +38,9 @@ export default function Register() {
   const updatePasswordValidation: ChangeEventHandler<HTMLInputElement> = (e) =>
     setPasswordValidation(e.target?.value);
 
-  const signUp = async () => {
+  const onSignUp = async () => {
     setLoader({ showLoader: true, position: "inset-x-0 mx-auto top-16" });
-    // TODO extract to utility file
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-    });
+    const { data, error } = await signup(email, password);
 
     if (error) {
       console.log("error");
@@ -70,7 +66,7 @@ export default function Register() {
         message: "Password must be atleast 6 characters",
       });
     } else {
-      await signUp();
+      await onSignUp();
     }
   };
 

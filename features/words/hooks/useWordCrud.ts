@@ -6,7 +6,7 @@ import { NotificationContext } from "context";
 /**
  * Hook that calls a word CRUD endpoint and handles setting notifications based on the outcome
  */
-const useWordCRUD = () => {
+export const useWordCRUD = () => {
   const [_notification, setNotification] = useContext(NotificationContext);
 
   return async (
@@ -46,5 +46,3 @@ const useWordCRUD = () => {
     }
   };
 };
-
-export default useWordCRUD;

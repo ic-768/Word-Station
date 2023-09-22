@@ -15,9 +15,9 @@ import {
 } from "context";
 
 import { Loader, ProtectedRouteGuard } from "components";
-import { Notification, NotificationProps } from "features/notifications";
 
 import "../styles/globals.css";
+import { Notification, NotificationProps } from "features/notifications";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;

@@ -1,4 +1,4 @@
 import Notification, { NotificationProps } from "./Notification";
 
-export { Notification };
+export default Notification;
 export type { NotificationProps };

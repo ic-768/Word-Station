@@ -16,6 +16,7 @@ import {
   CredentialPanel,
   PageTitle,
   SubmitButton,
+  login,
 } from "features/auth";
 
 export default function Login() {
@@ -32,23 +33,13 @@ export default function Login() {
   const updatePassword: ChangeEventHandler<HTMLInputElement> = (e) =>
     setPassword(e.target?.value);
 
-  // TODO extract logic to utility file
-  const login = async () => {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (error) throw Error(error.message);
-  };
-
   const onLogin: FormEventHandler<HTMLFormElement> = async (e) => {
     setLoader({ showLoader: true, position: "inset-x-0 mx-auto top-16" });
     e.preventDefault();
 
     if (email && password) {
       try {
-        await login();
+        await login(email, password);
       } catch {
         setNotification({
           type: "error",

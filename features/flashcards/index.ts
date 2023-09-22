@@ -1,3 +1,1 @@
-import { FlashCardGrid, FlashCardGroup } from "./components";
-
-export { FlashCardGrid, FlashCardGroup };
+export * from "./components";

@@ -1,3 +1,1 @@
-import { TextCard } from "./components";
-
-export { TextCard };
+export * from "./components";
