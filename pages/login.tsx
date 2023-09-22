@@ -9,7 +9,7 @@ import {
 import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 
 import { supabase } from "lib/supabaseClient";
-import { LoaderContext, NotificationContext } from "../context";
+import { LoaderContext, NotificationContext } from "context";
 import { LoginLayout } from "layouts";
 import {
   AlternateActionText,
