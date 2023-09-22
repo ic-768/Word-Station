@@ -6,12 +6,10 @@ import {
   useState,
 } from "react";
 
-import { UserWordsContext } from "../../context/user-words";
-import WordList from "../../components/app/WordList";
-import UserStatusLayout from "../../components/layouts/UserStatusLayout";
-import { LoaderContext } from "../../context/loader";
+import { LoaderContext, UserWordsContext } from "../../context";
 import Link from "next/link";
-import WordSearchPanel from "../../components/app/WordSearchPanel";
+import { WordList, WordSearchPanel } from "../../features/words";
+import { UserStatusLayout } from "../../layouts";
 
 export default function Words() {
   const [userWords, _setUserWords] = useContext(UserWordsContext);

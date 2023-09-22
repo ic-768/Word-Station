@@ -6,10 +6,10 @@ type Data = {
   meanings: string;
 };
 
-export default async function handler(
+export const deleteWord = async (
   req: NextApiRequest,
   res: NextApiResponse<Data | string>
-) {
+) => {
   try {
     const data = req.body;
     const { word, id } = data;
@@ -23,4 +23,4 @@ export default async function handler(
   } catch (err) {
     res.status(500).send("Something went wrong!");
   }
-}
+};

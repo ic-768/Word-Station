@@ -9,13 +9,14 @@ import {
 import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 
 import { supabase } from "../lib/supabaseClient";
-import CredentialPanel from "../components/login/CredentialPanel";
-import SubmitButton from "../components/login/SubmitButton";
-import AlternateActionText from "../components/login/AlternateActionText";
-import LoginLayout from "../components/layouts/LoginLayout";
-import PageTitle from "../components/login/PageTitle";
-import { NotificationContext } from "../context/notification";
-import { LoaderContext } from "../context/loader";
+import { LoaderContext, NotificationContext } from "../context";
+import {
+  AlternateActionText,
+  CredentialPanel,
+  PageTitle,
+  SubmitButton,
+} from "../features/auth";
+import { LoginLayout } from "../layouts";
 
 export default function Login() {
   const [email, setUsername] = useState("");
@@ -31,6 +32,7 @@ export default function Login() {
   const updatePassword: ChangeEventHandler<HTMLInputElement> = (e) =>
     setPassword(e.target?.value);
 
+  // TODO extract logic to utility file
   const login = async () => {
     const { data, error } = await supabase.auth.signInWithPassword({
       email,

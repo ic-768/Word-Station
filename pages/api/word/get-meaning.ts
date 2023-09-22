@@ -7,10 +7,10 @@ type Data = {
   meanings: string;
 };
 
-export default async function handler(
+export const getMeaning = async (
   req: NextApiRequest,
   res: NextApiResponse<Data | string>
-) {
+) => {
   try {
     const word = req.body;
     const dictionaryResult = await getDictionaryReponse(word);
@@ -20,4 +20,4 @@ export default async function handler(
   } catch {
     res.status(404).send("Couldn't get word");
   }
-}
+};

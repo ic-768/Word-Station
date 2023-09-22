@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from "react";
-import { LoaderComponentProps } from "../components/common/Loader";
+import { LoaderComponentProps } from "../components";
 
 // can provide object to specify both visibility and positioning (tailwind class string)
 type positionedLoaderArgs = { showLoader: boolean } & LoaderComponentProps;

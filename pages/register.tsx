@@ -9,15 +9,15 @@ import {
 import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 
 import { supabase } from "../lib/supabaseClient";
-import CredentialPanel, {
+import { NotificationContext, LoaderContext } from "../context";
+import { LoginLayout } from "../layouts";
+import {
+  AlternateActionText,
+  PageTitle,
+  SubmitButton,
+  CredentialPanel,
   CredentialPanelProps,
-} from "../components/login/CredentialPanel";
-import SubmitButton from "../components/login/SubmitButton";
-import AlternateActionText from "../components/login/AlternateActionText";
-import LoginLayout from "../components/layouts/LoginLayout";
-import PageTitle from "../components/login/PageTitle";
-import { NotificationContext } from "../context/notification";
-import { LoaderContext } from "../context/loader";
+} from "../features/auth";
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -40,6 +40,7 @@ export default function Register() {
 
   const signUp = async () => {
     setLoader({ showLoader: true, position: "inset-x-0 mx-auto top-16" });
+    // TODO extract to utility file
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
@@ -60,6 +61,7 @@ export default function Register() {
 
   const onRegister: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
+    // TODO extract to utility file / hook
     if (password !== passwordValidation) {
       setNotification({ type: "error", message: "Passwords don't match!" });
     } else if (password.length < 6) {
