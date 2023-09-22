@@ -31,7 +31,7 @@ const FlashCardGrid = ({
     () =>
       randomise(
         meanings.map((m, i) => ({
-          meaning: m[0].definitions[0].definition,
+          definition: m[0].definitions[0].definition,
           word: words[i],
         }))
       ),
@@ -55,18 +55,17 @@ const FlashCardGrid = ({
     definition?: string;
   }) => {
     // TODO don't run if no selectedWord and no selectedDefinition (bangs should go entirely)
-    // TODO project-wide grep and make all meanings into definitions
     const predicate = word
-      ? { word, meaning: selectedDefinition! }
-      : { word: selectedWord!, meaning: definition! };
+      ? { word, definition: selectedDefinition! }
+      : { word: selectedWord!, definition: definition! };
 
     return randomPairs.some(
       (pair) =>
-        pair.word === predicate.word && pair.meaning === predicate.meaning
+        pair.word === predicate.word && pair.definition === predicate.definition
     );
   };
 
-  // we map over the randomized pair, and render the random word, with a meaning that (probably) doesn't belong to it
+  // we map over the randomized pair, and render the random word, with a definition that (probably) doesn't belong to it
   return (
     <div className="p-8 flex flex-col">
       {title}
