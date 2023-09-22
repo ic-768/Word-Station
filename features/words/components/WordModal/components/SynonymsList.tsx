@@ -1,4 +1,4 @@
-import { ParsedWordData } from "../../../../types/WordData";
+import { ParsedWordData } from "../../../types";
 
 const SynonymsList = ({
   synonyms,
