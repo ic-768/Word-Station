@@ -8,15 +8,15 @@ import {
 } from "react";
 import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 
-import { supabase } from "../lib/supabaseClient";
+import { supabase } from "lib/supabaseClient";
 import { LoaderContext, NotificationContext } from "../context";
+import { LoginLayout } from "layouts";
 import {
   AlternateActionText,
   CredentialPanel,
   PageTitle,
   SubmitButton,
-} from "../features/auth";
-import { LoginLayout } from "../layouts";
+} from "features/auth";
 
 export default function Login() {
   const [email, setUsername] = useState("");

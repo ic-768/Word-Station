@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 
-import { FlashCardGroup, UserFlashCardsContext } from "../../../context";
-import { FlashCardGrid } from "../../../features/flashcards";
-import { WordMeanings } from "../../../features/words";
-import { getDictionaryReponse, parseDictionaryMeanings } from "../../../utils";
+import { FlashCardGroup, UserFlashCardsContext } from "context";
+import { FlashCardGrid } from "features/flashcards";
+import { WordMeanings } from "features/words";
+import { getDictionaryReponse, parseDictionaryMeanings } from "utils";
 
 /**
  * User can submit a group in order for the backend to contact the dictionary API, and get the results.

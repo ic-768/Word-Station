@@ -8,16 +8,16 @@ import {
 } from "react";
 import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 
-import { supabase } from "../lib/supabaseClient";
-import { NotificationContext, LoaderContext } from "../context";
-import { LoginLayout } from "../layouts";
+import { supabase } from "lib/supabaseClient";
+import { NotificationContext, LoaderContext } from "context";
+import { LoginLayout } from "layouts";
 import {
   AlternateActionText,
   PageTitle,
   SubmitButton,
   CredentialPanel,
   CredentialPanelProps,
-} from "../features/auth";
+} from "features/auth";
 
 export default function Register() {
   const [email, setEmail] = useState("");

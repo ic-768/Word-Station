@@ -1,8 +1,8 @@
 import { ReactElement, useContext } from "react";
 
-import { UserFlashCardsContext } from "../../../context";
-import { FlashCardGroup } from "../../../features/flashcards";
-import { UserStatusLayout, GoBackLayout } from "../../../layouts";
+import { UserFlashCardsContext } from "context";
+import { UserStatusLayout, GoBackLayout } from "layouts";
+import { FlashCardGroup } from "features/flashcards";
 
 /*
  * Page for user to create and organise groups of word flashcards.

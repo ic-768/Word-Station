@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from "react";
-import { NotificationProps } from "../components";
+import { NotificationProps } from "features/notifications";
 
 type NotificationContextArgs = [
   NotificationProps | null | undefined,

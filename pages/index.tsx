@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
-import { TextCard } from "../features/homepage";
+
+import { TextCard } from "features/homepage";
 
 export default function Home() {
   return (

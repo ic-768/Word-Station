@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FlashCardGroup } from "../../../../context/user-flashcard-groups";
+import { FlashCardGroup } from "context/user-flashcard-groups";
 
 /**
  * Display a list of words belonging to a flashcard group

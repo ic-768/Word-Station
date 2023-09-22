@@ -3,8 +3,8 @@ import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightFromBracket, faUser } from "@fortawesome/free-solid-svg-icons";
 
-import { supabase } from "../../lib/supabaseClient";
-import { UserSessionContext, LoaderContext } from "../../context";
+import { supabase } from "lib/supabaseClient";
+import { UserSessionContext, LoaderContext } from "context";
 
 const UserStatusLayout = ({ children }: { children: ReactElement }) => {
   const router = useRouter();

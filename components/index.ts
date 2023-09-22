@@ -1,16 +1,8 @@
 import { InputWithIcon, InputWithButton } from "./inputs";
 import Loader from "./Loader";
-import Notification from "./Notification";
 import ProtectedRouteGuard from "./ProtectedRouteGuard";
 import { LoaderComponentProps } from "./Loader";
-import { NotificationProps } from "./Notification";
 
-export {
-  InputWithIcon,
-  InputWithButton,
-  Loader,
-  Notification,
-  ProtectedRouteGuard,
-};
+export { InputWithIcon, InputWithButton, Loader, ProtectedRouteGuard };
 
-export type { LoaderComponentProps, NotificationProps };
+export type { LoaderComponentProps };

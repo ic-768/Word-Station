@@ -1,6 +1,5 @@
 import { Dispatch, SetStateAction, useContext, useState } from "react";
-import { LoaderContext } from "../../../../context";
-import { UserWordsContext } from "../../../../context";
+import { LoaderContext, UserWordsContext } from "context";
 import { useWordCRUD } from "../../hooks";
 import { WordMeanings } from "../../types";
 

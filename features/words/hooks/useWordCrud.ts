@@ -1,6 +1,7 @@
 import { useContext } from "react";
-import { NotificationContext } from "../../../context";
-import { supabase } from "../../../lib/supabaseClient";
+import { supabase } from "lib/supabaseClient";
+
+import { NotificationContext } from "context";
 
 /**
  * Hook that calls a word CRUD endpoint and handles setting notifications based on the outcome

@@ -1,6 +1,7 @@
 import { ChangeEventHandler } from "react";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { InputWithIcon } from "../../../../components";
+
+import { InputWithIcon } from "components";
 
 export interface CredentialPanelProps {
   label: string;

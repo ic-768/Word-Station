@@ -4,7 +4,7 @@ import { ReactElement, ReactNode, useEffect, useState } from "react";
 import { Session } from "@supabase/supabase-js";
 
 import { getUserWords } from "./api/word/get-user-words";
-import { supabase } from "../lib/supabaseClient";
+import { supabase } from "lib/supabaseClient";
 import {
   isPositionedLoader,
   LoaderArgs,
@@ -12,14 +12,10 @@ import {
   UserSessionContext,
   UserWordsContext,
   NotificationContext,
-} from "../context";
+} from "context";
 
-import {
-  Loader,
-  Notification,
-  NotificationProps,
-  ProtectedRouteGuard,
-} from "../components";
+import { Loader, ProtectedRouteGuard } from "components";
+import { Notification, NotificationProps } from "features/notifications";
 
 import "../styles/globals.css";
 

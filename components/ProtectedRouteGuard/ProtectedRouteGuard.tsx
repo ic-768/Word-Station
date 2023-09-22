@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { ReactElement, useEffect, useState } from "react";
-import { supabase } from "../../lib/supabaseClient";
+import { supabase } from "lib/supabaseClient";
+
 import Loader from "../Loader";
 
 function ProtectedRouteGuard({ children }: { children: ReactElement }) {

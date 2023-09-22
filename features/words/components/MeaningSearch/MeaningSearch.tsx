@@ -1,7 +1,8 @@
 import { ChangeEventHandler, FormEventHandler, useState } from "react";
 import { useRouter } from "next/router";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { InputWithButton } from "../../../../components";
+
+import { InputWithButton } from "components";
 
 /*
  * User can submit a word in order for the backend to contact the dictionary API, and get the results.

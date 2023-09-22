@@ -1,6 +1,7 @@
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { ChangeEventHandler } from "react";
-import { InputWithButton } from "../../../../components";
+
+import { InputWithButton } from "components";
 
 /*
  * Input with button to filter user words
