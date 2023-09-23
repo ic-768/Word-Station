@@ -6,7 +6,7 @@ type Data = {
   meanings: string;
 };
 
-export const getMeaning = async (
+const getMeaning = async (
   req: NextApiRequest,
   res: NextApiResponse<Data | string>
 ) => {
@@ -20,3 +20,5 @@ export const getMeaning = async (
     res.status(404).send("Couldn't get word");
   }
 };
+
+export default getMeaning;

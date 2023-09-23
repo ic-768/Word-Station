@@ -3,7 +3,7 @@ import { Fragment, useEffect, useMemo, useState } from "react";
 import { WordMeanings } from "features/words";
 import FlashCardGroup from "../FlashCardGroup";
 import { isMatch, randomise, extractDefinition } from "../../utils";
-import { WordDefinitionPair } from "../../types";
+import { WordDefinitionPair } from "features/flashcards/types";
 
 interface FlashCardGridProps {
   group: FlashCardGroup;
@@ -21,11 +21,8 @@ const FlashCardGrid = ({
   // array of objects with a definition, and the word that it belongs to
   const randomPairs = useMemo(
     () =>
-      randomise(
-        meanings.map((m, i) => ({
-          definition: extractDefinition(m[0]),
-          word: words[i],
-        }))
+      randomise<WordDefinitionPair>(
+        meanings.map((m, i) => [words[i], extractDefinition(m[0])])
       ),
     [meanings, words]
   );
@@ -40,20 +37,16 @@ const FlashCardGrid = ({
   useEffect(() => {
     if (!selectedWord || !selectedDefinition) return;
 
-    console.log(
-      isMatch(randomPairs, {
-        word: selectedWord,
-        definition: selectedDefinition,
-      })
-    );
+    console.log(isMatch(randomPairs, [selectedWord, selectedDefinition]));
   }, [selectedWord, selectedDefinition, randomPairs]);
 
   // we map over the randomized pair, and render the random word, with a definition that (probably) doesn't belong to it
+
   return (
     <div className="p-8 flex flex-col">
       {title}
       <ul className="grid grid-cols-2 gap-8">
-        {randomPairs.map(({ word }, i) => {
+        {randomPairs.map(([word], i) => {
           const definition = extractDefinition(meanings[i]?.[0]);
 
           return (

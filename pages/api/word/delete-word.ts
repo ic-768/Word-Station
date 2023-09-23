@@ -6,7 +6,7 @@ type Data = {
   meanings: string;
 };
 
-export const deleteWord = async (
+const deleteWord = async (
   req: NextApiRequest,
   res: NextApiResponse<Data | string>
 ) => {
@@ -24,3 +24,5 @@ export const deleteWord = async (
     res.status(500).send("Something went wrong!");
   }
 };
+
+export default deleteWord;

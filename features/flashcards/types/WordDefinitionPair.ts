@@ -1,1 +1,1 @@
-export type WordDefinitionPair = { word: string; definition: string };
+export type WordDefinitionPair = [word: string, definition: string];

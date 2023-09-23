@@ -6,7 +6,7 @@ type Data = {
   meanings: string;
 };
 
-export const saveWord = async (
+const saveWord = async (
   req: NextApiRequest,
   res: NextApiResponse<Data | string>
 ) => {
@@ -34,3 +34,5 @@ export const saveWord = async (
     res.status(500).send("Something went wrong!");
   }
 };
+
+export default saveWord;

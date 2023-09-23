@@ -8,6 +8,5 @@ export const isMatch = (
   predicate: WordDefinitionPair
 ) =>
   wordDefinitionPairs.some(
-    (pair) =>
-      pair.word === predicate.word && pair.definition === predicate.definition
+    (pair) => pair[0] === predicate[0] && pair[1] === predicate[1]
   );
