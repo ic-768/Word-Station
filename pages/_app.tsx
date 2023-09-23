@@ -3,7 +3,6 @@ import type { AppProps } from "next/app";
 import { ReactElement, ReactNode, useEffect, useState } from "react";
 import { Session } from "@supabase/supabase-js";
 
-import { getUserWords } from "./api/word/get-user-words";
 import { supabase } from "lib/supabaseClient";
 import {
   isPositionedLoader,
@@ -15,9 +14,10 @@ import {
 } from "context";
 
 import { Loader, ProtectedRouteGuard } from "components";
+import { Notification, NotificationProps } from "features/notifications";
+import { getUserWords } from "./api/word/get-user-words";
 
 import "../styles/globals.css";
-import { Notification, NotificationProps } from "features/notifications";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -47,11 +47,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   useEffect(() => {
     const initialiseSession = async () => {
       const { data, error } = await supabase.auth.getSession();
-      if (data?.session) {
-        setSession(data.session);
-      } else {
-        setSession(null);
-      }
+      setSession(data?.session || null);
     };
 
     initialiseSession();
@@ -85,10 +81,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
   return (
     <>
-      {notification && (
-        <Notification type={notification.type} message={notification.message} />
-      )}
-
+      {notification && <Notification {...notification} />}
       {/* loader is true or showLoader property is set */}
       {loader && (
         <Loader

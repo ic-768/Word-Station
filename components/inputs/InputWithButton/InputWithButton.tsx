@@ -1,17 +1,7 @@
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ChangeEventHandler } from "react";
+import { InputProps } from "../types";
 
-interface InputWithButtonProps {
-  placeholder: string;
-  onChange: ChangeEventHandler<HTMLInputElement>;
-  icon: IconProp;
-  text: string;
-  id?: string;
-  type?: string;
-}
-
-const InputWithButton = (props: InputWithButtonProps) => {
+const InputWithButton = (props: InputProps) => {
   const { icon, ...inputProps } = props;
 
   return (

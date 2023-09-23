@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { getStyle } from "../../utils/getStyle";
+import { getStyle } from "../../utils";
 
 export interface NotificationProps {
   type?: "success" | "warning" | "error" | "informational";

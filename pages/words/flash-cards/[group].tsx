@@ -26,6 +26,7 @@ export default function FlashCardsGroup() {
       if (!group) return;
 
       const dictionaryRequests = group.words.map(getDictionaryReponse);
+      // TODO extract to util
       const dictionaryResults = await Promise.all(dictionaryRequests);
       const fetchedMeanings = dictionaryResults.map(parseDictionaryMeanings);
 
