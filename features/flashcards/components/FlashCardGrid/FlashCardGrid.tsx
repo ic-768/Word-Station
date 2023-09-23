@@ -2,8 +2,8 @@ import { Fragment, useEffect, useMemo, useState } from "react";
 
 import { WordMeanings } from "features/words";
 import FlashCardGroup from "../FlashCardGroup";
+import { WordDefinitionPair } from "../../types";
 import { isMatch, randomise, extractDefinition } from "../../utils";
-import { WordDefinitionPair } from "features/flashcards/types";
 
 interface FlashCardGridProps {
   group: FlashCardGroup;
@@ -41,35 +41,26 @@ const FlashCardGrid = ({
   }, [selectedWord, selectedDefinition, randomPairs]);
 
   // we map over the randomized pair, and render the random word, with a definition that (probably) doesn't belong to it
-
   return (
     <div className="p-8 flex flex-col">
       {title}
       <ul className="grid grid-cols-2 gap-8">
         {randomPairs.map(([word], i) => {
           const definition = extractDefinition(meanings[i]?.[0]);
+          const setDefinition = () => setSelectedDefinition(definition);
+          const setWord = () => setSelectedWord(word);
 
           return (
             <Fragment key={word + i}>
               <li className={`flex p-4 rounded ${getWordStyle(word)}`}>
-                <button
-                  onClick={() => {
-                    setSelectedWord(word);
-                  }}
-                  className="flex-1"
-                >
+                <button onClick={setWord} className="flex-1">
                   {word}
                 </button>
               </li>
               <li
                 className={`flex p-4 rounded ${getDefinitionStyle(definition)}`}
               >
-                <button
-                  onClick={() => {
-                    setSelectedDefinition(definition);
-                  }}
-                  className="flex-1"
-                >
+                <button onClick={setDefinition} className="flex-1">
                   {definition}
                 </button>
               </li>
