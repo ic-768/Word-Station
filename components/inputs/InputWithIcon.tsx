@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import { InputProps } from "../types";
+import { InputProps } from "./types";
 
 const InputWithIcon = (props: InputProps) => {
   const { icon, ...inputProps } = props;

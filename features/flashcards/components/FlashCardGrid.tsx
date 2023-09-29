@@ -1,9 +1,9 @@
 import { Fragment, useEffect, useMemo, useState } from "react";
 
 import { WordMeanings } from "features/words";
-import FlashCardGroup from "../FlashCardGroup";
-import { WordDefinitionPair } from "../../types";
-import { isMatch, randomise, extractDefinition } from "../../utils";
+import FlashCardGroup from "./FlashCardGroup";
+import { WordDefinitionPair } from "../types";
+import { isMatch, randomise, extractDefinition } from "../utils";
 
 interface FlashCardGridProps {
   group: FlashCardGroup;

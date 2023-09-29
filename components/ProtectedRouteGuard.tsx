@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { ReactElement, useEffect, useState } from "react";
 import { supabase } from "lib/supabaseClient";
 
-import Loader from "../Loader";
+import Loader from "./Loader";
 
 function ProtectedRouteGuard({ children }: { children: ReactElement }) {
   const router = useRouter();
