@@ -1,10 +1,14 @@
 import { ReactElement, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-import { NotificationContext, UserWordsContext } from "context";
-import { WordModal, MeaningSearch, WordMeanings } from "features/words";
 import { GoBackLayout, UserStatusLayout } from "layouts";
-import { fetchWordMeanings } from "features/words/utils";
+import { NotificationContext, UserWordsContext } from "context";
+import {
+  WordModal,
+  MeaningSearch,
+  WordMeanings,
+  fetchWordMeanings,
+} from "features/words";
 
 export default function WordMeaning() {
   const [userWords, _setUserWords] = useContext(UserWordsContext);
