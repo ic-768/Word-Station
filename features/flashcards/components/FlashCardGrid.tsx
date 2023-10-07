@@ -9,11 +9,13 @@ import { isMatch, randomise, extractDefinition } from "../utils";
 interface FlashCardGridProps {
   group: FlashCardGroup;
   meanings: WordMeanings[];
+  onWin: () => void;
 }
 
 const FlashCardGrid = ({
   group: { title, words },
   meanings,
+  onWin,
 }: FlashCardGridProps) => {
   // Use these to display words and meanings so we can filter them
   const [displayedWords, setDisplayedWords] = useState(words);
@@ -52,16 +54,15 @@ const FlashCardGrid = ({
       setDisplayedDefinitions((definitions) =>
         definitions.filter((d) => d !== selectedDefinition)
       );
+      onWin();
     }
 
     setSelectedWord(undefined);
     setSelectedDefinition(undefined);
-  }, [selectedWord, selectedDefinition, randomPairs]);
+  }, [selectedWord, selectedDefinition, randomPairs, onWin]);
 
-  const getWordStyle = (w: string) => {
-    console.log(selectedWord, w);
-    return selectedWord === w ? "bg-green-500" : "bg-slate-500 ";
-  };
+  const getWordStyle = (w: string) =>
+    selectedWord === w ? "bg-green-500" : "bg-slate-500 ";
 
   const getDefinitionStyle = (d: string) =>
     d && selectedDefinition === d ? "bg-orange-500" : "bg-slate-500 ";
