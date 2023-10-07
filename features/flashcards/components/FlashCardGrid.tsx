@@ -2,6 +2,7 @@ import { Fragment, useCallback, useEffect, useState } from "react";
 
 import { WordMeanings } from "features/words";
 import FlashCardGroup from "./FlashCardGroup";
+
 import { WordDefinitionPair } from "../types";
 import { isMatch, randomise, extractDefinition } from "../utils";
 
@@ -20,6 +21,12 @@ const FlashCardGrid = ({
     meanings.map((m) => extractDefinition(m[0]))
   );
 
+  // Current selections
+  const [selectedWord, setSelectedWord] = useState<string>();
+  const [selectedDefinition, setSelectedDefinition] = useState<string>();
+  // array of objects with a definition, and the word that it belongs to
+  const [randomPairs, setRandomPairs] = useState<WordDefinitionPair[]>([]);
+
   useEffect(() => {
     setDisplayedWords(words);
   }, [words]);
@@ -28,12 +35,6 @@ const FlashCardGrid = ({
     setDisplayedDefinitions(meanings.map((m) => extractDefinition(m[0])));
   }, [meanings]);
 
-  // Current selections
-  const [selectedWord, setSelectedWord] = useState<string>();
-  const [selectedDefinition, setSelectedDefinition] = useState<string>();
-  // array of objects with a definition, and the word that it belongs to
-  const [randomPairs, setRandomPairs] = useState<WordDefinitionPair[]>([]);
-
   useEffect(() => {
     setRandomPairs(
       randomise<WordDefinitionPair>(
@@ -41,12 +42,6 @@ const FlashCardGrid = ({
       )
     );
   }, [meanings, words]);
-
-  const getWordStyle = (w: string) =>
-    selectedWord === w ? "bg-green-500" : "bg-slate-500 ";
-
-  const getDefinitionStyle = (d: string) =>
-    d && selectedDefinition === d ? "bg-orange-500" : "bg-slate-500 ";
 
   // Check to see if a definition and a word have been selected to check for a match
   useEffect(() => {
@@ -57,11 +52,19 @@ const FlashCardGrid = ({
       setDisplayedDefinitions((definitions) =>
         definitions.filter((d) => d !== selectedDefinition)
       );
-    } else {
-      setSelectedWord(undefined);
-      setSelectedDefinition(undefined);
     }
+
+    setSelectedWord(undefined);
+    setSelectedDefinition(undefined);
   }, [selectedWord, selectedDefinition, randomPairs]);
+
+  const getWordStyle = (w: string) => {
+    console.log(selectedWord, w);
+    return selectedWord === w ? "bg-green-500" : "bg-slate-500 ";
+  };
+
+  const getDefinitionStyle = (d: string) =>
+    d && selectedDefinition === d ? "bg-orange-500" : "bg-slate-500 ";
 
   // we map over the randomized pair, and render the random word, with a definition that (probably) doesn't belong to it
   return (
