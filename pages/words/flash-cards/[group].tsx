@@ -1,17 +1,16 @@
 import { useRouter } from "next/router";
 import { CSSProperties, useContext, useEffect, useState } from "react";
+import ReactCanvasConfetti from "react-canvas-confetti";
 
 import { FlashCardGroup, UserFlashCardsContext } from "context";
-import { FlashCardGrid } from "features/flashcards";
+import { FlashCardGrid, useConfetti } from "features/flashcards";
 import {
   WordMeanings,
   getDictionaryReponse,
   parseDictionaryMeanings,
 } from "features/words";
-import ReactCanvasConfetti from "react-canvas-confetti";
-import { useConfetti } from "features/flashcards/hooks/useConfetti";
 
-const canvasStyles: CSSProperties = {
+const fireWorkCanvasStyles: CSSProperties = {
   position: "fixed",
   pointerEvents: "none",
   width: "100%",
@@ -64,12 +63,15 @@ export default function FlashCardsGroup() {
     if (group === null) router.push("/words/flash-cards");
   }, [group, router]);
 
-  const [onWin, getInstance] = useConfetti();
+  const [makeShot, getInstance] = useConfetti();
 
   return group ? (
     <>
-      <FlashCardGrid group={group} meanings={meanings} onWin={onWin} />
-      <ReactCanvasConfetti refConfetti={getInstance} style={canvasStyles} />
+      <FlashCardGrid group={group} meanings={meanings} onWin={makeShot} />
+      <ReactCanvasConfetti
+        refConfetti={getInstance}
+        style={fireWorkCanvasStyles}
+      />
     </>
   ) : null;
 }

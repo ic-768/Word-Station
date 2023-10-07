@@ -1,18 +1,14 @@
-import { useCallback, useRef } from "react";
+import { useRef } from "react";
 
 export const useConfetti = () => {
   const refConfetti = useRef<any>(null);
 
-  const getInstance = useCallback((instance: any) => {
+  const getInstance = (instance: any) => {
     refConfetti.current = instance;
-  }, []);
+  };
 
-  const makeShot = useCallback((opts: {}) => {
-    refConfetti?.current(opts);
-  }, []);
-
-  const onWin = useCallback(() => {
-    makeShot({
+  const makeShot = () =>
+    refConfetti?.current({
       spread: 140,
       startVelocity: 55,
       gravity: 0.2,
@@ -21,7 +17,6 @@ export const useConfetti = () => {
       origin: { y: 0.7 },
       particleCount: 200,
     });
-  }, [makeShot]);
 
-  return [onWin, getInstance] as const;
+  return [makeShot, getInstance] as const;
 };
