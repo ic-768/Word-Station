@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getDictionaryReponse, parseDictionaryMeanings } from "utils";
+import { getDictionaryReponse, parseDictionaryMeanings } from "features/words";
 
 type Data = {
   word: string;
