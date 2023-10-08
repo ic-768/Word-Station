@@ -21,39 +21,41 @@ export const useLikeWord = (
     setIsWordLikeStatusLoading(false);
   };
 
-  const handleSave = withLoading(async () => {
-    await wordCRUD(
-      word,
-      "save-word",
-      "POST",
-      "Word saved successfully!",
-      "Word is already saved",
-      () => {
-        setIsWordSaved(true);
-        if (userWords) {
-          const updatedWords = userWords?.concat(word);
-          setUserWords(updatedWords);
+  const handleSave = () =>
+    withLoading(async () => {
+      await wordCRUD(
+        word,
+        "save-word",
+        "POST",
+        "Word saved successfully!",
+        "Word is already saved",
+        () => {
+          setIsWordSaved(true);
+          if (userWords) {
+            const updatedWords = userWords?.concat(word);
+            setUserWords(updatedWords);
+          }
         }
-      }
-    );
-  });
+      );
+    });
 
-  const handleDelete = withLoading(async () => {
-    await wordCRUD(
-      word,
-      "delete-word",
-      "DELETE",
-      "Word removed successfully!",
-      "Something went wrong",
-      () => {
-        setIsWordSaved(false);
-        if (userWords) {
-          const updatedWords = userWords?.filter((w) => w !== word);
-          setUserWords(updatedWords);
+  const handleDelete = () =>
+    withLoading(async () => {
+      await wordCRUD(
+        word,
+        "delete-word",
+        "DELETE",
+        "Word removed successfully!",
+        "Something went wrong",
+        () => {
+          setIsWordSaved(false);
+          if (userWords) {
+            const updatedWords = userWords?.filter((w) => w !== word);
+            setUserWords(updatedWords);
+          }
         }
-      }
-    );
-  });
+      );
+    });
 
   return [handleSave, handleDelete, isWordLikeStatusLoading] as const;
 };
