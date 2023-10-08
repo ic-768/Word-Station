@@ -1,6 +1,5 @@
-import { Dispatch, SetStateAction, useContext, useState } from "react";
-import { LoaderContext, UserWordsContext } from "context";
-import { useWordCRUD, WordMeanings } from "features/words";
+import { Dispatch, SetStateAction, useState } from "react";
+import { useLikeWord, WordMeanings } from "features/words";
 
 import {
   DefinitionsList,
@@ -24,51 +23,14 @@ const WordModal = ({
   setIsWordSaved,
 }: WordModalProps) => {
   const [page, setPage] = useState(0);
-  const [isWordLikeStatusLoading, setIsWordLikeStatusLoading] = useState(false);
-  const wordCRUD = useWordCRUD();
+  const [handleSave, handleDelete, isWordLikeStatusLoading] = useLikeWord(
+    word,
+    setIsWordSaved
+  );
+
   const pageData = meanings?.[page];
-  const [userWords, setUserWords] = useContext(UserWordsContext);
-  const [_loader, setLoader] = useContext(LoaderContext);
 
   if (!pageData) return <Skeleton />;
-
-  const handleSave = async () => {
-    setIsWordLikeStatusLoading(true);
-    await wordCRUD(
-      word,
-      "save-word",
-      "POST",
-      "Word saved successfully!",
-      "Word is already saved",
-      () => {
-        setIsWordSaved(true);
-        if (userWords) {
-          const updatedWords = userWords?.concat(word);
-          setUserWords(updatedWords);
-        }
-      }
-    );
-    setIsWordLikeStatusLoading(false);
-  };
-
-  const handleDelete = async () => {
-    setIsWordLikeStatusLoading(true);
-    await wordCRUD(
-      word,
-      "delete-word",
-      "DELETE",
-      "Word removed successfully!",
-      "Something went wrong",
-      () => {
-        setIsWordSaved(false);
-        if (userWords) {
-          const updatedWords = userWords?.filter((w) => w !== word);
-          setUserWords(updatedWords);
-        }
-      }
-    );
-    setIsWordLikeStatusLoading(false);
-  };
 
   const { definitions, synonyms } = pageData;
 
