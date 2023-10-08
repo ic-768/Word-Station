@@ -3,12 +3,12 @@ import { CSSProperties, useContext, useEffect, useState } from "react";
 import ReactCanvasConfetti from "react-canvas-confetti";
 
 import { FlashCardGroup, UserFlashCardsContext } from "context";
-import { FlashCardGrid, useConfetti } from "features/flashcards";
+import { WordMeanings } from "features/words";
 import {
-  WordMeanings,
-  getDictionaryReponse,
-  parseDictionaryMeanings,
-} from "features/words";
+  fetchMeaningsFromGroup,
+  FlashCardGrid,
+  useConfetti,
+} from "features/flashcards";
 
 const fireWorkCanvasStyles: CSSProperties = {
   position: "fixed",
@@ -37,11 +37,7 @@ export default function FlashCardsGroup() {
     // TODO error handling
     const fetchMeanings = async () => {
       if (!group) return;
-
-      const dictionaryRequests = group.words.map(getDictionaryReponse);
-      // TODO extract to util
-      const dictionaryResults = await Promise.all(dictionaryRequests);
-      const fetchedMeanings = dictionaryResults.map(parseDictionaryMeanings);
+      const fetchedMeanings = await fetchMeaningsFromGroup(group);
 
       setMeanings(fetchedMeanings);
     };
@@ -53,9 +49,7 @@ export default function FlashCardsGroup() {
   useEffect(() => {
     if (router.query) {
       const { group } = router.query;
-      setGroup(
-        userFlashCardGroups?.find((g) => g.title === (group as string)) || null
-      );
+      setGroup(userFlashCardGroups?.find((g) => g.title === group) || null);
     }
   }, [router.query, userFlashCardGroups]);
 
