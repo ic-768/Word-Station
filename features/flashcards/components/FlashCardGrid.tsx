@@ -1,10 +1,10 @@
-import { Fragment, useCallback, useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 import { WordMeanings } from "features/words";
-import FlashCardGroup from "./FlashCardGroup";
 
 import { WordDefinitionPair } from "../types";
 import { isMatch, randomise, extractDefinition } from "../utils";
+import FlashCardGroup from "./FlashCardGroup";
 import FlashCardItem from "./FlashCardItem";
 
 interface FlashCardGridProps {
@@ -20,8 +20,8 @@ const FlashCardGrid = ({
 }: FlashCardGridProps) => {
   // Use these to display words and meanings so we can filter them
   const [displayedWords, setDisplayedWords] = useState(words);
-  const [displayedDefinitions, setDisplayedDefinitions] = useState(
-    meanings.map((m) => extractDefinition(m[0]))
+  const [displayedDefinitions, setDisplayedDefinitions] = useState<string[]>(
+    []
   );
 
   // Current selections
@@ -75,6 +75,7 @@ const FlashCardGrid = ({
       <ul className="grid grid-cols-2 gap-8">
         {displayedWords.map((word, i) => {
           const definition = displayedDefinitions[i];
+
           const setDefinition = () => setSelectedDefinition(definition);
           const setWord = () => setSelectedWord(word);
 
