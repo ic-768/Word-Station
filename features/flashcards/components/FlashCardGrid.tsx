@@ -1,9 +1,10 @@
 import { Fragment } from "react";
 
-import { WordMeanings } from "features/words";
-import useFlashCardGame from "../hooks/useFlashCardGame";
-import FlashCardItem from "./FlashCardItem";
 import { FlashCardGroup } from "context";
+import { WordMeanings } from "features/words";
+
+import FlashCardItem from "./FlashCardItem";
+import { useFlashCardGame } from "../hooks";
 
 interface FlashCardGridProps {
   group: FlashCardGroup;

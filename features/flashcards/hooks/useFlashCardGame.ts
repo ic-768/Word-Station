@@ -4,7 +4,7 @@ import { WordMeanings } from "features/words";
 import { WordDefinitionPair } from "../types";
 import { extractDefinition, isMatch, randomise } from "../utils";
 
-const useFlashCardGame = (
+export const useFlashCardGame = (
   words: string[],
   meanings: WordMeanings[],
   onWin: () => void
@@ -70,5 +70,3 @@ const useFlashCardGame = (
     setSelectedDefinition,
   ] as const;
 };
-
-export default useFlashCardGame;
