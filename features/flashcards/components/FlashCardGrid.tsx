@@ -5,6 +5,7 @@ import FlashCardGroup from "./FlashCardGroup";
 
 import { WordDefinitionPair } from "../types";
 import { isMatch, randomise, extractDefinition } from "../utils";
+import FlashCardItem from "./FlashCardItem";
 
 interface FlashCardGridProps {
   group: FlashCardGroup;
@@ -73,26 +74,22 @@ const FlashCardGrid = ({
       {title}
       <ul className="grid grid-cols-2 gap-8">
         {displayedWords.map((word, i) => {
-          const setDefinition = () =>
-            setSelectedDefinition(displayedDefinitions[i]);
+          const definition = displayedDefinitions[i];
+          const setDefinition = () => setSelectedDefinition(definition);
           const setWord = () => setSelectedWord(word);
 
           return (
             <Fragment key={word + i}>
-              <li className={`flex p-4 rounded ${getWordStyle(word)}`}>
-                <button onClick={setWord} className="flex-1">
-                  {word}
-                </button>
-              </li>
-              <li
-                className={`flex p-4 rounded ${getDefinitionStyle(
-                  displayedDefinitions[i]
-                )}`}
-              >
-                <button onClick={setDefinition} className="flex-1">
-                  {displayedDefinitions[i]}
-                </button>
-              </li>
+              <FlashCardItem
+                className={getWordStyle(word)}
+                text={word}
+                onClick={setWord}
+              />
+              <FlashCardItem
+                className={getDefinitionStyle(definition)}
+                text={definition}
+                onClick={setDefinition}
+              />
             </Fragment>
           );
         })}
