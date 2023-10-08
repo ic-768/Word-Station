@@ -17,6 +17,7 @@ import {
   CredentialPanel,
   CredentialPanelProps,
   signup,
+  validatePassword,
 } from "features/auth";
 
 export default function Register() {
@@ -40,31 +41,23 @@ export default function Register() {
 
   const onSignUp = async () => {
     setLoader({ showLoader: true, position: "inset-x-0 mx-auto top-16" });
-    const { data, error } = await signup(email, password);
 
-    if (error) {
-      console.log("error");
-      setNotification({ type: "error", message: error.message });
-    } else {
-      setNotification({
-        type: "success",
-        message: "You have successfully signed up!",
-      });
-      router.push("/login");
-    }
+    const { data, error } = await signup(email, password);
+    setNotification(
+      error
+        ? { type: "error", message: error.message }
+        : { type: "success", message: "You have successfully signed up!" }
+    );
+
     setLoader(false);
   };
 
   const onRegister: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    // TODO extract to utility file / hook
-    if (password !== passwordValidation) {
-      setNotification({ type: "error", message: "Passwords don't match!" });
-    } else if (password.length < 6) {
-      setNotification({
-        type: "error",
-        message: "Password must be atleast 6 characters",
-      });
+    const passwordError = validatePassword(password, passwordValidation);
+
+    if (passwordError) {
+      setNotification(passwordError);
     } else {
       await onSignUp();
     }
