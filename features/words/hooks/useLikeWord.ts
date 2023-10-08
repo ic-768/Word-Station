@@ -15,8 +15,13 @@ export const useLikeWord = (
 
   const wordCRUD = useWordCRUD();
 
-  const handleSave = async () => {
+  const withLoading = async (func: () => Promise<any>) => {
     setIsWordLikeStatusLoading(true);
+    await func();
+    setIsWordLikeStatusLoading(false);
+  };
+
+  const handleSave = withLoading(async () => {
     await wordCRUD(
       word,
       "save-word",
@@ -31,11 +36,9 @@ export const useLikeWord = (
         }
       }
     );
-    setIsWordLikeStatusLoading(false);
-  };
+  });
 
-  const handleDelete = async () => {
-    setIsWordLikeStatusLoading(true);
+  const handleDelete = withLoading(async () => {
     await wordCRUD(
       word,
       "delete-word",
@@ -50,8 +53,7 @@ export const useLikeWord = (
         }
       }
     );
-    setIsWordLikeStatusLoading(false);
-  };
+  });
 
   return [handleSave, handleDelete, isWordLikeStatusLoading] as const;
 };
