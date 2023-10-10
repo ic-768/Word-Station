@@ -9,13 +9,16 @@ import { useFlashCardGame } from "../hooks";
 interface FlashCardGridProps {
   group: FlashCardGroup;
   meanings: WordMeanings[];
-  onWin: () => void;
+  onCorrectMatch: () => void;
 }
 
+/**
+ * Display words and random definitions for user to match
+ */
 const FlashCardGrid = ({
   group: { title, words },
   meanings,
-  onWin,
+  onCorrectMatch,
 }: FlashCardGridProps) => {
   const [
     displayedWords,
@@ -24,11 +27,15 @@ const FlashCardGrid = ({
     getDefinitionStyle,
     setSelectedWord,
     setSelectedDefinition,
-  ] = useFlashCardGame(words, meanings, onWin);
+    score,
+    multiplier,
+  ] = useFlashCardGame(words, meanings, onCorrectMatch);
 
   return (
     <div className="p-8 flex flex-col">
       {title}
+      <span>Score: {score}</span>
+      <span>Multiplier: X{multiplier}</span>
       <ul className="grid grid-cols-2 gap-8">
         {displayedWords.map((word, i) => {
           const definition = displayedDefinitions[i];

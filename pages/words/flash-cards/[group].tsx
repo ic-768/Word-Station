@@ -20,7 +20,7 @@ const fireWorkCanvasStyles: CSSProperties = {
 };
 
 /**
- * User can submit a group in order for the backend to contact the dictionary API, and get the results.
+ * Flashcard game for a single flashcard group
  */
 export default function FlashCardsGroup() {
   const router = useRouter();
@@ -61,7 +61,11 @@ export default function FlashCardsGroup() {
 
   return group ? (
     <>
-      <FlashCardGrid group={group} meanings={meanings} onWin={makeShot} />
+      <FlashCardGrid
+        group={group}
+        meanings={meanings}
+        onCorrectMatch={makeShot}
+      />
       <ReactCanvasConfetti
         refConfetti={getInstance}
         style={fireWorkCanvasStyles}

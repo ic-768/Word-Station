@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { WordMeanings } from "features/words";
 import { WordDefinitionPair } from "../types";
@@ -7,7 +7,7 @@ import { extractDefinition, isMatch, randomise } from "../utils";
 export const useFlashCardGame = (
   words: string[],
   meanings: WordMeanings[],
-  onWin: () => void
+  onCorrectMatch: () => void
 ) => {
   // pairs of words with their corresponding definitions
   const [randomPairs, setRandomPairs] = useState<WordDefinitionPair[]>([]);
@@ -21,6 +21,22 @@ export const useFlashCardGame = (
   const [displayedDefinitions, setDisplayedDefinitions] = useState<string[]>(
     []
   );
+
+  const [score, setScore] = useState(0);
+  // successive correct matches increment the multiplier
+  const [multiplier, setMultiplier] = useState(1);
+
+  const incScore = useCallback(
+    () => setScore((s) => s + multiplier * 20),
+    [multiplier]
+  );
+
+  const incMultiplier = useCallback(() => {
+    console.log(multiplier);
+    setMultiplier((m) => m + 1);
+  }, [multiplier]);
+
+  const resetMultiplier = useCallback(() => setMultiplier(1), []);
 
   useEffect(() => {
     setDisplayedWords(words);
@@ -48,12 +64,24 @@ export const useFlashCardGame = (
       setDisplayedDefinitions((definitions) =>
         definitions.filter((d) => d !== selectedDefinition)
       );
-      onWin();
+      onCorrectMatch();
+      incScore();
+      incMultiplier();
+    } else {
+      resetMultiplier();
     }
 
     setSelectedWord(undefined);
     setSelectedDefinition(undefined);
-  }, [selectedWord, selectedDefinition, randomPairs, onWin]);
+  }, [
+    selectedWord,
+    selectedDefinition,
+    randomPairs,
+    onCorrectMatch,
+    incScore,
+    incMultiplier,
+    resetMultiplier,
+  ]);
 
   const getWordStyle = (w: string) =>
     selectedWord === w ? "bg-green-500" : "bg-slate-500 ";
@@ -68,5 +96,7 @@ export const useFlashCardGame = (
     getDefinitionStyle,
     setSelectedWord,
     setSelectedDefinition,
+    score,
+    multiplier,
   ] as const;
 };
