@@ -16,12 +16,11 @@ import {
 } from "context";
 
 import { Loader, ProtectedRouteGuard } from "components";
+import { getUserFlashCards, parseFlashCardGroups } from "features/flashcards";
 import { Notification, NotificationProps } from "features/notifications";
-import { getUserWords } from "./api/word/get-user-words";
+import { getUserWords } from "features/words";
 
 import "../styles/globals.css";
-import { getUserFlashCards } from "./api/flashcards/get-user-flashcards";
-import { parseFlashCardGroups } from "features/flashcards";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
