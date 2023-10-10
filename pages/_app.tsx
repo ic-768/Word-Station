@@ -11,6 +11,8 @@ import {
   UserSessionContext,
   UserWordsContext,
   NotificationContext,
+  UserFlashCardsContext,
+  FlashCardGroup,
 } from "context";
 
 import { Loader, ProtectedRouteGuard } from "components";
@@ -18,6 +20,8 @@ import { Notification, NotificationProps } from "features/notifications";
 import { getUserWords } from "./api/word/get-user-words";
 
 import "../styles/globals.css";
+import { getUserFlashCards } from "./api/flashcards/get-user-flashcards";
+import { parseFlashCardGroups } from "features/flashcards";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -39,6 +43,10 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   // to render notifications
   const [notification, setNotification] = useState<NotificationProps | null>();
 
+  const [userFlashCardGroups, setUserFlashCardGroups] = useState<
+    FlashCardGroup[] | null
+  >([]);
+
   // update auth context whenever session changes
   supabase.auth.onAuthStateChange((_, newSession) => {
     setSession(newSession);
@@ -58,7 +66,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
     if (session?.user.id) {
       (async () => {
         const response = await getUserWords(session.user.id);
-        const data = response.data;
+        const { data } = response;
         if (data) {
           const sortedWords = data.map((d) => d.name).sort();
           // update user words context
@@ -69,6 +77,22 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       })();
     }
   }, [session?.user.id]);
+
+  useEffect(() => {
+    const id = session?.user.id;
+    (async () => {
+      if (id) {
+        const response = await getUserFlashCards(id);
+        const { data } = response;
+        if (data) {
+          const parsedflashCards = parseFlashCardGroups(data);
+          setUserFlashCardGroups(parsedflashCards);
+        } else {
+          // TODO handle error
+        }
+      }
+    })();
+  }, [session, setUserFlashCardGroups]);
 
   // remove notifications after a fixed amount of time
   useEffect(() => {
@@ -93,11 +117,15 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         <ProtectedRouteGuard>
           <LoaderContext.Provider value={[loader, setLoader]}>
             <UserWordsContext.Provider value={[userWords, setUserWords]}>
-              <NotificationContext.Provider
-                value={[notification, setNotification]}
+              <UserFlashCardsContext.Provider
+                value={[userFlashCardGroups, setUserFlashCardGroups]}
               >
-                {getLayout(<Component {...pageProps} />)}
-              </NotificationContext.Provider>
+                <NotificationContext.Provider
+                  value={[notification, setNotification]}
+                >
+                  {getLayout(<Component {...pageProps} />)}
+                </NotificationContext.Provider>
+              </UserFlashCardsContext.Provider>
             </UserWordsContext.Provider>
           </LoaderContext.Provider>
         </ProtectedRouteGuard>

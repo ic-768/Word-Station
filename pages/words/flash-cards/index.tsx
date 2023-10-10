@@ -1,6 +1,6 @@
 import { ReactElement, useContext } from "react";
 
-import { UserFlashCardsContext } from "context";
+import { UserFlashCardsContext, UserSessionContext } from "context";
 import { UserStatusLayout, GoBackLayout } from "layouts";
 import { FlashCardGroup } from "features/flashcards";
 
@@ -8,9 +8,8 @@ import { FlashCardGroup } from "features/flashcards";
  * Page for user to create and organise groups of word flashcards.
  */
 export default function FlashCards() {
-  const [userFlashCardGroups, _setUserFlashCardGroups] = useContext(
-    UserFlashCardsContext
-  );
+  const [userFlashCardGroups] = useContext(UserFlashCardsContext);
+  const [session] = useContext(UserSessionContext);
 
   return (
     <div className="p-8 flex flex-col">
