@@ -27,8 +27,8 @@ export const useFlashCardGame = (
   }, [words]);
 
   useEffect(() => {
-    setDisplayedDefinitions(meanings.map((m) => extractDefinition(m[0])));
-  }, [meanings]);
+    setDisplayedDefinitions(randomPairs.map((p) => p[1]));
+  }, [randomPairs]);
 
   // shuffle words and definitions
   useEffect(() => {
