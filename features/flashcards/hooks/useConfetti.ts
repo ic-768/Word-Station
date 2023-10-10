@@ -7,7 +7,11 @@ export const useConfetti = (score: number, multiplier: number) => {
     refConfetti.current = instance;
   };
 
-  const particleCount = (score || 10) * 10 * multiplier;
+  const maxParticleCount = 3000;
+  const particleCount = Math.min(
+    (score || 10) * 10 * multiplier,
+    maxParticleCount
+  );
 
   const makeShot = () =>
     refConfetti?.current({
