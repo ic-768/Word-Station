@@ -3,12 +3,26 @@ import { useCallback, useEffect, useState } from "react";
 import { WordMeanings } from "features/words";
 import { WordDefinitionPair } from "../types";
 import { extractDefinition, isMatch, randomise } from "../utils";
+import { useConfetti } from "./useConfetti";
+
+export interface FlashCardGameHook {
+  displayedWords: string[];
+  displayedDefinitions: string[];
+  getWordStyle: (w: string) => string;
+  getDefinitionStyle: (d: string) => string;
+  setSelectedWord: React.Dispatch<React.SetStateAction<string | undefined>>;
+  setSelectedDefinition: React.Dispatch<
+    React.SetStateAction<string | undefined>
+  >;
+  score: number;
+  multiplier: number;
+  getConfettiInstance: (instance: any) => void;
+}
 
 export const useFlashCardGame = (
   words: string[],
-  meanings: WordMeanings[],
-  onCorrectMatch: () => void
-) => {
+  meanings: WordMeanings[]
+): FlashCardGameHook => {
   // pairs of words with their corresponding definitions
   const [randomPairs, setRandomPairs] = useState<WordDefinitionPair[]>([]);
 
@@ -25,6 +39,8 @@ export const useFlashCardGame = (
   const [score, setScore] = useState(0);
   // successive correct matches increment the multiplier
   const [multiplier, setMultiplier] = useState(1);
+
+  const [shootConfetti, getConfettiInstance] = useConfetti(score, multiplier);
 
   const incScore = useCallback(
     () => setScore((s) => s + multiplier * 20),
@@ -64,7 +80,7 @@ export const useFlashCardGame = (
       setDisplayedDefinitions((definitions) =>
         definitions.filter((d) => d !== selectedDefinition)
       );
-      onCorrectMatch();
+      shootConfetti();
       incScore();
       incMultiplier();
     } else {
@@ -77,10 +93,10 @@ export const useFlashCardGame = (
     selectedWord,
     selectedDefinition,
     randomPairs,
-    onCorrectMatch,
     incScore,
     incMultiplier,
     resetMultiplier,
+    shootConfetti,
   ]);
 
   const getWordStyle = (w: string) =>
@@ -89,7 +105,7 @@ export const useFlashCardGame = (
   const getDefinitionStyle = (d: string) =>
     d && selectedDefinition === d ? "bg-orange-500" : "bg-slate-500 ";
 
-  return [
+  return {
     displayedWords,
     displayedDefinitions,
     getWordStyle,
@@ -98,5 +114,6 @@ export const useFlashCardGame = (
     setSelectedDefinition,
     score,
     multiplier,
-  ] as const;
+    getConfettiInstance,
+  };
 };

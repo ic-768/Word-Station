@@ -1,4 +1,5 @@
 import { useConfetti } from "./useConfetti";
-import { useFlashCardGame } from "./useFlashCardGame";
+import { useFlashCardGame, FlashCardGameHook } from "./useFlashCardGame";
 
 export { useConfetti, useFlashCardGame };
+export type { FlashCardGameHook };

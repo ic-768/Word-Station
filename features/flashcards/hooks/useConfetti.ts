@@ -1,11 +1,13 @@
 import { useRef } from "react";
 
-export const useConfetti = () => {
+export const useConfetti = (score: number, multiplier: number) => {
   const refConfetti = useRef<any>(null);
 
   const getInstance = (instance: any) => {
     refConfetti.current = instance;
   };
+
+  const particleCount = (score || 10) * 10 * multiplier;
 
   const makeShot = () =>
     refConfetti?.current({
@@ -15,7 +17,7 @@ export const useConfetti = () => {
       ticks: 60,
       scalar: 1,
       origin: { y: 0.7 },
-      particleCount: 200,
+      particleCount,
     });
 
   return [makeShot, getInstance] as const;

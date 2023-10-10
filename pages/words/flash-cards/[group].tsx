@@ -8,6 +8,7 @@ import {
   fetchMeaningsFromGroup,
   FlashCardGrid,
   useConfetti,
+  useFlashCardGame,
 } from "features/flashcards";
 
 const fireWorkCanvasStyles: CSSProperties = {
@@ -57,17 +58,14 @@ export default function FlashCardsGroup() {
     if (group === null) router.push("/words/flash-cards");
   }, [group, router]);
 
-  const [makeShot, getInstance] = useConfetti();
+  const flashCardGame = useFlashCardGame(group?.words || [], meanings);
+  const { getConfettiInstance } = flashCardGame;
 
   return group ? (
     <>
-      <FlashCardGrid
-        group={group}
-        meanings={meanings}
-        onCorrectMatch={makeShot}
-      />
+      <FlashCardGrid game={flashCardGame} groupTitle={group.title} />
       <ReactCanvasConfetti
-        refConfetti={getInstance}
+        refConfetti={getConfettiInstance}
         style={fireWorkCanvasStyles}
       />
     </>

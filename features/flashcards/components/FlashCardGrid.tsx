@@ -1,26 +1,18 @@
 import { Fragment } from "react";
 
-import { FlashCardGroup } from "context";
-import { WordMeanings } from "features/words";
-
 import FlashCardItem from "./FlashCardItem";
-import { useFlashCardGame } from "../hooks";
+import { FlashCardGameHook } from "../hooks";
 
 interface FlashCardGridProps {
-  group: FlashCardGroup;
-  meanings: WordMeanings[];
-  onCorrectMatch: () => void;
+  game: FlashCardGameHook;
+  groupTitle: string;
 }
 
 /**
  * Display words and random definitions for user to match
  */
-const FlashCardGrid = ({
-  group: { title, words },
-  meanings,
-  onCorrectMatch,
-}: FlashCardGridProps) => {
-  const [
+const FlashCardGrid = ({ game, groupTitle }: FlashCardGridProps) => {
+  const {
     displayedWords,
     displayedDefinitions,
     getWordStyle,
@@ -29,11 +21,11 @@ const FlashCardGrid = ({
     setSelectedDefinition,
     score,
     multiplier,
-  ] = useFlashCardGame(words, meanings, onCorrectMatch);
+  } = game;
 
   return (
     <div className="p-8 flex flex-col">
-      {title}
+      {groupTitle}
       <span>Score: {score}</span>
       <span>Multiplier: X{multiplier}</span>
       <ul className="grid grid-cols-2 gap-8">
