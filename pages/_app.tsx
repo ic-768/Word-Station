@@ -1,9 +1,7 @@
 import { NextPage } from "next";
 import type { AppProps } from "next/app";
 import { ReactElement, ReactNode, useEffect, useState } from "react";
-import { Session } from "@supabase/supabase-js";
 
-import { supabase } from "lib/supabaseClient";
 import {
   isPositionedLoader,
   LoaderArgs,
@@ -12,14 +10,13 @@ import {
   UserWordsContext,
   NotificationContext,
   UserFlashCardsContext,
-  FlashCardGroup,
 } from "context";
 
 import { Loader, ProtectedRouteGuard } from "components";
-import { getUserFlashCards, parseFlashCardGroups } from "features/flashcards";
 import { Notification, NotificationProps } from "features/notifications";
-import { getUserWords } from "features/words";
-
+import { useUserSession } from "features/auth";
+import { useFetchUserWords } from "features/words";
+import { useFetchUserFlashCardGroups } from "features/flashcards";
 import "../styles/globals.css";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
@@ -31,67 +28,10 @@ type AppPropsWithLayout = AppProps & {
 };
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
-  // list of user-saved words - null means not fetched yet
-  const [userWords, setUserWords] = useState<string[] | null>(null);
-
-  // user login session
-  const [session, setSession] = useState<Session | null | undefined>(undefined);
-
   // to render loading spinner
   const [loader, setLoader] = useState<LoaderArgs>(false);
   // to render notifications
   const [notification, setNotification] = useState<NotificationProps | null>();
-
-  const [userFlashCardGroups, setUserFlashCardGroups] = useState<
-    FlashCardGroup[] | null
-  >([]);
-
-  // update auth context whenever session changes
-  supabase.auth.onAuthStateChange((_, newSession) => {
-    setSession(newSession);
-  });
-
-  useEffect(() => {
-    const initialiseSession = async () => {
-      const { data, error } = await supabase.auth.getSession();
-      setSession(data?.session || null);
-    };
-
-    initialiseSession();
-  }, []);
-
-  // fetch user's words and alphabetize
-  useEffect(() => {
-    if (session?.user.id) {
-      (async () => {
-        const response = await getUserWords(session.user.id);
-        const { data } = response;
-        if (data) {
-          const sortedWords = data.map((d) => d.name).sort();
-          // update user words context
-          setUserWords(sortedWords);
-        } else {
-          // TODO set error
-        }
-      })();
-    }
-  }, [session?.user.id]);
-
-  useEffect(() => {
-    const id = session?.user.id;
-    (async () => {
-      if (id) {
-        const response = await getUserFlashCards(id);
-        const { data } = response;
-        if (data) {
-          const parsedflashCards = parseFlashCardGroups(data);
-          setUserFlashCardGroups(parsedflashCards);
-        } else {
-          // TODO handle error
-        }
-      }
-    })();
-  }, [session, setUserFlashCardGroups]);
 
   // remove notifications after a fixed amount of time
   useEffect(() => {
@@ -101,6 +41,11 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   }, [notification]);
 
   const getLayout = Component.getLayout || ((page) => page);
+
+  const { session, setSession } = useUserSession();
+  const { userWords, setUserWords } = useFetchUserWords(session?.user.id);
+  const { userFlashCardGroups, setUserFlashCardGroups } =
+    useFetchUserFlashCardGroups(session?.user.id);
 
   return (
     <>
