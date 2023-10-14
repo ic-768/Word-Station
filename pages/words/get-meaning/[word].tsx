@@ -1,7 +1,7 @@
 import { ReactElement, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-import { GoBackLayout, UserStatusLayout } from "layouts";
+import { AppHeaderLayout } from "layouts";
 import { NotificationContext, UserWordsContext } from "context";
 import {
   WordModal,
@@ -65,9 +65,5 @@ export default function WordMeaning() {
 }
 
 WordMeaning.getLayout = function getLayout(page: ReactElement) {
-  return (
-    <UserStatusLayout>
-      <GoBackLayout>{page}</GoBackLayout>
-    </UserStatusLayout>
-  );
+  return <AppHeaderLayout>{page}</AppHeaderLayout>;
 };

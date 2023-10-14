@@ -1,7 +1,7 @@
 import { ReactElement, useContext } from "react";
 
-import { UserFlashCardsContext, UserSessionContext } from "context";
-import { UserStatusLayout, GoBackLayout } from "layouts";
+import { UserFlashCardsContext } from "context";
+import { AppHeaderLayout } from "layouts";
 import { FlashCardGroup } from "features/flashcards";
 
 /*
@@ -9,7 +9,6 @@ import { FlashCardGroup } from "features/flashcards";
  */
 export default function FlashCards() {
   const [userFlashCardGroups] = useContext(UserFlashCardsContext);
-  const [session] = useContext(UserSessionContext);
 
   return (
     <div className="p-8 flex flex-col">
@@ -24,9 +23,5 @@ export default function FlashCards() {
 }
 
 FlashCards.getLayout = function getLayout(page: ReactElement) {
-  return (
-    <UserStatusLayout>
-      <GoBackLayout>{page}</GoBackLayout>
-    </UserStatusLayout>
-  );
+  return <AppHeaderLayout>{page}</AppHeaderLayout>;
 };

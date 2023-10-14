@@ -5,11 +5,10 @@ import {
   useEffect,
   useState,
 } from "react";
-import Link from "next/link";
 
 import { LoaderContext, UserWordsContext } from "context";
 import { WordList, WordSearchPanel } from "features/words";
-import { UserStatusLayout } from "layouts";
+import { AppHeaderLayout } from "layouts";
 
 export default function Words() {
   const [userWords, _setUserWords] = useContext(UserWordsContext);
@@ -40,12 +39,6 @@ export default function Words() {
     <div className="relative flex flex-col items-center w-screen p-8">
       <div className="flex my-10 items-center gap-8">
         <WordSearchPanel filter={filter} onChangeFilter={onChangeFilter} />
-        <Link
-          className="rounded-lg px-6 py-4 border-2 border-white bg-cyan-700 hover:bg-cyan-600 transition-colors"
-          href="words/flash-cards"
-        >
-          Flash Cards
-        </Link>
       </div>
       {filteredWords !== null && <WordList words={filteredWords} />}
     </div>
@@ -53,5 +46,5 @@ export default function Words() {
 }
 
 Words.getLayout = function getLayout(page: ReactElement) {
-  return <UserStatusLayout>{page}</UserStatusLayout>;
+  return <AppHeaderLayout>{page}</AppHeaderLayout>;
 };

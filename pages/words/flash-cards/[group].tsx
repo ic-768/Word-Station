@@ -1,7 +1,14 @@
 import { useRouter } from "next/router";
-import { CSSProperties, useContext, useEffect, useState } from "react";
+import {
+  CSSProperties,
+  ReactElement,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import ReactCanvasConfetti from "react-canvas-confetti";
 
+import { AppHeaderLayout } from "layouts";
 import { FlashCardGroup, UserFlashCardsContext } from "context";
 import { WordMeanings } from "features/words";
 import {
@@ -70,3 +77,7 @@ export default function FlashCardsGroup() {
     </>
   ) : null;
 }
+
+FlashCardsGroup.getLayout = function getLayout(page: ReactElement) {
+  return <AppHeaderLayout>{page}</AppHeaderLayout>;
+};

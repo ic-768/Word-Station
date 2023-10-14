@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 
-import { GoBackLayout, UserStatusLayout } from "layouts";
+import { AppHeaderLayout } from "layouts";
 import { MeaningSearch } from "features/words";
 
 /*
@@ -11,9 +11,5 @@ export default function GetMeaning() {
 }
 
 GetMeaning.getLayout = function getLayout(page: ReactElement) {
-  return (
-    <UserStatusLayout>
-      <GoBackLayout>{page}</GoBackLayout>
-    </UserStatusLayout>
-  );
+  return <AppHeaderLayout>{page}</AppHeaderLayout>;
 };
