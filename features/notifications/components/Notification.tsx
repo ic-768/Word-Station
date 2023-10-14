@@ -15,6 +15,7 @@ const Notification = ({
     () => getStyle(type),
     [type]
   );
+  console.log(icon, fgColor, bgColor, outlineColor);
 
   return (
     <div

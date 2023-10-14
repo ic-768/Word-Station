@@ -7,7 +7,6 @@ import { WordMeanings } from "features/words";
 import {
   fetchMeaningsFromGroup,
   FlashCardGrid,
-  useConfetti,
   useFlashCardGame,
 } from "features/flashcards";
 

@@ -15,28 +15,28 @@ export type NotificationStyle = [
 
 export const successStyle: NotificationStyle = [
   faCheck,
-  "text-green-600",
+  "text-white",
   "bg-green-500",
   "outline-green-800",
 ];
 
 export const errorStyle: NotificationStyle = [
   faBan,
-  "text-red-600",
+  "text-white",
   "bg-red-500",
   "outline-red-800",
 ];
 
 export const warningStyle: NotificationStyle = [
   faTriangleExclamation,
-  "text-amber-600",
+  "text-white",
   "bg-amber-500",
   "outline-amber-800",
 ];
 
 export const informationalStyle: NotificationStyle = [
   faInfo,
-  "text-sky-600",
+  "text-white",
   "bg-sky-500",
   "outline-sky-800",
 ];

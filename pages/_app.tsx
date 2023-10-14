@@ -43,9 +43,11 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout || ((page) => page);
 
   const { session, setSession } = useUserSession();
-  const { userWords, setUserWords } = useFetchUserWords(session?.user.id);
+  const id = session?.user.id;
+
+  const { userWords, setUserWords } = useFetchUserWords(id);
   const { userFlashCardGroups, setUserFlashCardGroups } =
-    useFetchUserFlashCardGroups(session?.user.id);
+    useFetchUserFlashCardGroups(id);
 
   return (
     <>
