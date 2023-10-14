@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 import { WordMeanings } from "features/words";
 import { WordDefinitionPair } from "../types";
@@ -23,6 +24,7 @@ export const useFlashCardGame = (
   words: string[],
   meanings: WordMeanings[]
 ): FlashCardGameHook => {
+  const router = useRouter();
   // pairs of words with their corresponding definitions
   const [randomPairs, setRandomPairs] = useState<WordDefinitionPair[]>([]);
 
@@ -77,12 +79,25 @@ export const useFlashCardGame = (
 
     if (isMatch(randomPairs, [selectedWord, selectedDefinition])) {
       setDisplayedWords((words) => words.filter((w) => w !== selectedWord));
-      setDisplayedDefinitions((definitions) =>
-        definitions.filter((d) => d !== selectedDefinition)
-      );
+
+      setDisplayedDefinitions((definitions) => {
+        const updatedDefinitions = definitions.filter(
+          (d) => d !== selectedDefinition
+        );
+
+        // on win
+        if (updatedDefinitions.length === 0) {
+          setTimeout(() => router.push("/words/flash-cards"), 3000);
+        }
+
+        return updatedDefinitions;
+      });
+
       shootConfetti();
       incScore();
       incMultiplier();
+
+      // on win
     } else {
       resetMultiplier();
     }
@@ -90,6 +105,8 @@ export const useFlashCardGame = (
     setSelectedWord(undefined);
     setSelectedDefinition(undefined);
   }, [
+    router,
+    displayedDefinitions,
     selectedWord,
     selectedDefinition,
     randomPairs,

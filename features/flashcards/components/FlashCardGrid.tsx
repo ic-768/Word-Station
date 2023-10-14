@@ -2,7 +2,6 @@ import { Fragment, useEffect } from "react";
 
 import FlashCardItem from "./FlashCardItem";
 import { FlashCardGameHook } from "../hooks";
-import { useRouter } from "next/router";
 
 interface FlashCardGridProps {
   game: FlashCardGameHook;
@@ -24,17 +23,10 @@ const FlashCardGrid = ({ game, groupTitle }: FlashCardGridProps) => {
     multiplier,
   } = game;
 
-  // WIP TODO -> navigate to flashcards route here
-  const router = useRouter();
-
-  // when all flash cards have been matched
-  useEffect(() => {
-    if (displayedWords.length === 0) {
-    }
-  }, [displayedWords]);
-
   return displayedWords.length === 0 ? (
-    <span>YOU WIN</span>
+    <div className="h-full w-full flex items-center justify-center text-6xl">
+      YOU WIN!
+    </div>
   ) : (
     <div className="p-8 flex flex-col">
       {groupTitle}
