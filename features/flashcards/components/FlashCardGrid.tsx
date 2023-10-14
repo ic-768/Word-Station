@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from "react";
+import { Fragment } from "react";
 
 import FlashCardItem from "./FlashCardItem";
 import { FlashCardGameHook } from "../hooks";
