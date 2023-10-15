@@ -1,22 +1,15 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
+import { useWordLikedStatus } from "features/words/hooks";
 
-interface LikeWordButtonProps {
-  isLoading?: boolean;
-  isWordSaved?: boolean;
-  handleDelete: () => void;
-  handleSave: () => void;
-}
-const LikeWordButton = ({
-  isLoading,
-  isWordSaved,
-  handleDelete,
-  handleSave,
-}: LikeWordButtonProps) => {
-  const [onClick, icon, color] = isWordSaved
-    ? [handleDelete, solidHeart, "text-red-600"]
-    : [handleSave, emptyHeart, "text-neutral-800"];
+const LikeWordButton = ({ word }: { word: string }) => {
+  const { handleLike, handleUnlike, isWordLikeStatusLoading, isWordLiked } =
+    useWordLikedStatus(word);
+
+  const [onClick, icon, color] = isWordLiked
+    ? [handleUnlike, solidHeart, "text-red-600"]
+    : [handleLike, emptyHeart, "text-neutral-800"];
 
   return (
     <FontAwesomeIcon
@@ -25,7 +18,7 @@ const LikeWordButton = ({
       onClick={onClick}
       icon={icon}
       className={`w-12 ${color} hover:text-red-800 ${
-        isLoading ? "animate-spin" : ""
+        isWordLikeStatusLoading ? "animate-spin" : ""
       }`}
     />
   );

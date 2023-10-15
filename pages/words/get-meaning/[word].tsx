@@ -2,22 +2,19 @@ import { ReactElement, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import { AppHeaderLayout } from "layouts";
-import { useNotification, useWords } from "context";
 import {
   WordModal,
   MeaningSearch,
   WordMeanings,
   fetchWordMeanings,
 } from "features/words";
+import { useNotification } from "context";
 
 export default function WordMeaning() {
-  const { userWords } = useWords();
   const { setNotification } = useNotification();
 
   const [word, setWord] = useState("");
   const [wordMeanings, setWordMeanings] = useState<WordMeanings>();
-
-  const [isWordSaved, setIsWordSaved] = useState(!!userWords?.includes(word));
 
   const router = useRouter();
 
@@ -32,12 +29,6 @@ export default function WordMeaning() {
       setWordMeanings(meanings);
     })();
   }, [router.query]);
-
-  // is word already saved by user?
-  useEffect(
-    () => setIsWordSaved(!!userWords?.includes(word)),
-    [userWords, word]
-  );
 
   // if word couldn't be found, redirect back
   useEffect(() => {
@@ -54,12 +45,7 @@ export default function WordMeaning() {
   return (
     <>
       <MeaningSearch />
-      <WordModal
-        meanings={wordMeanings}
-        word={word}
-        isWordSaved={isWordSaved}
-        setIsWordSaved={setIsWordSaved}
-      />
+      <WordModal meanings={wordMeanings} word={word} />
     </>
   );
 }

@@ -1,19 +1,23 @@
-import { useWords } from "context";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useEffect, useState } from "react";
 
+import { useWords } from "context";
 import { useWordCRUD } from "./useWordCrud";
 
 /**
- * Returns functions to add/remove a word as a favorite, and the request loading status
+ * Returns utilities and functions related to the 'like' status of a word
  */
-export const useLikeWord = (
-  word: string,
-  setIsWordSaved: Dispatch<SetStateAction<boolean>>
-) => {
+export const useWordLikedStatus = (word: string) => {
   const { userWords, setUserWords } = useWords();
-  const [isWordLikeStatusLoading, setIsWordLikeStatusLoading] = useState(false);
-
   const wordCRUD = useWordCRUD();
+
+  const [isWordLiked, setIsWordLiked] = useState(!!userWords?.includes(word));
+
+  // is word already Liked by user?
+  useEffect(
+    () => setIsWordLiked(!!userWords?.includes(word)),
+    [userWords, word]
+  );
+  const [isWordLikeStatusLoading, setIsWordLikeStatusLoading] = useState(false);
 
   const withLoading = async (func: () => Promise<any>) => {
     setIsWordLikeStatusLoading(true);
@@ -21,7 +25,7 @@ export const useLikeWord = (
     setIsWordLikeStatusLoading(false);
   };
 
-  const handleSave = () =>
+  const handleLike = () =>
     withLoading(async () => {
       await wordCRUD(
         word,
@@ -30,7 +34,7 @@ export const useLikeWord = (
         "Word saved successfully!",
         "Word is already saved",
         () => {
-          setIsWordSaved(true);
+          setIsWordLiked(true);
           if (userWords) {
             const updatedWords = userWords?.concat(word);
             setUserWords(updatedWords);
@@ -39,7 +43,7 @@ export const useLikeWord = (
       );
     });
 
-  const handleDelete = () =>
+  const handleUnlike = () =>
     withLoading(async () => {
       await wordCRUD(
         word,
@@ -48,7 +52,7 @@ export const useLikeWord = (
         "Word removed successfully!",
         "Something went wrong",
         () => {
-          setIsWordSaved(false);
+          setIsWordLiked(false);
           if (userWords) {
             const updatedWords = userWords?.filter((w) => w !== word);
             setUserWords(updatedWords);
@@ -57,5 +61,10 @@ export const useLikeWord = (
       );
     });
 
-  return [handleSave, handleDelete, isWordLikeStatusLoading] as const;
+  return {
+    isWordLiked,
+    handleLike,
+    handleUnlike,
+    isWordLikeStatusLoading,
+  };
 };
