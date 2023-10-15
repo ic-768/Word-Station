@@ -1,10 +1,10 @@
-import { ReactElement, useContext } from "react";
+import { ReactElement } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import { useFlashCardGroups } from "context";
 import { AppHeaderLayout } from "layouts";
 import { FlashCardGroup } from "features/flashcards";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 /*
  * Page for user to create and organise groups of word flashcards.
