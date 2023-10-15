@@ -19,9 +19,10 @@ const fireWorkCanvasStyles: CSSProperties = {
  */
 export default function FlashCardsGroup() {
   const { group, meanings } = useFlashCardGroupFromUrl();
-
-  const flashCardGame = useFlashCardGame(group?.words || [], meanings);
-  const { getConfettiInstance } = flashCardGame;
+  const { getConfettiInstance, ...flashCardGame } = useFlashCardGame(
+    group?.words || [],
+    meanings
+  );
 
   return group ? (
     <>

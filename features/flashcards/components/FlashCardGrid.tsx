@@ -4,7 +4,7 @@ import FlashCardItem from "./FlashCardItem";
 import { FlashCardGameHook } from "../hooks";
 
 interface FlashCardGridProps {
-  game: FlashCardGameHook;
+  game: Omit<FlashCardGameHook, "getConfettiInstance">;
   groupTitle: string;
 }
 

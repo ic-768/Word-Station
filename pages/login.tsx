@@ -1,11 +1,12 @@
 import { ReactElement } from "react";
-import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 
 import { LoginLayout } from "layouts";
 import {
   AlternateActionText,
   CredentialPanel,
+  emailPanelProps,
   PageTitle,
+  passwordPanelProps,
   SubmitButton,
   useLogin,
 } from "features/auth";
@@ -16,13 +17,8 @@ export default function Login() {
   return (
     <form className="flex flex-col items-center gap-5" onSubmit={onLogin}>
       <PageTitle title="Log in to Word-Station" />
-      <CredentialPanel label="Email" id="email" icon={faUser} />
-      <CredentialPanel
-        label="Password"
-        id="password"
-        icon={faLock}
-        type="password"
-      />
+      <CredentialPanel {...emailPanelProps} />
+      <CredentialPanel {...passwordPanelProps} />
       <AlternateActionText
         text="Don't have an account? Register"
         link="/register"
