@@ -1,8 +1,8 @@
+import { FormEventHandler } from "react";
 import { useRouter } from "next/router";
 
 import { useLoader, useNotification } from "context";
 import { login } from "../api";
-import { FormEventHandler } from "react";
 
 export const useLogin = () => {
   const router = useRouter();

@@ -1,3 +1,4 @@
-export * from "./useFetchUserWords";
-export * from "./useWordCrud";
-export * from "./useLikeWord";
+export { useFetchUserWords } from "./useFetchUserWords";
+export { useWordCRUD } from "./useWordCrud";
+export { useLikeWord } from "./useLikeWord";
+export { useWordFilter } from "./useWordFilter";
