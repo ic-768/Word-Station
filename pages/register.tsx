@@ -1,53 +1,18 @@
-import { FormEventHandler, ReactElement } from "react";
-import { useRouter } from "next/router";
+import { ReactElement } from "react";
 import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 
 import { LoginLayout } from "layouts";
-import { useLoader, useNotification } from "context";
 import {
   AlternateActionText,
   PageTitle,
   SubmitButton,
   CredentialPanel,
   CredentialPanelProps,
-  signup,
-  validatePassword,
+  useSignup,
 } from "features/auth";
 
 export default function Register() {
-  const { setNotification } = useNotification();
-  const { setLoader } = useLoader();
-  const router = useRouter();
-
-  const onSignUp = async (email: string, password: string) => {
-    setLoader({ showLoader: true, position: "inset-x-0 mx-auto top-16" });
-
-    const { data, error } = await signup(email, password);
-    setNotification(
-      error
-        ? { type: "error", message: error.message }
-        : { type: "success", message: "You have successfully signed up!" }
-    );
-
-    setLoader(false);
-  };
-
-  const onRegister: FormEventHandler<HTMLFormElement> = async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-    const passwordValidation = formData.get("password-validation") as string;
-
-    const passwordError = validatePassword(password, passwordValidation);
-
-    if (passwordError) {
-      setNotification(passwordError);
-    } else {
-      await onSignUp(email, password);
-      router.push("/words");
-    }
-  };
+  const onSignup = useSignup();
 
   const emailPanel: CredentialPanelProps = {
     label: "Email",
@@ -70,7 +35,7 @@ export default function Register() {
   };
 
   return (
-    <form className="flex flex-col items-center gap-5" onSubmit={onRegister}>
+    <form className="flex flex-col items-center gap-5" onSubmit={onSignup}>
       <PageTitle title="Create a new account" />
       <CredentialPanel {...emailPanel} />
       <CredentialPanel {...passwordPanel} />

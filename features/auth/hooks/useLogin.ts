@@ -2,13 +2,20 @@ import { useRouter } from "next/router";
 
 import { useLoader, useNotification } from "context";
 import { login } from "../api";
+import { FormEventHandler } from "react";
 
 export const useLogin = () => {
   const router = useRouter();
   const { setLoader } = useLoader();
   const { setNotification } = useNotification();
 
-  const onLogin = async (email: string, password: string) => {
+  const onLogin: FormEventHandler = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target as HTMLFormElement);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+
     setLoader({ showLoader: true, position: "inset-x-0 mx-auto top-16" });
 
     if (email && password) {

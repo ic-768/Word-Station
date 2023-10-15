@@ -13,16 +13,8 @@ import {
 export default function Login() {
   const onLogin = useLogin();
 
-  const handleSubmit: FormEventHandler = (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-    onLogin(email, password);
-  };
-
   return (
-    <form className="flex flex-col items-center gap-5" onSubmit={handleSubmit}>
+    <form className="flex flex-col items-center gap-5" onSubmit={onLogin}>
       <PageTitle title="Log in to Word-Station" />
       <CredentialPanel label="Email" id="email" icon={faUser} />
       <CredentialPanel
