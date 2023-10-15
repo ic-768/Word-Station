@@ -1,4 +1,4 @@
-import { ReactElement, useContext } from "react";
+import { ReactElement } from "react";
 import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightFromBracket, faUser } from "@fortawesome/free-solid-svg-icons";

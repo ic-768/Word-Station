@@ -1,3 +1,1 @@
-import { validatePassword } from "./validate-password";
-
-export { validatePassword };
+export { validatePassword } from "./validate-password";

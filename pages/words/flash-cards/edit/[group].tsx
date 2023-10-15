@@ -5,6 +5,7 @@ import { AppHeaderLayout } from "layouts";
 import { FlashCardGroup, useFlashCardGroups, useWords } from "context";
 
 const initialGroupState = { title: "", words: [] };
+
 export default function EditFlashCardsGroup() {
   const router = useRouter();
 
