@@ -1,46 +1,10 @@
-import { ReactElement, useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { ReactElement, useState } from "react";
 
 import { AppHeaderLayout } from "layouts";
-import {
-  WordModal,
-  MeaningSearch,
-  WordMeanings,
-  fetchWordMeanings,
-} from "features/words";
-import { useNotification } from "context";
+import { WordModal, MeaningSearch, useWordFromUrl } from "features/words";
 
 export default function WordMeaning() {
-  const { setNotification } = useNotification();
-
-  const [word, setWord] = useState("");
-  const [wordMeanings, setWordMeanings] = useState<WordMeanings>();
-
-  const router = useRouter();
-
-  // set word based on url param
-  useEffect(() => {
-    if (!router.query) return;
-
-    (async () => {
-      const { word } = router.query;
-      setWord(word as string);
-      const meanings = await fetchWordMeanings(word as string);
-      setWordMeanings(meanings);
-    })();
-  }, [router.query]);
-
-  // if word couldn't be found, redirect back
-  useEffect(() => {
-    if (wordMeanings?.error) {
-      setNotification({
-        type: "error",
-        message: "Couldn't find that word!",
-      });
-
-      router.push("/words/get-meaning");
-    }
-  }, [wordMeanings, setNotification, router]);
+  const { word, wordMeanings } = useWordFromUrl();
 
   return (
     <>
