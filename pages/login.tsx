@@ -1,4 +1,4 @@
-import { FormEventHandler, ReactElement } from "react";
+import { ReactElement } from "react";
 import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 
 import { LoginLayout } from "layouts";

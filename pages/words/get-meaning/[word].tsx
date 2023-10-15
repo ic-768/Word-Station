@@ -1,15 +1,13 @@
-import { ReactElement, useState } from "react";
+import { ReactElement } from "react";
 
 import { AppHeaderLayout } from "layouts";
-import { WordModal, MeaningSearch, useWordFromUrl } from "features/words";
+import { WordModal, MeaningSearch } from "features/words";
 
 export default function WordMeaning() {
-  const { word, wordMeanings } = useWordFromUrl();
-
   return (
     <>
       <MeaningSearch />
-      <WordModal meanings={wordMeanings} word={word} />
+      <WordModal />
     </>
   );
 }

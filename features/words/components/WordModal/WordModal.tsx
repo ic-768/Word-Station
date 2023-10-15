@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { WordMeanings } from "features/words";
 
+import { useWordFromUrl } from "features/words";
 import {
   DefinitionsList,
   SynonymsList,
@@ -9,15 +9,12 @@ import {
   Skeleton,
 } from "./components";
 
-interface WordModalProps {
-  meanings?: WordMeanings;
-  word: string;
-}
+const WordModal = () => {
+  const { word, wordMeanings } = useWordFromUrl();
 
-const WordModal = ({ meanings, word }: WordModalProps) => {
   const [page, setPage] = useState(0);
 
-  const pageData = meanings?.[page];
+  const pageData = wordMeanings?.[page];
   if (!pageData) return <Skeleton />;
 
   const { definitions, synonyms } = pageData;
@@ -30,7 +27,7 @@ const WordModal = ({ meanings, word }: WordModalProps) => {
         <DefinitionsList definitions={definitions} />
         {synonyms.length ? <SynonymsList synonyms={synonyms} /> : null}
       </div>
-      <Footer page={page} numPages={meanings.length} setPage={setPage} />
+      <Footer page={page} numPages={wordMeanings.length} setPage={setPage} />
     </div>
   );
 };
