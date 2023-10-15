@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 import { InputWithButton } from "components";
+import { getFormFields } from "utils";
 
 /*
  * User can submit a word in order for the backend to contact the dictionary API, and get the results.
@@ -12,8 +13,7 @@ const MeaningSearch = () => {
 
   const onChooseWord: FormEventHandler = (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
-    const word = formData.get("word") as string;
+    const [word] = getFormFields(e, "word");
     router.push(`/words/get-meaning/${word}`);
   };
 

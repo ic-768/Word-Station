@@ -1,9 +1,10 @@
 import { FormEventHandler } from "react";
 import { useRouter } from "next/router";
 
+import { getFormFields } from "utils";
 import { useLoader, useNotification } from "context";
-import { signup } from "../api";
 import { validatePassword } from "../utils";
+import { signup } from "../api";
 
 export const useSignup = () => {
   const { setNotification } = useNotification();
@@ -12,10 +13,13 @@ export const useSignup = () => {
 
   const onSignup: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-    const passwordValidation = formData.get("password-validation") as string;
+
+    const [email, password, passwordValidation] = getFormFields(
+      e,
+      "email",
+      "password",
+      "passwordValidation"
+    );
 
     const passwordError = validatePassword(password, passwordValidation);
 

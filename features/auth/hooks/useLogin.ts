@@ -1,6 +1,7 @@
 import { FormEventHandler } from "react";
 import { useRouter } from "next/router";
 
+import { getFormFields } from "utils";
 import { useLoader, useNotification } from "context";
 import { login } from "../api";
 
@@ -12,9 +13,7 @@ export const useLogin = () => {
   const onLogin: FormEventHandler = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData(e.target as HTMLFormElement);
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
+    const [email, password] = getFormFields(e, "email", "password");
 
     setLoader({ showLoader: true, position: "inset-x-0 mx-auto top-16" });
 
