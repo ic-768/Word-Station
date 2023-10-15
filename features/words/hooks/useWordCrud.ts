@@ -1,13 +1,12 @@
-import { useContext } from "react";
 import { supabase } from "lib/supabaseClient";
 
-import { NotificationContext } from "context";
+import { useNotification } from "context";
 
 /**
  * Hook that calls a word CRUD endpoint and handles setting notifications based on the outcome
  */
 export const useWordCRUD = () => {
-  const [_notification, setNotification] = useContext(NotificationContext);
+  const { setNotification } = useNotification();
 
   return async (
     word: string,

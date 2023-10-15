@@ -49,11 +49,7 @@ export const useFlashCardGame = (
     [multiplier]
   );
 
-  const incMultiplier = useCallback(() => {
-    console.log(multiplier);
-    setMultiplier((m) => m + 1);
-  }, [multiplier]);
-
+  const incMultiplier = useCallback(() => setMultiplier((m) => m + 1), []);
   const resetMultiplier = useCallback(() => setMultiplier(1), []);
 
   useEffect(() => {

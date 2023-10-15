@@ -3,12 +3,11 @@ import {
   ChangeEventHandler,
   FormEventHandler,
   ReactElement,
-  useContext,
   useState,
 } from "react";
 import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 
-import { LoaderContext, NotificationContext } from "context";
+import { useLoader, useNotification } from "context";
 import { LoginLayout } from "layouts";
 import {
   AlternateActionText,
@@ -23,8 +22,8 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const router = useRouter();
 
-  const [_notification, setNotification] = useContext(NotificationContext);
-  const [_loader, setLoader] = useContext(LoaderContext);
+  const { setNotification } = useNotification();
+  const { setLoader } = useLoader();
 
   const updateEmail: ChangeEventHandler<HTMLInputElement> = (e) =>
     setUsername(e.target?.value);

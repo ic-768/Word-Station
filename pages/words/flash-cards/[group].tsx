@@ -1,15 +1,9 @@
 import { useRouter } from "next/router";
-import {
-  CSSProperties,
-  ReactElement,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { CSSProperties, ReactElement, useEffect, useState } from "react";
 import ReactCanvasConfetti from "react-canvas-confetti";
 
 import { AppHeaderLayout } from "layouts";
-import { FlashCardGroup, UserFlashCardsContext } from "context";
+import { FlashCardGroup, useFlashCardGroups } from "context";
 import { WordMeanings } from "features/words";
 import {
   fetchMeaningsFromGroup,
@@ -34,9 +28,7 @@ export default function FlashCardsGroup() {
 
   // if null, name is wrong (e.g. mangled url param)
   const [group, setGroup] = useState<FlashCardGroup | null>();
-  const [userFlashCardGroups, _setUserFlashCardGroups] = useContext(
-    UserFlashCardsContext
-  );
+  const { userFlashCardGroups } = useFlashCardGroups();
 
   const [meanings, setMeanings] = useState<WordMeanings[]>([]);
 

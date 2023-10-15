@@ -1,6 +1,6 @@
 import { ReactElement, useContext } from "react";
 
-import { UserFlashCardsContext } from "context";
+import { useFlashCardGroups } from "context";
 import { AppHeaderLayout } from "layouts";
 import { FlashCardGroup } from "features/flashcards";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,7 +10,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
  * Page for user to create and organise groups of word flashcards.
  */
 export default function FlashCards() {
-  const [userFlashCardGroups] = useContext(UserFlashCardsContext);
+  const { userFlashCardGroups } = useFlashCardGroups();
 
   return (
     <div className="p-8 flex flex-col">

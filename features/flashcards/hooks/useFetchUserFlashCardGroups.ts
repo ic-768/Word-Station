@@ -1,6 +1,6 @@
+import { useEffect, useState } from "react";
 import { FlashCardGroup } from "context";
 import { getUserFlashCards, parseFlashCardGroups } from "features/flashcards";
-import { useEffect, useState } from "react";
 
 export const useFetchUserFlashCardGroups = (id?: string) => {
   const [userFlashCardGroups, setUserFlashCardGroups] = useState<

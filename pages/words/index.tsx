@@ -1,24 +1,18 @@
-import {
-  ChangeEventHandler,
-  ReactElement,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { ChangeEventHandler, ReactElement, useEffect, useState } from "react";
 
-import { LoaderContext, UserWordsContext } from "context";
+import { useLoader, useWords } from "context";
 import { WordList, WordSearchPanel } from "features/words";
 import { AppHeaderLayout } from "layouts";
 
 export default function Words() {
-  const [userWords, _setUserWords] = useContext(UserWordsContext);
+  const { userWords } = useWords();
 
   // for filtering words
   const [filter, setFilter] = useState("");
   // null means not fetched yet
   const [filteredWords, setFilteredWords] = useState<string[] | null>(null);
 
-  const [_loader, setLoader] = useContext(LoaderContext);
+  const { setLoader } = useLoader();
 
   useEffect(() => setLoader(true), [setLoader]);
 

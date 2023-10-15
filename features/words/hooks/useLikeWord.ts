@@ -1,5 +1,5 @@
-import { UserWordsContext } from "context";
-import { Dispatch, SetStateAction, useContext, useState } from "react";
+import { useWords } from "context";
+import { Dispatch, SetStateAction, useState } from "react";
 
 import { useWordCRUD } from "./useWordCrud";
 
@@ -10,7 +10,7 @@ export const useLikeWord = (
   word: string,
   setIsWordSaved: Dispatch<SetStateAction<boolean>>
 ) => {
-  const [userWords, setUserWords] = useContext(UserWordsContext);
+  const { userWords, setUserWords } = useWords();
   const [isWordLikeStatusLoading, setIsWordLikeStatusLoading] = useState(false);
 
   const wordCRUD = useWordCRUD();

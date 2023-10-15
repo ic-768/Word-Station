@@ -1,0 +1,7 @@
+
+> word-station@0.1.0 dev
+> next dev
+
+ready - started server on 0.0.0.0:3000, url: http://localhost:3000
+info  - Loaded env from /home/ic768/Desktop/Code/Web/Next/word-station/.env.local
+event - compiled client and server successfully in 1275 ms (455 modules)

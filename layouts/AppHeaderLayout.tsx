@@ -4,13 +4,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightFromBracket, faUser } from "@fortawesome/free-solid-svg-icons";
 
 import { supabase } from "lib/supabaseClient";
-import { UserSessionContext, LoaderContext } from "context";
+import { useLoader, useSession } from "context";
 import { HeaderLink } from "components";
 
 const AppHeaderLayout = ({ children }: { children: ReactElement }) => {
   const router = useRouter();
-  const [session] = useContext(UserSessionContext);
-  const [_loader, setLoader] = useContext(LoaderContext);
+  const { session } = useSession();
+  const { setLoader } = useLoader();
 
   const onSignOut = async () => {
     setLoader(true);

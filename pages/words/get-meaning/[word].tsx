@@ -1,8 +1,8 @@
-import { ReactElement, useContext, useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import { AppHeaderLayout } from "layouts";
-import { NotificationContext, UserWordsContext } from "context";
+import { useNotification, useWords } from "context";
 import {
   WordModal,
   MeaningSearch,
@@ -11,8 +11,8 @@ import {
 } from "features/words";
 
 export default function WordMeaning() {
-  const [userWords, _setUserWords] = useContext(UserWordsContext);
-  const [_notification, setNotification] = useContext(NotificationContext);
+  const { userWords } = useWords();
+  const { setNotification } = useNotification();
 
   const [word, setWord] = useState("");
   const [wordMeanings, setWordMeanings] = useState<WordMeanings>();

@@ -1,4 +1,1 @@
-- Flash card mode
-- Reward system 
-  - Animations
-  - Correct streaks
+Make flashcard group items interaction drag 'n drop

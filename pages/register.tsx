@@ -1,15 +1,13 @@
-import { useRouter } from "next/router";
 import {
   ChangeEventHandler,
   FormEventHandler,
   ReactElement,
-  useContext,
   useState,
 } from "react";
 import { faLock, faUser } from "@fortawesome/free-solid-svg-icons";
 
-import { NotificationContext, LoaderContext } from "context";
 import { LoginLayout } from "layouts";
+import { useLoader, useNotification } from "context";
 import {
   AlternateActionText,
   PageTitle,
@@ -25,10 +23,8 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [passwordValidation, setPasswordValidation] = useState("");
 
-  const router = useRouter();
-
-  const [_notification, setNotification] = useContext(NotificationContext);
-  const [_loader, setLoader] = useContext(LoaderContext);
+  const { setNotification } = useNotification();
+  const { setLoader } = useLoader();
 
   const updateEmail: ChangeEventHandler<HTMLInputElement> = (e) =>
     setEmail(e.target?.value);
