@@ -1,17 +1,17 @@
 import { Fragment } from "react";
 
-import FlashCardItem from "./FlashCardItem";
-import { FlashCardGameHook } from "../hooks";
+import FlashcardItem from "./FlashcardItem";
+import { FlashcardGameHook } from "../hooks";
 
-interface FlashCardGridProps {
-  game: Omit<FlashCardGameHook, "getConfettiInstance">;
+interface FlashcardGridProps {
+  game: Omit<FlashcardGameHook, "getConfettiInstance">;
   groupTitle: string;
 }
 
 /**
  * Display words and random definitions for user to match
  */
-const FlashCardGrid = ({ game, groupTitle }: FlashCardGridProps) => {
+const FlashcardGrid = ({ game, groupTitle }: FlashcardGridProps) => {
   const {
     displayedWords,
     displayedDefinitions,
@@ -41,12 +41,12 @@ const FlashCardGrid = ({ game, groupTitle }: FlashCardGridProps) => {
 
           return (
             <Fragment key={word + i}>
-              <FlashCardItem
+              <FlashcardItem
                 className={getWordStyle(word)}
                 text={word}
                 onClick={setWord}
               />
-              <FlashCardItem
+              <FlashcardItem
                 className={getDefinitionStyle(definition)}
                 text={definition}
                 onClick={setDefinition}
@@ -59,4 +59,4 @@ const FlashCardGrid = ({ game, groupTitle }: FlashCardGridProps) => {
   );
 };
 
-export default FlashCardGrid;
+export default FlashcardGrid;

@@ -1,4 +1,4 @@
-export { useFlashCardGroups } from "./useFlashcardGroups";
+export { useFlashcardGroups } from "./useFlashcardGroups";
 export { useLoader } from "./useLoader";
 export { useNotification } from "./useNotification";
 export { useWords } from "./useWords";

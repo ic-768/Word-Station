@@ -1,17 +1,17 @@
 import React, { Dispatch, SetStateAction } from "react";
 
-export interface FlashCardGroup {
+export interface FlashcardGroup {
   title: string;
   words: string[];
 }
 
-type UserFlashCardsContextArgs = [
-  FlashCardGroup[] | null,
-  Dispatch<SetStateAction<FlashCardGroup[] | null>>
+type UserFlashcardsContextArgs = [
+  FlashcardGroup[] | null,
+  Dispatch<SetStateAction<FlashcardGroup[] | null>>
 ];
 
 /**
- * Ctx to provide user flashcard collection.
+ * Ctx to provide user Flashcard collection.
  */
-export const UserFlashCardsContext =
-  React.createContext<UserFlashCardsContextArgs>([[], () => []]);
+export const UserFlashcardsContext =
+  React.createContext<UserFlashcardsContextArgs>([[], () => []]);

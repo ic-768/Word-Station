@@ -6,7 +6,7 @@ type Data = {
   word: string;
 };
 
-const updateFlashCardGroup = async (
+const updateFlashcardGroup = async (
   req: NextApiRequest,
   res: NextApiResponse<Data | string>
 ) => {
@@ -41,4 +41,4 @@ const updateFlashCardGroup = async (
   }
 };
 
-export default updateFlashCardGroup;
+export default updateFlashcardGroup;

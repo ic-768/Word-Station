@@ -1,3 +1,3 @@
 export { fetchMeaningsFromGroup } from "./fetch-meanings-from-group";
-export { getUserFlashCards } from "./get-user-flashcards";
-export { updateFlashCard } from "./update-flashcard";
+export { getUserFlashcards } from "./get-user-flashcards";
+export { updateFlashcard } from "./update-flashcard";

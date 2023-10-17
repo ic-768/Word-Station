@@ -1,6 +1,6 @@
-import { FlashCardGroup } from "context";
+import { FlashcardGroup } from "context";
 
-export const parseFlashCardGroups = (data: any[]): FlashCardGroup[] =>
+export const parseFlashcardGroups = (data: any[]): FlashcardGroup[] =>
   Object.values(
     data.reduce((groups, item) => {
       const group = item.group;

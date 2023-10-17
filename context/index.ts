@@ -1,6 +1,6 @@
 import { LoaderArgs, isPositionedLoader, LoaderContext } from "./loader";
 import { NotificationContext } from "./notification";
-import { FlashCardGroup, UserFlashCardsContext } from "./user-flashcard-groups";
+import { FlashcardGroup, UserFlashcardsContext } from "./user-flashcard-groups";
 import { UserSessionContext } from "./user-session";
 import { UserWordsContext } from "./user-words";
 
@@ -9,9 +9,9 @@ export {
   isPositionedLoader,
   LoaderContext,
   NotificationContext,
-  UserFlashCardsContext,
+  UserFlashcardsContext,
   UserSessionContext,
   UserWordsContext,
 };
 
-export type { LoaderArgs, FlashCardGroup };
+export type { LoaderArgs, FlashcardGroup };

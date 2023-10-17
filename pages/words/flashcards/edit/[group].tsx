@@ -2,41 +2,39 @@ import { ReactElement, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import { AppHeaderLayout } from "layouts";
-import { FlashCardGroup, useFlashCardGroups, useWords } from "context";
-import { updateFlashCard } from "features/flashcards";
-import { removeFlashCardGroup } from "features/flashcards/api/remove-flashcard";
+import { FlashcardGroup, useFlashcardGroups, useWords } from "context";
+import { updateFlashcard } from "features/flashcards";
+import { removeFlashcardGroup } from "features/flashcards/api/remove-flashcard";
 
 const initialGroupState = { title: "", words: [] };
 
-export default function EditFlashCardsGroup() {
+export default function EditFlashcardsGroup() {
   const router = useRouter();
   const { userWords } = useWords();
-  const { userFlashCardGroups } = useFlashCardGroups();
+  const { userFlashcardGroups } = useFlashcardGroups();
 
-  const [group, setGroup] = useState<FlashCardGroup>(initialGroupState);
+  const [group, setGroup] = useState<FlashcardGroup>(initialGroupState);
 
   // set group based on url param
   useEffect(() => {
     if (router.query) {
       const title = router.query.group as string;
       setGroup(
-        userFlashCardGroups?.find((g) => g.title === title) || initialGroupState
+        userFlashcardGroups?.find((g) => g.title === title) || initialGroupState
       );
     }
-  }, [router.query, userFlashCardGroups]);
+  }, [router.query, userFlashcardGroups]);
 
-  // TODO consistent naming
   const onAddWord = (w: string) => {
-    updateFlashCard(w, group.title);
+    updateFlashcard(w, group.title);
     setGroup({ ...group, words: [...group.words, w] });
   };
 
-  // TODO consistent naming
   const onRemoveWord = (w: string) => {
-    removeFlashCardGroup(w, group.title);
+    removeFlashcardGroup(w, group.title);
     setGroup({
       ...group,
-      words: group?.words.filter((words) => !words.includes(w)),
+      words: group?.words.filter((word) => word !== w),
     });
   };
 
@@ -80,6 +78,6 @@ export default function EditFlashCardsGroup() {
   );
 }
 
-EditFlashCardsGroup.getLayout = function getLayout(page: ReactElement) {
+EditFlashcardsGroup.getLayout = function getLayout(page: ReactElement) {
   return <AppHeaderLayout>{page}</AppHeaderLayout>;
 };

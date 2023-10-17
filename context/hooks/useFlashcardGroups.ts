@@ -1,10 +1,10 @@
 import { useContext } from "react";
-import { UserFlashCardsContext } from "context/user-flashcard-groups";
+import { UserFlashcardsContext } from "context/user-flashcard-groups";
 
-export const useFlashCardGroups = () => {
-  const [userFlashCardGroups, setUserFlashCardGroups] = useContext(
-    UserFlashCardsContext
+export const useFlashcardGroups = () => {
+  const [userFlashcardGroups, setUserFlashcardGroups] = useContext(
+    UserFlashcardsContext
   );
 
-  return { userFlashCardGroups, setUserFlashCardGroups };
+  return { userFlashcardGroups, setUserFlashcardGroups };
 };

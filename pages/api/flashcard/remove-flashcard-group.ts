@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { supabase } from "lib/supabaseClient";
 
-const deleteFlashCard = async (
+const deleteFlashcard = async (
   req: NextApiRequest,
   res: NextApiResponse<string>
 ) => {
@@ -34,7 +34,7 @@ const deleteFlashCard = async (
     if (!error) {
       res.status(200).send("Flashcard deleted successfully");
     } else {
-      res.status(500).send("Failed to delete flashcard");
+      res.status(500).send("Failed to delete Flashcard");
     }
   } catch (err) {
     console.error(err);
@@ -42,4 +42,4 @@ const deleteFlashCard = async (
   }
 };
 
-export default deleteFlashCard;
+export default deleteFlashcard;

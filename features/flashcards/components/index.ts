@@ -1,4 +1,4 @@
-import FlashCardGrid from "./FlashCardGrid";
-import FlashCardGroup from "./FlashCardGroup";
+import FlashcardGrid from "./FlashcardGrid";
+import FlashcardGroup from "./FlashcardGroup";
 
-export { FlashCardGrid, FlashCardGroup };
+export { FlashcardGrid, FlashcardGroup };

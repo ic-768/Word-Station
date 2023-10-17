@@ -1,25 +1,25 @@
 import Link from "next/link";
-import { FlashCardGroup } from "context/user-flashcard-groups";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
+import { FlashcardGroup } from "context/user-flashcard-groups";
 
 /**
- * Display a list of words belonging to a flashcard group
+ * Display a list of words belonging to a Flashcard group
  */
-const FlashCardGroup = ({
+const FlashcardGroup = ({
   group: { title, words },
 }: {
-  group: FlashCardGroup;
+  group: FlashcardGroup;
 }) => (
   <div className="relative">
-    <Link href={`/words/flash-cards/edit/${title}`}>
+    <Link href={`/words/flashcards/edit/${title}`}>
       <FontAwesomeIcon
         className="absolute top-4 right-4 border border-white rounded-full p-2 pointer-cursor bg-white text-black hover:bg-gray-300 cursor-pointer"
         icon={faPencil}
       />
     </Link>
     <Link
-      href={`flash-cards/${title}`}
+      href={`flashcards/${title}`}
       className="flex flex-col border-2 border-white rounded-lg h-full w-full"
     >
       <div className="bg-gray-800 hover:bg-gray-900 text-white rounded-lg shadow-md p-4 h-full transition-colors">
@@ -35,4 +35,4 @@ const FlashCardGroup = ({
     </Link>
   </div>
 );
-export default FlashCardGroup;
+export default FlashcardGroup;

@@ -1,4 +1,4 @@
-interface FlashCardItemProps {
+interface FlashcardItemProps {
   className: string;
   onClick: () => void;
   text: string;
@@ -7,7 +7,7 @@ interface FlashCardItemProps {
 /**
  * Either a word or a definition, used for flashcard matching
  */
-const FlashCardItem = ({ className, onClick, text }: FlashCardItemProps) => (
+const FlashcardItem = ({ className, onClick, text }: FlashcardItemProps) => (
   <li className={`flex p-4 rounded ${className}`}>
     <button onClick={onClick} className="flex-1">
       {text}
@@ -15,4 +15,4 @@ const FlashCardItem = ({ className, onClick, text }: FlashCardItemProps) => (
   </li>
 );
 
-export default FlashCardItem;
+export default FlashcardItem;

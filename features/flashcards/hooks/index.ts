@@ -1,5 +1,5 @@
 export { useConfetti } from "./useConfetti";
-export { useFlashCardGame } from "./useFlashCardGame";
-export { useFetchUserFlashCardGroups } from "./useFetchUserFlashCardGroups";
-export { useFlashCardGroupFromUrl } from "./useFlashCardGroupFromUrl";
-export type { FlashCardGameHook } from "./useFlashCardGame";
+export { useFlashcardGame } from "./useFlashcardGame";
+export { useFetchUserFlashcardGroups } from "./useFetchUserFlashcardGroups";
+export { useFlashcardGroupFromUrl } from "./useFlashcardGroupFromUrl";
+export type { FlashcardGameHook } from "./useFlashcardGame";

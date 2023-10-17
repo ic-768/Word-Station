@@ -6,7 +6,7 @@ import { WordDefinitionPair } from "../types";
 import { extractDefinition, isMatch, randomise } from "../utils";
 import { useConfetti } from "./useConfetti";
 
-export interface FlashCardGameHook {
+export interface FlashcardGameHook {
   displayedWords: string[];
   displayedDefinitions: string[];
   getWordStyle: (w: string) => string;
@@ -20,10 +20,10 @@ export interface FlashCardGameHook {
   getConfettiInstance: (instance: any) => void;
 }
 
-export const useFlashCardGame = (
+export const useFlashcardGame = (
   words: string[],
   meanings: WordMeanings[]
-): FlashCardGameHook => {
+): FlashcardGameHook => {
   const router = useRouter();
   // pairs of words with their corresponding definitions
   const [randomPairs, setRandomPairs] = useState<WordDefinitionPair[]>([]);
@@ -83,7 +83,7 @@ export const useFlashCardGame = (
 
         // on win
         if (updatedDefinitions.length === 0) {
-          setTimeout(() => router.push("/words/flash-cards"), 3000);
+          setTimeout(() => router.push("/words/flashcards"), 3000);
         }
 
         return updatedDefinitions;

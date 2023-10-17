@@ -3,9 +3,9 @@ import ReactCanvasConfetti from "react-canvas-confetti";
 
 import { AppHeaderLayout } from "layouts";
 import {
-  FlashCardGrid,
-  useFlashCardGroupFromUrl,
-  useFlashCardGame,
+  FlashcardGrid,
+  useFlashcardGroupFromUrl,
+  useFlashcardGame,
 } from "features/flashcards";
 
 const fireWorkCanvasStyles: CSSProperties = {
@@ -18,18 +18,18 @@ const fireWorkCanvasStyles: CSSProperties = {
 };
 
 /**
- * Flashcard game for a single flashcard group
+ * Flashcard game for a single Flashcard group
  */
-export default function FlashCardsGroup() {
-  const { group, meanings } = useFlashCardGroupFromUrl();
-  const { getConfettiInstance, ...flashCardGame } = useFlashCardGame(
+export default function FlashcardsGroup() {
+  const { group, meanings } = useFlashcardGroupFromUrl();
+  const { getConfettiInstance, ...FlashcardGame } = useFlashcardGame(
     group?.words || [],
     meanings
   );
 
   return group ? (
     <>
-      <FlashCardGrid game={flashCardGame} groupTitle={group.title} />
+      <FlashcardGrid game={FlashcardGame} groupTitle={group.title} />
       <ReactCanvasConfetti
         refConfetti={getConfettiInstance}
         style={fireWorkCanvasStyles}
@@ -38,6 +38,6 @@ export default function FlashCardsGroup() {
   ) : null;
 }
 
-FlashCardsGroup.getLayout = function getLayout(page: ReactElement) {
+FlashcardsGroup.getLayout = function getLayout(page: ReactElement) {
   return <AppHeaderLayout>{page}</AppHeaderLayout>;
 };

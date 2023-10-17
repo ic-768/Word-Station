@@ -6,7 +6,7 @@ type Data = {
   word: string;
 };
 
-const addFlashCardGroup = async (
+const addFlashcardGroup = async (
   req: NextApiRequest,
   res: NextApiResponse<Data | string>
 ) => {
@@ -33,7 +33,7 @@ const addFlashCardGroup = async (
       if (!error) {
         res.status(200).send("OK");
       } else {
-        res.status(500).send("Failed to create new flashcard.");
+        res.status(500).send("Failed to create new Flashcard.");
       }
     }
   } catch (err) {
@@ -42,4 +42,4 @@ const addFlashCardGroup = async (
   }
 };
 
-export default addFlashCardGroup;
+export default addFlashcardGroup;

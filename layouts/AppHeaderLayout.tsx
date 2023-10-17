@@ -30,7 +30,7 @@ const AppHeaderLayout = ({ children }: { children: ReactElement }) => {
             <HeaderLink href="/words/get-meaning">word meaning</HeaderLink>
           </li>
           <li>
-            <HeaderLink href="/words/flash-cards">flash cards</HeaderLink>
+            <HeaderLink href="/words/flashcards">flash cards</HeaderLink>
           </li>
         </ul>
         <div className="flex gap-2 ml-auto items-center">

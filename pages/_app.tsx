@@ -9,7 +9,7 @@ import {
   UserSessionContext,
   UserWordsContext,
   NotificationContext,
-  UserFlashCardsContext,
+  UserFlashcardsContext,
 } from "context";
 import { Loader, ProtectedRouteGuard } from "components";
 import { useNotificationState } from "hooks";
@@ -17,7 +17,7 @@ import { useNotificationState } from "hooks";
 import { Notification } from "features/notifications";
 import { useUserSession } from "features/auth";
 import { useFetchUserWords } from "features/words";
-import { useFetchUserFlashCardGroups } from "features/flashcards";
+import { useFetchUserFlashcardGroups } from "features/flashcards";
 import "../styles/globals.css";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
@@ -33,8 +33,8 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const { session, setSession } = useUserSession();
   const { notification, setNotification } = useNotificationState();
   const { userWords, setUserWords } = useFetchUserWords();
-  const { userFlashCardGroups, setUserFlashCardGroups } =
-    useFetchUserFlashCardGroups();
+  const { userFlashcardGroups, setUserFlashcardGroups } =
+    useFetchUserFlashcardGroups();
 
   const getLayout = Component.getLayout || ((page) => page);
 
@@ -52,15 +52,15 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         <ProtectedRouteGuard>
           <LoaderContext.Provider value={[loader, setLoader]}>
             <UserWordsContext.Provider value={[userWords, setUserWords]}>
-              <UserFlashCardsContext.Provider
-                value={[userFlashCardGroups, setUserFlashCardGroups]}
+              <UserFlashcardsContext.Provider
+                value={[userFlashcardGroups, setUserFlashcardGroups]}
               >
                 <NotificationContext.Provider
                   value={[notification, setNotification]}
                 >
                   {getLayout(<Component {...pageProps} />)}
                 </NotificationContext.Provider>
-              </UserFlashCardsContext.Provider>
+              </UserFlashcardsContext.Provider>
             </UserWordsContext.Provider>
           </LoaderContext.Provider>
         </ProtectedRouteGuard>
