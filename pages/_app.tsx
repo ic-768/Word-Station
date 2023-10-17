@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import type { AppProps } from "next/app";
-import { ReactElement, ReactNode, useEffect, useState } from "react";
+import { ReactElement, ReactNode, useState } from "react";
 
 import {
   isPositionedLoader,
@@ -11,9 +11,10 @@ import {
   NotificationContext,
   UserFlashCardsContext,
 } from "context";
-
 import { Loader, ProtectedRouteGuard } from "components";
-import { Notification, NotificationProps } from "features/notifications";
+import { useNotificationState } from "hooks";
+
+import { Notification } from "features/notifications";
 import { useUserSession } from "features/auth";
 import { useFetchUserWords } from "features/words";
 import { useFetchUserFlashCardGroups } from "features/flashcards";
@@ -28,26 +29,14 @@ type AppPropsWithLayout = AppProps & {
 };
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
-  // to render loading spinner
   const [loader, setLoader] = useState<LoaderArgs>(false);
-  // to render notifications
-  const [notification, setNotification] = useState<NotificationProps | null>();
-
-  // remove notifications after a fixed amount of time
-  useEffect(() => {
-    if (notification) {
-      setTimeout(() => setNotification(null), 4500);
-    }
-  }, [notification]);
+  const { session, setSession } = useUserSession();
+  const { notification, setNotification } = useNotificationState();
+  const { userWords, setUserWords } = useFetchUserWords();
+  const { userFlashCardGroups, setUserFlashCardGroups } =
+    useFetchUserFlashCardGroups();
 
   const getLayout = Component.getLayout || ((page) => page);
-
-  const { session, setSession } = useUserSession();
-  const id = session?.user.id;
-
-  const { userWords, setUserWords } = useFetchUserWords(id);
-  const { userFlashCardGroups, setUserFlashCardGroups } =
-    useFetchUserFlashCardGroups(id);
 
   return (
     <>

@@ -8,10 +8,10 @@ const initialGroupState = { title: "", words: [] };
 
 export default function EditFlashCardsGroup() {
   const router = useRouter();
+  const { userWords } = useWords();
+  const { userFlashCardGroups } = useFlashCardGroups();
 
   const [group, setGroup] = useState<FlashCardGroup>(initialGroupState);
-  const { userFlashCardGroups } = useFlashCardGroups();
-  const { userWords } = useWords();
 
   // set group based on url param
   useEffect(() => {
@@ -24,12 +24,12 @@ export default function EditFlashCardsGroup() {
   }, [router.query, userFlashCardGroups]);
 
   // TODO update DB on each change
-  const onAddWord = async (w: string) => {
+  const onAddWord = (w: string) => {
     setGroup({ ...group, words: [...group.words, w] });
   };
 
   // TODO update DB on each change
-  const onRemoveWord = async (w: string) => {
+  const onRemoveWord = (w: string) => {
     setGroup({
       ...group,
       words: group?.words.filter((words) => !words.includes(w)),

@@ -1,9 +1,12 @@
+import { useUserSession } from "features/auth";
 import { getUserWords } from "features/words";
 import { useEffect, useState } from "react";
 
-export const useFetchUserWords = (id?: string) => {
+export const useFetchUserWords = () => {
   // list of user-saved words - null means not fetched yet
   const [userWords, setUserWords] = useState<string[] | null>(null);
+  const { session } = useUserSession();
+  const id = session?.user.id;
 
   // fetch user's words and alphabetize
   useEffect(() => {

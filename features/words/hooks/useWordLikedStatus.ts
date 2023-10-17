@@ -11,13 +11,13 @@ export const useWordLikedStatus = (word: string) => {
   const wordCRUD = useWordCRUD();
 
   const [isWordLiked, setIsWordLiked] = useState(!!userWords?.includes(word));
+  const [isWordLikeStatusLoading, setIsWordLikeStatusLoading] = useState(false);
 
   // is word already Liked by user?
   useEffect(
     () => setIsWordLiked(!!userWords?.includes(word)),
     [userWords, word]
   );
-  const [isWordLikeStatusLoading, setIsWordLikeStatusLoading] = useState(false);
 
   const withLoading = async (func: () => Promise<any>) => {
     setIsWordLikeStatusLoading(true);

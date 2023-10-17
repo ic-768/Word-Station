@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { FlashCardGroup } from "context";
 import { getUserFlashCards, parseFlashCardGroups } from "features/flashcards";
+import { useUserSession } from "features/auth";
 
-export const useFetchUserFlashCardGroups = (id?: string) => {
+export const useFetchUserFlashCardGroups = () => {
   const [userFlashCardGroups, setUserFlashCardGroups] = useState<
     FlashCardGroup[] | null
   >([]);
+
+  const { session } = useUserSession();
+  const id = session?.user.id;
 
   // fetch user's flashcards
   useEffect(() => {

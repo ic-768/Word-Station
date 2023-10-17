@@ -2,8 +2,11 @@ import { CSSProperties, ReactElement } from "react";
 import ReactCanvasConfetti from "react-canvas-confetti";
 
 import { AppHeaderLayout } from "layouts";
-import { FlashCardGrid, useFlashCardGroupFromUrl } from "features/flashcards";
-import { useFlashCardGame } from "features/flashcards";
+import {
+  FlashCardGrid,
+  useFlashCardGroupFromUrl,
+  useFlashCardGame,
+} from "features/flashcards";
 
 const fireWorkCanvasStyles: CSSProperties = {
   position: "fixed",
