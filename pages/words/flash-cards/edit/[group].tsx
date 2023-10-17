@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { AppHeaderLayout } from "layouts";
 import { FlashCardGroup, useFlashCardGroups, useWords } from "context";
 import { updateFlashCard } from "features/flashcards";
+import { removeFlashCardGroup } from "features/flashcards/api/remove-flashcard";
 
 const initialGroupState = { title: "", words: [] };
 
@@ -24,14 +25,15 @@ export default function EditFlashCardsGroup() {
     }
   }, [router.query, userFlashCardGroups]);
 
-  // TODO update DB on each change
+  // TODO consistent naming
   const onAddWord = (w: string) => {
-    setGroup({ ...group, words: [...group.words, w] });
     updateFlashCard(w, group.title);
+    setGroup({ ...group, words: [...group.words, w] });
   };
 
-  // TODO update DB on each change
+  // TODO consistent naming
   const onRemoveWord = (w: string) => {
+    removeFlashCardGroup(w, group.title);
     setGroup({
       ...group,
       words: group?.words.filter((words) => !words.includes(w)),
