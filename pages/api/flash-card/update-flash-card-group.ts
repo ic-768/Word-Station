@@ -6,42 +6,39 @@ type Data = {
   word: string;
 };
 
-const saveFlashCardGroup = async (
+const updateFlashCardGroup = async (
   req: NextApiRequest,
   res: NextApiResponse<Data | string>
 ) => {
   try {
-    const data = req.body;
-    const { id, groupName, word } = data;
+    const body = req.body;
+    const { id, groupName, word } = body;
 
-    // Check to see if word already saved by user
-    const { data: existingRecord, error } = await supabase
+    const { data: existingData } = await supabase
       .from("flash_cards")
-      .select("*")
-      .eq("id", id)
-      .single();
+      .select("group")
+      .eq("user_id", id)
+      .eq("name", word)
+      .eq("group", groupName);
 
-    console.log("existing", existingRecord);
+    if (existingData?.length) {
+      res.status(500).send("Word already in group");
+    }
 
-    if (existingRecord) {
-      // Update the existing record with the new groupName
-      const { data: updatedRecord, error: updateError } = await supabase
-        .from("flash_cards")
-        .update({ group: groupName })
-        .eq("id", id);
-      console.log("updated", updatedRecord);
+    // create flashcard object with group
+    const data = await supabase
+      .from("flash_cards")
+      .insert({ name: word, group: groupName, user_id: id })
+      .eq("user_id", id);
 
-      if (updatedRecord) {
-        res.status(200).json(updatedRecord);
-      } else {
-        res.status(500).send("Failed to update record");
-      }
+    if (data) {
+      res.status(200).send("OK");
     } else {
-      res.status(404).send("Record not found");
+      res.status(500).send("Failed to update record");
     }
   } catch (err) {
     res.status(500).send("Something went wrong!");
   }
 };
 
-export default saveFlashCardGroup;
+export default updateFlashCardGroup;

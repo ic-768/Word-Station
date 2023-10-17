@@ -47,11 +47,11 @@ export default function EditFlashCardsGroup() {
         <div className="flex flex-col">
           <span className="text-2xl">Words in group</span>
           <ul>
-            {group?.words.map((w) => (
+            {group?.words.map((w, i) => (
               <li
                 className="cursor-pointer"
                 onClick={() => onRemoveWord(w)}
-                key={w}
+                key={w + i}
               >
                 {w}
               </li>
@@ -62,11 +62,11 @@ export default function EditFlashCardsGroup() {
         <div className="flex flex-col">
           <span className="text-2xl">Other saved words</span>
           <ul>
-            {wordsNotInGroup?.map((w) => (
+            {wordsNotInGroup?.map((w, i) => (
               <li
                 className="cursor-pointer"
                 onClick={() => onAddWord(w)}
-                key={w}
+                key={w + i}
               >
                 {w}
               </li>
