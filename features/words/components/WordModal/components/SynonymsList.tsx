@@ -8,8 +8,8 @@ const SynonymsList = ({
   <>
     <label className="text-lg font-semibold">Synonyms</label>
     <ul className="ml-8 list-disc list-inside">
-      {synonyms.map((s) => (
-        <li key={s}>{s}</li>
+      {synonyms.map((s, i) => (
+        <li key={s + i}>{s}</li>
       ))}
     </ul>
   </>

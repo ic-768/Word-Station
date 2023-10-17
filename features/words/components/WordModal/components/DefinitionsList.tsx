@@ -8,8 +8,8 @@ const DefinitionsList = ({
   <>
     <label className="text-lg font-semibold">Definitions</label>
     <ul className="ml-8 list-disc">
-      {definitions.map((d) => (
-        <li key={d.definition}>{d.definition}</li>
+      {definitions.map((d, i) => (
+        <li key={d.definition + i}>{d.definition}</li>
       ))}
     </ul>
   </>

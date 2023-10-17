@@ -18,7 +18,7 @@ export const useSignup = () => {
       e,
       "email",
       "password",
-      "passwordValidation"
+      "password-validation"
     );
 
     const passwordError = validatePassword(password, passwordValidation);

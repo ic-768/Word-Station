@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 
 import { AppHeaderLayout } from "layouts";
 import { FlashCardGroup, useFlashCardGroups, useWords } from "context";
+import { updateFlashCard } from "features/flashcards";
 
 const initialGroupState = { title: "", words: [] };
 
@@ -26,6 +27,7 @@ export default function EditFlashCardsGroup() {
   // TODO update DB on each change
   const onAddWord = (w: string) => {
     setGroup({ ...group, words: [...group.words, w] });
+    updateFlashCard(w, group.title);
   };
 
   // TODO update DB on each change
