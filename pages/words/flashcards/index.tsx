@@ -4,8 +4,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import { useFlashcardGroups } from "context";
 import { AppHeaderLayout } from "layouts";
-import { FlashcardGroup } from "features/flashcards";
-import { addFlashcardGroup } from "features/flashcards/api/add-flashcard";
+import { FlashcardGroup, addFlashcardGroup } from "features/flashcards";
 
 /*
  * Page for user to create and organise groups of word Flashcards.

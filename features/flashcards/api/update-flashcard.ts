@@ -1,6 +1,6 @@
 import { supabase } from "lib/supabaseClient";
 
-export const updateFlashcard = async (word: string, groupName: string) => {
+export const updateFlashcardGroup = async (word: string, groupName: string) => {
   const user = await supabase.auth.getUser();
   const id = user.data?.user?.id;
 
