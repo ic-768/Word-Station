@@ -3,8 +3,10 @@ import { useRouter } from "next/router";
 
 import { AppHeaderLayout } from "layouts";
 import { FlashcardGroup, useFlashcardGroups, useWords } from "context";
-import { updateFlashcard } from "features/flashcards";
-import { removeFlashcardGroup } from "features/flashcards/api/remove-flashcard";
+import {
+  updateFlashcardGroup,
+  removeFlashcardGroup,
+} from "features/flashcards";
 
 const initialGroupState = { title: "", words: [] };
 
@@ -26,7 +28,7 @@ export default function EditFlashcardsGroup() {
   }, [router.query, userFlashcardGroups]);
 
   const onAddWord = (w: string) => {
-    updateFlashcard(w, group.title);
+    updateFlashcardGroup(w, group.title);
     setGroup({ ...group, words: [...group.words, w] });
   };
 
