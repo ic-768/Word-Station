@@ -14,7 +14,7 @@ const FlashcardGroup = ({
   <div className="relative">
     <Link href={`/words/flashcards/edit/${title}`}>
       <FontAwesomeIcon
-        className="absolute top-4 right-4 border border-white rounded-full p-2 pointer-cursor bg-white text-black hover:bg-gray-300 cursor-pointer"
+        className="absolute top-4 right-4 border border-white rounded-full p-2 pointer-cursor bg-white text-black hover:bg-gray-300 cursor-pointer w-4 h-4"
         icon={faPencil}
       />
     </Link>
