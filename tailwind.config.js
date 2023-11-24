@@ -9,7 +9,7 @@ module.exports = {
   theme: {
     extend: {
       keyframes: {
-        "fade-notification-in": {
+        "fade-in": {
           "0%": { opacity: 0 },
           "100%": { opacity: 1 },
         },
@@ -26,7 +26,8 @@ module.exports = {
       },
       animation: {
         "gradient-x": "gradient-x 2s ease infinite",
-        "fade-notification-in": "fade-notification-in 1s ease-in-out",
+        "fade-notification-in": "fade-in 1s ease-in-out",
+        "fade-modal-in": "fade-in 0.4s ease-in-out",
       },
       backgroundImage: {
         "skeleton-shine":

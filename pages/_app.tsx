@@ -48,6 +48,9 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         />
       )}
 
+      {
+        // TODO Extract providers
+      }
       <UserSessionContext.Provider value={[session, setSession]}>
         <ProtectedRouteGuard>
           <LoaderContext.Provider value={[loader, setLoader]}>

@@ -7,6 +7,8 @@ import {
   updateFlashcardGroup,
   removeFlashcardGroup,
 } from "features/flashcards";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRightLeft } from "@fortawesome/free-solid-svg-icons";
 
 const initialGroupState = { title: "", words: [] };
 
@@ -60,6 +62,7 @@ export default function EditFlashcardsGroup() {
             ))}
           </ul>
         </div>
+        <FontAwesomeIcon className="text-4xl self-center" icon={faRightLeft} />
 
         <div className="flex flex-col">
           <span className="text-2xl">Other saved words</span>
