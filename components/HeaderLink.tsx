@@ -12,14 +12,11 @@ const HeaderLink = ({ href, children }: HeaderLinkProps) => {
 
   const className =
     router.pathname == href
-      ? "outline outline-1 rounded outline-slate-900 shadow shadow-black"
-      : "";
+      ? "outline outline-1 outline-white hover:"
+      : "hover:text-blue-600 ";
 
   return (
-    <Link
-      className={`hover:text-blue-600 p-2 transition-all ${className}`}
-      href={href}
-    >
+    <Link className={`p-2 rounded transition-all ${className}`} href={href}>
       {children}
     </Link>
   );

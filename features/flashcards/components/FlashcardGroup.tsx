@@ -20,9 +20,9 @@ const FlashcardGroup = ({
     </Link>
     <Link
       href={`flashcards/${title}`}
-      className="flex flex-col border-2 border-white rounded-lg h-full w-full"
+      className="flex flex-col rounded-lg h-full w-full"
     >
-      <div className="bg-gray-800 hover:bg-gray-900 text-white rounded-lg shadow-md p-4 h-full transition-colors">
+      <div className="bg-zinc-800 hover:bg-zinc-900 text-white rounded-lg shadow-md p-4 h-full transition-colors">
         <h2 className="text-2xl font-semibold mb-4">{title}</h2>
         <ul className="list-disc pl-6">
           {words.map((w, i) => (

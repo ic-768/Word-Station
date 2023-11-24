@@ -13,20 +13,21 @@ export default function Flashcards() {
   const { userFlashcardGroups } = useFlashcardGroups();
 
   return (
-    <div className="p-8 flex flex-col">
-      <span className="text-lg font-bold">Flash card groups</span>
+    <main className="relative p-8 flex flex-col">
+      <span className="text-3xl font-semibold">Flash card groups</span>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {userFlashcardGroups?.map((group, i) => (
           <FlashcardGroup key={group.title + i} group={group} />
         ))}
 
-        <FontAwesomeIcon
-          className="h-1/6 w-full outline outline-2 rounded-lg text-6xl bg-gray-800 hover:bg-gray-900 cursor-pointer transition-colors "
-          icon={faPlus}
+        <button
+          className="fixed rounded-full bg-orange-600 text-4xl hover:bg-orange-700 cursor-pointer transition-colors w-16 h-16 right-32 bottom-8 drop-shadow"
           onClick={() => addFlashcardGroup("cow")}
-        />
+        >
+          <FontAwesomeIcon icon={faPlus} />
+        </button>
       </div>
-    </div>
+    </main>
   );
 }
 

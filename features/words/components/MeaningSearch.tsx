@@ -22,7 +22,7 @@ const MeaningSearch = () => {
       onSubmit={onChooseWord}
       className="max-w-sm px-10 mx-auto mt-4 sm:max-w-lg sm:px-0 sm:mt-2"
     >
-      <label className="block mb-2 text-sm font-bold uppercase" htmlFor="word">
+      <label className="block mb-2 text-xl font-semibold" htmlFor="word">
         Search for a word
       </label>
 

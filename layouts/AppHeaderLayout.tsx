@@ -21,10 +21,10 @@ const AppHeaderLayout = ({ children }: { children: ReactElement }) => {
 
   return (
     <>
-      <div className="sticky top-0 w-full h-8 bg-white text-black p-4 flex items-center z-10 whitespace-nowrap sm:h-12">
+      <div className="sticky top-0 z-10 flex justify-between gap-4 border-b border-zinc-300/25 bg-white/75 p-6 backdrop-blur-md dark:border-zinc-800/50 dark:bg-zinc-900/75 dark:text-white">
         <ul className="mr-auto flex gap-4">
           <li>
-            <HeaderLink href="/words">words</HeaderLink>
+            <HeaderLink href="/words">my words</HeaderLink>
           </li>
           <li>
             <HeaderLink href="/words/get-meaning">word meaning</HeaderLink>
